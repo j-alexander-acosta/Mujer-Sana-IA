@@ -29,6 +29,88 @@ Este proyecto, enmarcado en el concurso FONIS 2026, busca:
 2.  Facilitar el triage y la priorización de casos en zonas rurales.
 3.  Empoderar a las pacientes mediante el acceso a información confiable.
 
+## 📋 Aplicación Web CPC-28
+
+Esta aplicación web permite administrar el cuestionario **CPC-28** (Creencias sobre el Papanicolaou y el Cáncer Cervicouterino) de forma digital y accesible desde cualquier dispositivo móvil o de escritorio.
+
+### Características de la Aplicación Web
+
+* ✅ **Diseño Responsive:** Optimizado para móviles, tablets y escritorio
+* ✅ **Interfaz Intuitiva:** Navegación fácil con barra de progreso
+* ✅ **Validación de Respuestas:** Asegura que todas las preguntas sean respondidas
+* ✅ **Almacenamiento de Datos:** Guarda las respuestas en formato JSON
+* ✅ **28 Preguntas Organizadas:** Divididas en 3 secciones temáticas
+
+### Instalación y Uso
+
+#### Requisitos Previos
+- Python 3.7 o superior
+- pip (gestor de paquetes de Python)
+
+#### Pasos de Instalación
+
+1. **Clonar o descargar el proyecto** (si aplica)
+   ```bash start.sh
+
+2. **Instalar dependencias:**
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+3. **Ejecutar la aplicación:**
+   ```bash
+   python app.py
+   ```
+
+4. **Acceder a la aplicación:**
+   - Abre tu navegador web
+   - Visita: `http://localhost:5000`
+   - O desde otro dispositivo en la misma red: `http://[IP-DEL-SERVIDOR]:5000`
+
+#### Estructura del Proyecto
+
+```
+Mujer Sana IA/
+├── app.py                 # Servidor Flask principal
+├── requirements.txt       # Dependencias del proyecto
+├── templates/
+│   └── index.html        # Página principal
+├── static/
+│   ├── css/
+│   │   └── style.css     # Estilos responsive
+│   └── js/
+│       └── app.js        # Lógica del frontend
+└── respuestas/           # Directorio donde se guardan las respuestas (se crea automáticamente)
+```
+
+#### Secciones del Cuestionario
+
+1. **Sección A:** Barreras para adherir al tamizaje (9 preguntas)
+2. **Sección B:** Señales de acción y motivación (12 preguntas)
+3. **Sección C:** Severidad y susceptibilidad percibida (7 preguntas)
+
+#### Opciones de Respuesta
+
+Cada pregunta tiene 4 opciones:
+- Muy de acuerdo
+- De acuerdo
+- En desacuerdo
+- Muy en desacuerdo
+
+### Desarrollo
+
+Para ejecutar en modo desarrollo con recarga automática:
+```bash
+export FLASK_ENV=development
+python app.py
+```
+
+### Notas de Seguridad
+
+- Las respuestas se guardan localmente en el servidor
+- No se almacena información personal identificable
+- Cumple con normativas de privacidad de datos (Ley 19.628 y Ley 20.584)
+
 ## 👥 Autores e Investigadores
 * **Alexander Acosta Zambrano**
 

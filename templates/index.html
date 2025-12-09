@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Cuestionario CPC-28 sobre creencias del Papanicolaou y cáncer cervicouterino">
+    <title>CPC-28 - Mujer Sana IA</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>CPC-28</h1>
+            <p class="subtitle">Cuestionario sobre Creencias del Papanicolaou y el Cáncer Cervicouterino</p>
+        </header>
+
+        <div id="loading" class="loading">
+            <div class="spinner"></div>
+            <p>Cargando cuestionario...</p>
+        </div>
+
+        <div id="cuestionario-container" class="cuestionario-container" style="display: none;">
+            <div class="progress-bar">
+                <div id="progress-fill" class="progress-fill"></div>
+            </div>
+            <div class="progress-text">
+                <span id="progress-text">Pregunta 1 de 28</span>
+            </div>
+
+            <form id="cuestionario-form">
+                <div id="secciones-container"></div>
+                
+                <div class="form-actions">
+                    <button type="button" id="btn-anterior" class="btn btn-secondary" style="display: none;">
+                        ← Anterior
+                    </button>
+                    <button type="button" id="btn-siguiente" class="btn btn-primary">
+                        Siguiente →
+                    </button>
+                    <button type="submit" id="btn-enviar" class="btn btn-success" style="display: none;">
+                        Enviar Respuestas
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <div id="resultado-container" class="resultado-container" style="display: none;">
+            <div class="resultado-box">
+                <h2>✓ Respuestas Enviadas</h2>
+                <p>Gracias por completar el cuestionario CPC-28.</p>
+                <p>Sus respuestas han sido guardadas correctamente.</p>
+                <button type="button" id="btn-nuevo" class="btn btn-primary">
+                    Comenzar Nuevo Cuestionario
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
+
+
