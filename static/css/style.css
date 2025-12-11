@@ -192,6 +192,78 @@ header h1 {
     box-shadow: var(--shadow);
 }
 
+/* Estilos para checkboxes (opción múltiple) */
+.opcion input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.opcion input[type="checkbox"]:checked + label {
+    background: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+    box-shadow: var(--shadow);
+}
+
+/* Estilos para campos numéricos */
+.opcion.numero {
+    max-width: 300px;
+}
+
+.opcion.numero input[type="number"] {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: all 0.2s ease;
+}
+
+.opcion.numero input[type="number"]:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
+}
+
+.opcion.numero label {
+    display: block;
+    margin-top: 8px;
+    font-size: 0.9rem;
+    color: #666;
+    font-weight: normal;
+}
+
+/* Instrucciones */
+.instrucciones {
+    background: #e8f4f8;
+    padding: 12px 16px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    font-size: 0.9rem;
+    color: #555;
+    border-left: 3px solid var(--primary-color);
+    font-style: italic;
+}
+
+/* Mejoras para opciones con texto largo */
+.opciones {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+    margin-top: 15px;
+}
+
+@media (max-width: 768px) {
+    .opciones {
+        grid-template-columns: 1fr;
+    }
+    
+    .opcion.numero {
+        max-width: 100%;
+    }
+}
+
 .form-actions {
     display: flex;
     justify-content: space-between;
@@ -367,6 +439,7 @@ header h1 {
     color: var(--success-color);
     font-weight: bold;
 }
+
 
 
 
