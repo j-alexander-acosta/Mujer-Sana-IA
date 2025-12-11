@@ -11,6 +11,448 @@ CUESTIONARIO = {
     "titulo": "CPC-28 - Cuestionario sobre Creencias del Papanicolaou y el Cáncer Cervicouterino",
     "secciones": [
         {
+            "id": "I",
+            "titulo": "I. PERFIL Y DETERMINANTES SOCIALES",
+            "preguntas": [
+                {
+                    "id": "I1",
+                    "texto": "¿Cuál es su sexo asignado al nacer?",
+                    "tipo": "opcion_unica",
+                    "opciones": [
+                        {"valor": "hombre", "texto": "Hombre"},
+                        {"valor": "mujer", "texto": "Mujer"}
+                    ]
+                },
+                {
+                    "id": "I2",
+                    "texto": "¿Cuál es el género con el que Usted se identifica?",
+                    "tipo": "opcion_unica",
+                    "opciones": [
+                        {"valor": "masculino", "texto": "Masculino"},
+                        {"valor": "femenino", "texto": "Femenino"},
+                        {"valor": "transmasculino", "texto": "Transmasculino u hombre trans"},
+                        {"valor": "transfemenino", "texto": "Transfemenino o mujer trans"},
+                        {"valor": "no_binario", "texto": "No binario"},
+                        {"valor": "otro", "texto": "Otro"},
+                        {"valor": "prefiere_no_responder", "texto": "Prefiere no responder"}
+                    ]
+                },
+                {
+                    "id": "I3",
+                    "texto": "¿Qué edad tiene? (años)",
+                    "tipo": "numero",
+                    "unidad": "años"
+                },
+                {
+                    "id": "I4",
+                    "texto": "¿Cuál es su nivel educacional más alto alcanzado?",
+                    "tipo": "opcion_unica",
+                    "opciones": [
+                        {"valor": "basica", "texto": "Educación Básica (Primaria)"},
+                        {"valor": "media", "texto": "Educación Media (Secundaria)"},
+                        {"valor": "tecnico", "texto": "Técnico Nivel Superior"},
+                        {"valor": "profesional", "texto": "Profesional (Universitario)"},
+                        {"valor": "postgrado", "texto": "Postgrado"},
+                        {"valor": "otro", "texto": "Otro / Ninguno"}
+                    ]
+                },
+                {
+                    "id": "I5",
+                    "texto": "¿Cuál es su estado conyugal o civil actual?",
+                    "tipo": "opcion_unica",
+                    "opciones": [
+                        {"valor": "casada", "texto": "Casada(o) / Conviviente Civil"},
+                        {"valor": "conviviente", "texto": "Conviviente o pareja (sin acuerdo legal)"},
+                        {"valor": "soltera", "texto": "Soltera(o)"},
+                        {"valor": "separada", "texto": "Separada(o) / Divorciada(o) / Anulada(o)"},
+                        {"valor": "viuda", "texto": "Viuda(o)"}
+                    ]
+                },
+                {
+                    "id": "I6",
+                    "texto": "Actualmente, ¿Usted tiene pareja?",
+                    "tipo": "opcion_unica",
+                    "opciones": [
+                        {"valor": "si", "texto": "Sí"},
+                        {"valor": "no", "texto": "No"}
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "II",
+            "titulo": "II. SALUD MENTAL Y BIENESTAR GENERAL",
+            "preguntas": [
+                {
+                    "id": "II1",
+                    "texto": "¿Cómo calificaría su calidad de vida?",
+                    "tipo": "opcion_unica",
+                    "opciones": [
+                        {"valor": 1, "texto": "Muy mala"},
+                        {"valor": 2, "texto": "Mala"},
+                        {"valor": 3, "texto": "Ni buena ni mala"},
+                        {"valor": 4, "texto": "Buena"},
+                        {"valor": 5, "texto": "Muy buena"}
+                    ]
+                },
+                {
+                    "id": "II2",
+                    "texto": "Durante las dos últimas semanas, ¿con qué frecuencia ha sentido molestias debido a los siguientes problemas?",
+                    "tipo": "subpreguntas",
+                    "instrucciones": "Escala: 1. Nunca | 2. Algunos días | 3. Más de la mitad de los días | 4. Casi todos los días",
+                    "preguntas": [
+                        {
+                            "id": "II2A",
+                            "texto": "Poco interés o placer en hacer cosas",
+                            "tipo": "opcion_unica",
+                            "opciones": [
+                                {"valor": 1, "texto": "Nunca"},
+                                {"valor": 2, "texto": "Algunos días"},
+                                {"valor": 3, "texto": "Más de la mitad de los días"},
+                                {"valor": 4, "texto": "Casi todos los días"}
+                            ]
+                        },
+                        {
+                            "id": "II2B",
+                            "texto": "Se ha sentido decaído(a), deprimido(a) o sin esperanzas",
+                            "tipo": "opcion_unica",
+                            "opciones": [
+                                {"valor": 1, "texto": "Nunca"},
+                                {"valor": 2, "texto": "Algunos días"},
+                                {"valor": 3, "texto": "Más de la mitad de los días"},
+                                {"valor": 4, "texto": "Casi todos los días"}
+                            ]
+                        },
+                        {
+                            "id": "II2C",
+                            "texto": "Se ha sentido nervioso(a), ansioso(a) o con los nervios de punta",
+                            "tipo": "opcion_unica",
+                            "opciones": [
+                                {"valor": 1, "texto": "Nunca"},
+                                {"valor": 2, "texto": "Algunos días"},
+                                {"valor": 3, "texto": "Más de la mitad de los días"},
+                                {"valor": 4, "texto": "Casi todos los días"}
+                            ]
+                        },
+                        {
+                            "id": "II2D",
+                            "texto": "No ha sido capaz de parar o controlar su preocupación",
+                            "tipo": "opcion_unica",
+                            "opciones": [
+                                {"valor": 1, "texto": "Nunca"},
+                                {"valor": 2, "texto": "Algunos días"},
+                                {"valor": 3, "texto": "Más de la mitad de los días"},
+                                {"valor": 4, "texto": "Casi todos los días"}
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "id": "II3",
+                    "texto": "¿Alguna vez un doctor o médico le ha dicho que tiene o padece de Depresión?",
+                    "tipo": "opcion_unica",
+                    "opciones": [
+                        {"valor": "si", "texto": "Sí"},
+                        {"valor": "no", "texto": "No"}
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "III",
+            "titulo": "III. HISTORIA CLÍNICA Y BIOMETRÍA",
+            "preguntas": [
+                {
+                    "id": "III1",
+                    "texto": "¿Alguna vez un doctor o médico le ha dicho que tiene o padece de alguna de las siguientes condiciones? (Marque todas las que correspondan)",
+                    "tipo": "opcion_multiple",
+                    "opciones": [
+                        {"valor": "migranas", "texto": "Migrañas o dolores de cabeza frecuentes"},
+                        {"valor": "trastorno_musculoesqueletico", "texto": "Trastorno musculoesquelético (dolor crónico espalda, etc.)"},
+                        {"valor": "diabetes", "texto": "Diabetes"},
+                        {"valor": "tiroides", "texto": "Enfermedad a la tiroides (hipotiroidismo, hipertiroidismo, bocio)"},
+                        {"valor": "sobrepeso", "texto": "Sobrepeso u obesidad"},
+                        {"valor": "hipertension", "texto": "Hipertensión"},
+                        {"valor": "infertilidad", "texto": "Infertilidad"}
+                    ]
+                },
+                {
+                    "id": "III2",
+                    "texto": "Datos Biométricos (Aproximados)",
+                    "tipo": "subpreguntas",
+                    "preguntas": [
+                        {
+                            "id": "III2A",
+                            "texto": "Peso actual (Kg)",
+                            "tipo": "numero",
+                            "unidad": "Kg"
+                        },
+                        {
+                            "id": "III2B",
+                            "texto": "Estatura (cm)",
+                            "tipo": "numero",
+                            "unidad": "cm"
+                        }
+                    ]
+                },
+                {
+                    "id": "III3",
+                    "texto": "¿Alguna vez se ha realizado...?",
+                    "tipo": "subpreguntas",
+                    "preguntas": [
+                        {
+                            "id": "III3A",
+                            "texto": "Una mamografía",
+                            "tipo": "opcion_unica",
+                            "opciones": [
+                                {"valor": "si", "texto": "Sí"},
+                                {"valor": "no", "texto": "No"}
+                            ]
+                        },
+                        {
+                            "id": "III3B",
+                            "texto": "Un papanicolaou (PAP)",
+                            "tipo": "opcion_unica",
+                            "opciones": [
+                                {"valor": "si", "texto": "Sí"},
+                                {"valor": "no", "texto": "No"}
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "id": "III4",
+                    "texto": "(Si respondió SÍ en la anterior) ¿Se ha realizado estos exámenes en los últimos 3 años?",
+                    "tipo": "subpreguntas",
+                    "condicional": True,
+                    "preguntas": [
+                        {
+                            "id": "III4A",
+                            "texto": "Mamografía",
+                            "tipo": "opcion_unica",
+                            "opciones": [
+                                {"valor": "si", "texto": "Sí"},
+                                {"valor": "no", "texto": "No"}
+                            ]
+                        },
+                        {
+                            "id": "III4B",
+                            "texto": "Papanicolaou",
+                            "tipo": "opcion_unica",
+                            "opciones": [
+                                {"valor": "si", "texto": "Sí"},
+                                {"valor": "no", "texto": "No"}
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "IV",
+            "titulo": "IV. SALUD SEXUAL Y REPRODUCTIVA",
+            "preguntas": [
+                {
+                    "id": "IV1",
+                    "texto": "¿A qué edad aproximadamente tuvo su primera menstruación o regla?",
+                    "tipo": "numero",
+                    "unidad": "años"
+                },
+                {
+                    "id": "IV2",
+                    "texto": "¿Ha tenido menstruación o regla en el último año?",
+                    "tipo": "opcion_unica",
+                    "opciones": [
+                        {"valor": "si", "texto": "Sí"},
+                        {"valor": "no", "texto": "No"}
+                    ]
+                },
+                {
+                    "id": "IV3",
+                    "texto": "(Si respondió NO) ¿Cuál es la razón por la cual no ha tenido menstruación?",
+                    "tipo": "opcion_unica",
+                    "condicional": True,
+                    "opciones": [
+                        {"valor": "embarazo", "texto": "Embarazo o Lactancia"},
+                        {"valor": "menopausia", "texto": "Menopausia"},
+                        {"valor": "histerectomia", "texto": "Histerectomía (le sacaron el útero)"},
+                        {"valor": "tratamiento_hormonal", "texto": "Tratamiento hormonal / anticonceptivo que corta la regla"},
+                        {"valor": "otra", "texto": "Otra razón"}
+                    ]
+                },
+                {
+                    "id": "IV4",
+                    "texto": "(Si aplica Menopausia) ¿Ha tomado hormonas (terapia hormonal) para la menopausia?",
+                    "tipo": "opcion_unica",
+                    "condicional": True,
+                    "opciones": [
+                        {"valor": "nunca", "texto": "Nunca"},
+                        {"valor": "pasado", "texto": "Sí, en el pasado"},
+                        {"valor": "actualmente", "texto": "Sí, actualmente"}
+                    ]
+                },
+                {
+                    "id": "IV5",
+                    "texto": "¿Ha estado embarazada alguna vez en su vida?",
+                    "tipo": "opcion_unica",
+                    "opciones": [
+                        {"valor": "si", "texto": "Sí"},
+                        {"valor": "no", "texto": "No"}
+                    ]
+                },
+                {
+                    "id": "IV6",
+                    "texto": "¿Cuántos embarazos ha tenido a lo largo de su vida? (Incluya partos, abortos o pérdidas)",
+                    "tipo": "numero",
+                    "condicional": True
+                },
+                {
+                    "id": "IV7",
+                    "texto": "Su último embarazo terminó con:",
+                    "tipo": "opcion_unica",
+                    "condicional": True,
+                    "opciones": [
+                        {"valor": "parto_termino", "texto": "Parto de término (vivo)"},
+                        {"valor": "parto_prematuro", "texto": "Parto prematuro (vivo)"},
+                        {"valor": "perdida_mayor", "texto": "Pérdida o mortinato (mayor a 13 semanas)"},
+                        {"valor": "perdida_menor", "texto": "Pérdida o aborto (menor o igual a 12 semanas)"}
+                    ]
+                },
+                {
+                    "id": "IV8",
+                    "texto": "(Si tuvo parto) ¿Algún médico(a) le diagnosticó depresión postparto?",
+                    "tipo": "opcion_unica",
+                    "condicional": True,
+                    "opciones": [
+                        {"valor": "si", "texto": "Sí"},
+                        {"valor": "no", "texto": "No"}
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "V",
+            "titulo": "V. FUNCIONALIDAD SEXUAL Y ANTICONCEPCIÓN",
+            "preguntas": [
+                {
+                    "id": "V1",
+                    "texto": "En su última relación sexual (o actualmente), ¿Ustedes usaron algún método anticonceptivo?",
+                    "tipo": "opcion_unica",
+                    "opciones": [
+                        {"valor": "si", "texto": "Sí"},
+                        {"valor": "no", "texto": "No"}
+                    ]
+                },
+                {
+                    "id": "V2",
+                    "texto": "¿Cuál método utiliza principalmente?",
+                    "tipo": "opcion_unica",
+                    "opciones": [
+                        {"valor": "condon", "texto": "Condón (masculino/femenino)"},
+                        {"valor": "pildora", "texto": "Píldora o pastillas"},
+                        {"valor": "diu", "texto": "DIU / T de cobre"},
+                        {"valor": "implante", "texto": "Implante / Inyección"},
+                        {"valor": "esterilizacion", "texto": "Esterilización"},
+                        {"valor": "ninguno", "texto": "Ninguno / Natural"},
+                        {"valor": "otro", "texto": "Otro"}
+                    ]
+                },
+                {
+                    "id": "V3",
+                    "texto": "En los últimos 12 meses, ¿con qué frecuencia usted ha experimentado alguna de las siguientes situaciones en su vida sexual?",
+                    "tipo": "subpreguntas",
+                    "instrucciones": "Escala: Nunca | A veces | Frecuentemente",
+                    "preguntas": [
+                        {
+                            "id": "V3A",
+                            "texto": "Ausencia o bajo deseo sexual",
+                            "tipo": "opcion_unica",
+                            "opciones": [
+                                {"valor": 1, "texto": "Nunca"},
+                                {"valor": 2, "texto": "A veces"},
+                                {"valor": 3, "texto": "Frecuentemente"}
+                            ]
+                        },
+                        {
+                            "id": "V3B",
+                            "texto": "Ausencia de orgasmos",
+                            "tipo": "opcion_unica",
+                            "opciones": [
+                                {"valor": 1, "texto": "Nunca"},
+                                {"valor": 2, "texto": "A veces"},
+                                {"valor": 3, "texto": "Frecuentemente"}
+                            ]
+                        },
+                        {
+                            "id": "V3C",
+                            "texto": "Dolor o dificultad en la penetración",
+                            "tipo": "opcion_unica",
+                            "opciones": [
+                                {"valor": 1, "texto": "Nunca"},
+                                {"valor": 2, "texto": "A veces"},
+                                {"valor": 3, "texto": "Frecuentemente"}
+                            ]
+                        },
+                        {
+                            "id": "V3D",
+                            "texto": "Dificultad para la lubricación vaginal",
+                            "tipo": "opcion_unica",
+                            "opciones": [
+                                {"valor": 1, "texto": "Nunca"},
+                                {"valor": 2, "texto": "A veces"},
+                                {"valor": 3, "texto": "Frecuentemente"}
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "id": "V4",
+                    "texto": "¿Alguna vez un médico le ha dicho que tiene alguna Infección de Transmisión Sexual (VIH, VPH, Sífilis, etc.)?",
+                    "tipo": "opcion_unica",
+                    "opciones": [
+                        {"valor": "si", "texto": "Sí"},
+                        {"valor": "no", "texto": "No"}
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "VI",
+            "titulo": "VI. EXPERIENCIAS SENSIBLES (Autoaplicado sugerido)",
+            "preguntas": [
+                {
+                    "id": "VI1",
+                    "texto": "En el marco de sus visitas a servicios de ginecología, ¿alguna vez sintió que el personal juzgaba sus prácticas, hizo comentarios inapropiados o le realizaron procedimientos bruscos/dolorosos?",
+                    "tipo": "opcion_unica",
+                    "opciones": [
+                        {"valor": "si_una_vez", "texto": "Sí, una vez"},
+                        {"valor": "si_mas_veces", "texto": "Sí, más de una vez"},
+                        {"valor": "nunca", "texto": "Nunca"}
+                    ]
+                },
+                {
+                    "id": "VI2",
+                    "texto": "¿Alguna vez en su vida alguien le tocó sus partes privadas bajo manipulación, engaño o fuerza sin su consentimiento?",
+                    "tipo": "opcion_unica",
+                    "opciones": [
+                        {"valor": "si", "texto": "Sí"},
+                        {"valor": "no", "texto": "No"},
+                        {"valor": "prefiere_no_responder", "texto": "Prefiero no responder"}
+                    ]
+                },
+                {
+                    "id": "VI3",
+                    "texto": "¿Alguna vez en su vida ha experimentado situaciones de acoso (agarrones, punteos, exhibicionismo) en lugares públicos?",
+                    "tipo": "opcion_unica",
+                    "opciones": [
+                        {"valor": "si", "texto": "Sí"},
+                        {"valor": "no", "texto": "No"},
+                        {"valor": "prefiere_no_responder", "texto": "Prefiero no responder"}
+                    ]
+                }
+            ]
+        },
+        {
             "id": "A",
             "titulo": "BARRERAS PARA ADHERIR AL TAMIZAJE REPORTADAS POR LAS MUJERES",
             "preguntas": [
@@ -188,6 +630,7 @@ def guardar_respuestas():
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)
+
 
 
 
