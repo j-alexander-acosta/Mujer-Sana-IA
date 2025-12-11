@@ -11,8 +11,77 @@ CUESTIONARIO = {
     "titulo": "CPC-28 - Cuestionario sobre Creencias del Papanicolaou y el Cáncer Cervicouterino",
     "secciones": [
         {
+            "id": "PRESENTACION",
+            "titulo": "I. PRESENTACIÓN Y CONSENTIMIENTO INFORMADO",
+            "preguntas": [
+                {
+                    "id": "PRESENTACION_INFO",
+                    "texto": "Bienvenida",
+                    "tipo": "texto_informativo",
+                    "contenido": "Gracias por participar en esta iniciativa pionera. Usted ha sido invitada a formar parte de \"Mujer Sana IA\", un proyecto de investigación y desarrollo tecnológico enfocado en la salud integral de la mujer."
+                },
+                {
+                    "id": "PRESENTACION_OBJETIVO",
+                    "texto": "Objetivo del Estudio",
+                    "tipo": "texto_informativo",
+                    "contenido": "El propósito de este cuestionario es recopilar información multidimensional (biológica, psicológica, reproductiva y social) para entrenar un modelo de Inteligencia Artificial especializado. Su participación permitirá crear algoritmos capaces de detectar riesgos tempranos, personalizar recomendaciones de salud y mejorar la calidad de vida de mujeres mediante tecnología predictiva."
+                },
+                {
+                    "id": "PRESENTACION_CONFIDENCIALIDAD",
+                    "texto": "Confidencialidad y Manejo de Datos",
+                    "tipo": "texto_informativo",
+                    "contenido": "Entendemos que la información solicitada es de carácter sensible. Queremos garantizarle que:\n\n1. Privacidad: Sus respuestas serán tratadas con estricta confidencialidad bajo los protocolos de seguridad de datos vigentes (Ley 19.628 sobre Protección de la Vida Privada).\n2. Uso de Datos: Su RUT y Nombre se solicitan únicamente para fines de registro único y seguimiento longitudinal. Estos datos serán encriptados y no serán compartidos con terceros.\n3. Voluntariedad: No hay respuestas \"correctas\" o \"incorrectas\". Lo más importante es su sinceridad para que la IA pueda aprender de casos reales."
+                },
+                {
+                    "id": "PRESENTACION_INSTRUCCIONES",
+                    "texto": "Instrucciones",
+                    "tipo": "texto_informativo",
+                    "contenido": "Por favor, responda todas las preguntas con la mayor honestidad posible. Si alguna pregunta le resulta incómoda o prefiere no responderla, tendrá la opción de omitirla en las secciones sensibles."
+                },
+                {
+                    "id": "DATOS_FECHA",
+                    "texto": "Fecha de Ingreso",
+                    "tipo": "fecha",
+                    "formato": "DD/MM/AAAA",
+                    "obligatorio": True
+                },
+                {
+                    "id": "DATOS_NOMBRE",
+                    "texto": "Nombre Completo",
+                    "tipo": "texto",
+                    "obligatorio": True
+                },
+                {
+                    "id": "DATOS_RUT",
+                    "texto": "R.U.T. (con dígito verificador)",
+                    "tipo": "texto",
+                    "placeholder": "Ej: 12345678-9",
+                    "obligatorio": True
+                },
+                {
+                    "id": "DATOS_EMAIL",
+                    "texto": "Correo Electrónico de Contacto",
+                    "tipo": "email",
+                    "obligatorio": True
+                },
+                {
+                    "id": "DATOS_TELEFONO",
+                    "texto": "Teléfono (Opcional)",
+                    "tipo": "texto",
+                    "placeholder": "+56",
+                    "obligatorio": False
+                },
+                {
+                    "id": "CONSENTIMIENTO",
+                    "texto": "Acepto participar voluntariamente: He leído la información anterior, comprendo el objetivo de \"Mujer Sana IA\" y acepto entregar mis datos para fines de investigación y análisis de salud, entendiendo que mi identidad será protegida.",
+                    "tipo": "consentimiento",
+                    "obligatorio": True
+                }
+            ]
+        },
+        {
             "id": "I",
-            "titulo": "I. PERFIL Y DETERMINANTES SOCIALES",
+            "titulo": "II. PERFIL Y DETERMINANTES SOCIALES",
             "preguntas": [
                 {
                     "id": "I1",
@@ -81,7 +150,7 @@ CUESTIONARIO = {
         },
         {
             "id": "II",
-            "titulo": "II. SALUD MENTAL Y BIENESTAR GENERAL",
+            "titulo": "III. SALUD MENTAL Y BIENESTAR GENERAL",
             "preguntas": [
                 {
                     "id": "II1",
@@ -160,7 +229,7 @@ CUESTIONARIO = {
         },
         {
             "id": "III",
-            "titulo": "III. HISTORIA CLÍNICA Y BIOMETRÍA",
+            "titulo": "IV. HISTORIA CLÍNICA Y BIOMETRÍA",
             "preguntas": [
                 {
                     "id": "III1",
@@ -250,7 +319,7 @@ CUESTIONARIO = {
         },
         {
             "id": "IV",
-            "titulo": "IV. SALUD SEXUAL Y REPRODUCTIVA",
+            "titulo": "V. SALUD SEXUAL Y REPRODUCTIVA",
             "preguntas": [
                 {
                     "id": "IV1",
@@ -332,7 +401,7 @@ CUESTIONARIO = {
         },
         {
             "id": "V",
-            "titulo": "V. FUNCIONALIDAD SEXUAL Y ANTICONCEPCIÓN",
+            "titulo": "VI. FUNCIONALIDAD SEXUAL Y ANTICONCEPCIÓN",
             "preguntas": [
                 {
                     "id": "V1",
@@ -418,7 +487,7 @@ CUESTIONARIO = {
         },
         {
             "id": "VI",
-            "titulo": "VI. EXPERIENCIAS SENSIBLES (Autoaplicado sugerido)",
+            "titulo": "VII. EXPERIENCIAS SENSIBLES (Autoaplicado sugerido)",
             "preguntas": [
                 {
                     "id": "VI1",
@@ -454,7 +523,7 @@ CUESTIONARIO = {
         },
         {
             "id": "A",
-            "titulo": "BARRERAS PARA ADHERIR AL TAMIZAJE REPORTADAS POR LAS MUJERES",
+            "titulo": "VIII. BARRERAS PARA ADHERIR AL TAMIZAJE REPORTADAS POR LAS MUJERES",
             "preguntas": [
                 {
                     "id": "A1",
@@ -496,7 +565,7 @@ CUESTIONARIO = {
         },
         {
             "id": "B",
-            "titulo": "SEÑALES DE ACCIÓN (MOTIVACIÓN) PARA ADHERIR AL TAMIZAJE REPORTADAS POR LAS MUJERES",
+            "titulo": "IX. SEÑALES DE ACCIÓN (MOTIVACIÓN) PARA ADHERIR AL TAMIZAJE REPORTADAS POR LAS MUJERES",
             "preguntas": [
                 {
                     "id": "B1",
@@ -550,7 +619,7 @@ CUESTIONARIO = {
         },
         {
             "id": "C",
-            "titulo": "SEVERIDAD DEL CÁNCER CÉRVICOUTERINO Y SUSCEPTIBILIDAD PERCIBIDA PARA DESARROLLARLO REPORTADA POR LAS MUJERES",
+            "titulo": "X. SEVERIDAD DEL CÁNCER CÉRVICOUTERINO Y SUSCEPTIBILIDAD PERCIBIDA PARA DESARROLLARLO REPORTADA POR LAS MUJERES",
             "preguntas": [
                 {
                     "id": "C1",
