@@ -34,14 +34,17 @@ function inicializarCuestionario() {
                     });
                 });
             } else {
-                todasLasPreguntas.push({
-                    ...pregunta,
-                    seccionId: seccion.id,
-                    seccionTitulo: seccion.titulo
-                });
+            todasLasPreguntas.push({
+                ...pregunta,
+                seccionId: seccion.id,
+                seccionTitulo: seccion.titulo
+            });
             }
         });
     });
+
+    // Filtrar preguntas informativas del conteo (pero mantenerlas para mostrar)
+    // Las preguntas informativas no requieren respuesta
 
     // Calcular total de preguntas (excluyendo condicionales no aplicables inicialmente)
     totalPreguntas = todasLasPreguntas.length;
@@ -100,16 +103,81 @@ function renderizarPregunta() {
         html += `<div class="instrucciones">${pregunta.instrucciones}</div>`;
     }
     
-    html += `
-        <div class="pregunta ${respuestas[pregunta.id] ? 'respondida' : ''}" data-pregunta-id="${pregunta.id}">
-            <div class="pregunta-texto">${pregunta.texto}</div>
-            <div class="opciones">
-    `;
-    
     // Renderizar según el tipo de pregunta
     const tipo = pregunta.tipo || 'escala'; // Por defecto escala Likert
     
-    if (tipo === 'opcion_unica' && pregunta.opciones) {
+    if (tipo === 'texto_informativo') {
+        // Texto informativo (solo lectura) - no requiere respuesta, marcarla como respondida automáticamente
+        respuestas[pregunta.id] = true;
+    html += `
+        <div class="pregunta informativa respondida" data-pregunta-id="${pregunta.id}">
+            <div class="pregunta-texto">${pregunta.texto}</div>
+            <div class="texto-informativo">
+                <p>${pregunta.contenido.replace(/\n/g, '<br>')}</p>
+            </div>
+        </div>
+        `;
+    } else if (tipo === 'fecha') {
+        // Campo de fecha
+        const valor = respuestas[pregunta.id] || '';
+        const formato = pregunta.formato || 'YYYY-MM-DD';
+        html += `
+            <div class="opcion fecha">
+                <input type="date" 
+                       name="pregunta_${pregunta.id}" 
+                       id="${pregunta.id}" 
+                       value="${valor}"
+                       ${pregunta.obligatorio ? 'required' : ''}
+                       onchange="guardarRespuesta('${pregunta.id}', this.value)"
+                       onblur="guardarRespuesta('${pregunta.id}', this.value)">
+                <small class="formato-fecha">Formato: ${pregunta.formato || 'DD/MM/AAAA'}</small>
+            </div>
+        `;
+    } else if (tipo === 'texto') {
+        // Campo de texto
+        const valor = respuestas[pregunta.id] || '';
+        html += `
+            <div class="opcion texto">
+                <input type="text" 
+                       name="pregunta_${pregunta.id}" 
+                       id="${pregunta.id}" 
+                       value="${valor}"
+                       placeholder="${pregunta.placeholder || ''}"
+                       ${pregunta.obligatorio ? 'required' : ''}
+                       onchange="guardarRespuesta('${pregunta.id}', this.value)"
+                       onblur="guardarRespuesta('${pregunta.id}', this.value)">
+            </div>
+        `;
+    } else if (tipo === 'email') {
+        // Campo de email
+        const valor = respuestas[pregunta.id] || '';
+        html += `
+            <div class="opcion email">
+                <input type="email" 
+                       name="pregunta_${pregunta.id}" 
+                       id="${pregunta.id}" 
+                       value="${valor}"
+                       placeholder="ejemplo@correo.com"
+                       ${pregunta.obligatorio ? 'required' : ''}
+                       onchange="guardarRespuesta('${pregunta.id}', this.value)"
+                       onblur="guardarRespuesta('${pregunta.id}', this.value)">
+            </div>
+        `;
+    } else if (tipo === 'consentimiento') {
+        // Checkbox de consentimiento
+        const checked = respuestas[pregunta.id] === true || respuestas[pregunta.id] === 'true' ? 'checked' : '';
+        html += `
+            <div class="opcion consentimiento">
+                <input type="checkbox" 
+                       name="pregunta_${pregunta.id}" 
+                       id="${pregunta.id}" 
+                       ${checked}
+                       ${pregunta.obligatorio ? 'required' : ''}
+                       onchange="guardarRespuesta('${pregunta.id}', this.checked)">
+                <label for="${pregunta.id}" class="consentimiento-label">${pregunta.texto}</label>
+            </div>
+        `;
+    } else if (tipo === 'opcion_unica' && pregunta.opciones) {
         // Pregunta de opción única con opciones personalizadas
         pregunta.opciones.forEach(opcion => {
             const valor = typeof opcion.valor === 'string' ? opcion.valor : opcion.valor;
@@ -162,26 +230,29 @@ function renderizarPregunta() {
         `;
     } else {
         // Pregunta de escala Likert (por defecto)
-        cuestionario.opciones.forEach(opcion => {
-            const checked = respuestas[pregunta.id] === opcion.valor ? 'checked' : '';
-            html += `
-                <div class="opcion">
-                    <input type="radio" 
-                           name="pregunta_${pregunta.id}" 
-                           id="${pregunta.id}_${opcion.valor}" 
-                           value="${opcion.valor}" 
-                           ${checked}
-                           onchange="guardarRespuesta('${pregunta.id}', ${opcion.valor})">
-                    <label for="${pregunta.id}_${opcion.valor}">${opcion.texto}</label>
-                </div>
-            `;
-        });
+    cuestionario.opciones.forEach(opcion => {
+        const checked = respuestas[pregunta.id] === opcion.valor ? 'checked' : '';
+        html += `
+            <div class="opcion">
+                <input type="radio" 
+                       name="pregunta_${pregunta.id}" 
+                       id="${pregunta.id}_${opcion.valor}" 
+                       value="${opcion.valor}" 
+                       ${checked}
+                       onchange="guardarRespuesta('${pregunta.id}', ${opcion.valor})">
+                <label for="${pregunta.id}_${opcion.valor}">${opcion.texto}</label>
+            </div>
+        `;
+    });
     }
     
+    // Cerrar divs solo si no es pregunta informativa
+    if (tipo !== 'texto_informativo') {
     html += `
             </div>
         </div>
     `;
+    }
     
     if (preguntaActual === totalPreguntas - 1 || 
         (preguntaActual < totalPreguntas - 1 && 
@@ -293,8 +364,12 @@ function guardarRespuestaMultiple(preguntaId, valor, checked) {
 }
 
 function guardarRespuesta(preguntaId, valor) {
+    // Para checkboxes de consentimiento, guardar como booleano
+    if (typeof valor === 'boolean') {
+        respuestas[preguntaId] = valor;
+    }
     // Convertir valor a número si es posible y necesario
-    if (valor !== '' && !isNaN(valor) && valor !== null) {
+    else if (valor !== '' && !isNaN(valor) && valor !== null && typeof valor !== 'boolean') {
         const numValor = parseFloat(valor);
         if (!isNaN(numValor)) {
             respuestas[preguntaId] = numValor;
@@ -302,14 +377,21 @@ function guardarRespuesta(preguntaId, valor) {
             respuestas[preguntaId] = valor;
         }
     } else {
-        respuestas[preguntaId] = valor;
+    respuestas[preguntaId] = valor;
     }
     
     // Marcar pregunta como respondida
     const preguntaElement = document.querySelector(`[data-pregunta-id="${preguntaId}"]`);
     if (preguntaElement) {
-        if (valor !== '' && valor !== null && valor !== undefined) {
-            preguntaElement.classList.add('respondida');
+        const pregunta = todasLasPreguntas.find(p => p.id === preguntaId);
+        if (pregunta && pregunta.tipo === 'consentimiento') {
+            if (valor === true || valor === 'true') {
+                preguntaElement.classList.add('respondida');
+            } else {
+                preguntaElement.classList.remove('respondida');
+            }
+        } else if (valor !== '' && valor !== null && valor !== undefined) {
+        preguntaElement.classList.add('respondida');
         } else {
             preguntaElement.classList.remove('respondida');
         }
@@ -369,6 +451,24 @@ document.getElementById('btn-anterior').addEventListener('click', () => {
 document.getElementById('btn-siguiente').addEventListener('click', () => {
     const pregunta = todasLasPreguntas[preguntaActual];
     
+    // Las preguntas informativas no requieren validación
+    if (pregunta.tipo === 'texto_informativo') {
+        if (preguntaActual < totalPreguntas - 1) {
+            preguntaActual++;
+            while (preguntaActual < totalPreguntas) {
+                const siguientePregunta = todasLasPreguntas[preguntaActual];
+                if (!siguientePregunta.condicional || debeMostrarPreguntaCondicional(siguientePregunta)) {
+                    break;
+                }
+                preguntaActual++;
+            }
+            renderizarPregunta();
+            actualizarProgreso();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        return;
+    }
+    
     // Validar que la pregunta esté respondida
     const tieneRespuesta = respuestas[pregunta.id] !== undefined && 
                           respuestas[pregunta.id] !== null && 
@@ -379,11 +479,20 @@ document.getElementById('btn-siguiente').addEventListener('click', () => {
     const tieneSeleccionMultiple = esMultiple ? 
         (Array.isArray(respuestas[pregunta.id]) && respuestas[pregunta.id].length > 0) : true;
     
-    if (!tieneRespuesta || !tieneSeleccionMultiple) {
+    // Para consentimiento, verificar que esté marcado
+    const esConsentimiento = pregunta.tipo === 'consentimiento';
+    const tieneConsentimiento = esConsentimiento ? 
+        (respuestas[pregunta.id] === true || respuestas[pregunta.id] === 'true') : true;
+    
+    if (!tieneRespuesta || !tieneSeleccionMultiple || !tieneConsentimiento) {
         const mensaje = pregunta.tipo === 'numero' ? 
             'Por favor, ingresa un valor numérico antes de continuar.' :
             pregunta.tipo === 'opcion_multiple' ?
             'Por favor, selecciona al menos una opción antes de continuar.' :
+            pregunta.tipo === 'consentimiento' ?
+            'Por favor, acepta el consentimiento informado para continuar.' :
+            pregunta.tipo === 'fecha' || pregunta.tipo === 'texto' || pregunta.tipo === 'email' ?
+            'Por favor, completa este campo antes de continuar.' :
             'Por favor, selecciona una respuesta antes de continuar.';
         alert(mensaje);
         return;
@@ -429,8 +538,12 @@ document.getElementById('btn-enviar').addEventListener('click', async (e) => {
         return;
     }
     
-    // Validar que todas las preguntas estén respondidas (excluyendo condicionales no aplicables)
+    // Validar que todas las preguntas estén respondidas (excluyendo condicionales no aplicables e informativas)
     const preguntasSinResponder = todasLasPreguntas.filter(p => {
+        // Excluir preguntas informativas y condicionales no aplicables
+        if (p.tipo === 'texto_informativo') {
+            return false; // Las preguntas informativas no requieren respuesta
+        }
         if (p.condicional && !debeMostrarPreguntaCondicional(p)) {
             return false; // No contar preguntas condicionales que no aplican
         }
@@ -439,6 +552,9 @@ document.getElementById('btn-enviar').addEventListener('click', async (e) => {
                          respuestas[p.id] !== '';
         if (p.tipo === 'opcion_multiple') {
             return !(Array.isArray(respuestas[p.id]) && respuestas[p.id].length > 0);
+        }
+        if (p.tipo === 'consentimiento') {
+            return !(respuestas[p.id] === true || respuestas[p.id] === 'true');
         }
         return !tieneResp;
     });
