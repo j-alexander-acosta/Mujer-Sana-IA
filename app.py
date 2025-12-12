@@ -40,7 +40,7 @@ CUESTIONARIO = {
                 },
                 {
                     "id": "DATOS_FECHA",
-                    "texto": "Fecha de Ingreso",
+                    "texto": "Fecha de Ingreso de la Encuesta",
                     "tipo": "fecha",
                     "formato": "DD/MM/AAAA",
                     "obligatorio": True
@@ -172,7 +172,7 @@ CUESTIONARIO = {
                     "preguntas": [
                         {
                             "id": "II2A",
-                            "texto": "Poco interés o placer en hacer cosas",
+                            "texto": "Siente poco interés o placer en hacer cosas",
                             "tipo": "opcion_unica",
                             "opciones": [
                                 {"valor": 1, "texto": "Nunca"},
@@ -242,7 +242,8 @@ CUESTIONARIO = {
                         {"valor": "tiroides", "texto": "Enfermedad a la tiroides (hipotiroidismo, hipertiroidismo, bocio)"},
                         {"valor": "sobrepeso", "texto": "Sobrepeso u obesidad"},
                         {"valor": "hipertension", "texto": "Hipertensión"},
-                        {"valor": "infertilidad", "texto": "Infertilidad"}
+                        {"valor": "infertilidad", "texto": "Infertilidad"},
+                        {"valor": "ninguno", "texto": "Ninguno"}
                     ]
                 },
                 {

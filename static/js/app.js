@@ -106,6 +106,15 @@ function renderizarPregunta() {
     // Renderizar según el tipo de pregunta
     const tipo = pregunta.tipo || 'escala'; // Por defecto escala Likert
     
+    // Si la pregunta es interactiva, abrir el contenedor con el texto
+    if (tipo !== 'texto_informativo') {
+        html += `
+        <div class="pregunta ${respuestas[pregunta.id] ? 'respondida' : ''}" data-pregunta-id="${pregunta.id}">
+            <div class="pregunta-texto">${pregunta.texto}</div>
+            <div class="opciones">
+        `;
+    }
+    
     if (tipo === 'texto_informativo') {
         // Texto informativo (solo lectura) - no requiere respuesta, marcarla como respondida automáticamente
         respuestas[pregunta.id] = true;
