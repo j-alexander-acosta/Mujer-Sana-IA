@@ -29,6 +29,7 @@ function inicializarCuestionario() {
                         seccionId: seccion.id,
                         seccionTitulo: seccion.titulo,
                         preguntaPadre: pregunta.id,
+                        preguntaPadreTexto: pregunta.texto,
                         instrucciones: pregunta.instrucciones,
                         condicional: pregunta.condicional || subpregunta.condicional
                     });
@@ -108,8 +109,20 @@ function renderizarPregunta() {
     
     // Si la pregunta es interactiva, abrir el contenedor con el texto
     if (tipo !== 'texto_informativo') {
+        // Determinar si es la primera subpregunta de un grupo
+        const esPrimeraSubpregunta = pregunta.preguntaPadre && 
+            (preguntaActual === 0 || 
+             todasLasPreguntas[preguntaActual - 1].preguntaPadre !== pregunta.preguntaPadre);
+        
         html += `
-        <div class="pregunta ${respuestas[pregunta.id] ? 'respondida' : ''}" data-pregunta-id="${pregunta.id}">
+        <div class="pregunta ${respuestas[pregunta.id] ? 'respondida' : ''}" data-pregunta-id="${pregunta.id}">`;
+        
+        // Si es la primera subpregunta, mostrar el texto de la pregunta principal
+        if (esPrimeraSubpregunta && pregunta.preguntaPadreTexto) {
+            html += `<div class="pregunta-principal">${pregunta.preguntaPadreTexto}</div>`;
+        }
+        
+        html += `
             <div class="pregunta-texto">${pregunta.texto}</div>
             <div class="opciones">
         `;
@@ -279,6 +292,18 @@ function debeMostrarPreguntaCondicional(pregunta) {
     // Si la pregunta no es condicional, siempre mostrarla
     if (!pregunta.condicional) {
         return true;
+    }
+    
+    // Si tiene dependencia explícita (depende_de y requiere_valor)
+    if (pregunta.depende_de && pregunta.requiere_valor !== undefined) {
+        const respuestaDependiente = respuestas[pregunta.depende_de];
+        if (Array.isArray(pregunta.requiere_valor)) {
+            // Si requiere_valor es un array, verificar si la respuesta está en el array
+            return pregunta.requiere_valor.includes(respuestaDependiente);
+        } else {
+            // Si requiere_valor es un valor único, verificar igualdad
+            return respuestaDependiente === pregunta.requiere_valor;
+        }
     }
     
     // Buscar la pregunta padre o la pregunta anterior relacionada

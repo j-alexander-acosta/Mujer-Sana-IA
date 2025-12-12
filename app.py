@@ -374,13 +374,17 @@ CUESTIONARIO = {
                     "id": "IV6",
                     "texto": "¿Cuántos embarazos ha tenido a lo largo de su vida? (Incluya partos, abortos o pérdidas)",
                     "tipo": "numero",
-                    "condicional": True
+                    "condicional": True,
+                    "depende_de": "IV5",
+                    "requiere_valor": "si"
                 },
                 {
                     "id": "IV7",
                     "texto": "Su último embarazo terminó con:",
                     "tipo": "opcion_unica",
                     "condicional": True,
+                    "depende_de": "IV5",
+                    "requiere_valor": "si",
                     "opciones": [
                         {"valor": "parto_termino", "texto": "Parto de término (vivo)"},
                         {"valor": "parto_prematuro", "texto": "Parto prematuro (vivo)"},
@@ -393,6 +397,8 @@ CUESTIONARIO = {
                     "texto": "(Si tuvo parto) ¿Algún médico(a) le diagnosticó depresión postparto?",
                     "tipo": "opcion_unica",
                     "condicional": True,
+                    "depende_de": "IV7",
+                    "requiere_valor": ["parto_termino", "parto_prematuro"],
                     "opciones": [
                         {"valor": "si", "texto": "Sí"},
                         {"valor": "no", "texto": "No"}

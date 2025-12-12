@@ -140,6 +140,16 @@ header h1 {
     box-shadow: var(--shadow);
 }
 
+.pregunta-principal {
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin-bottom: 12px;
+    color: var(--primary-color);
+    line-height: 1.5;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--border-color);
+}
+
 .pregunta-texto {
     font-size: 1.1rem;
     font-weight: 500;
@@ -339,10 +349,16 @@ header h1 {
     margin-top: 2px;
     cursor: pointer;
     flex-shrink: 0;
+    accent-color: var(--primary-color);
 }
 
 .opcion.consentimiento input[type="checkbox"]:checked {
     accent-color: var(--primary-color);
+}
+
+.opcion.consentimiento input[type="checkbox"]:checked ~ .consentimiento-label {
+    color: var(--text-color);
+    font-weight: normal;
 }
 
 .opcion.consentimiento .consentimiento-label {
@@ -368,8 +384,8 @@ header h1 {
 }
 
 .opcion.consentimiento input[type="checkbox"]:checked ~ .consentimiento-label {
-    color: var(--primary-color);
-    font-weight: 500;
+    color: var(--text-color);
+    font-weight: normal;
 }
 
 /* Mejoras para opciones con texto largo */
