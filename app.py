@@ -8,36 +8,65 @@ app = Flask(__name__)
 CORS(app)
 
 # Diccionario de videos educativos por categoría
+# Referencias de videos:
+# - MIEDO: https://www.youtube.com/watch?v=w0IGSfv-RXI
+# - VERGUENZA: https://www.youtube.com/watch?v=RfvLpWviqS4, https://www.youtube.com/watch?v=5IFVtTf7YvI
+# - MOTIVACION/RECOMENDACION: https://www.youtube.com/watch?v=SVF-rtQf3oU, https://www.youtube.com/watch?v=H1tKM5pZ7KA, https://www.youtube.com/watch?v=hM--fghdaUE
 VIDEOS_EDUCATIVOS = {
     'MIEDO': {
-        'url': 'https://www.youtube.com/embed/ejemplo_miedo',
+        'url': 'https://www.youtube.com/embed/w0IGSfv-RXI',
         'titulo': 'Superando el miedo al Papanicolaou',
-        'descripcion': 'Video educativo sobre cómo enfrentar el miedo al examen'
+        'descripcion': 'Video educativo sobre cómo enfrentar el miedo al examen',
+        'referencia': 'https://www.youtube.com/watch?v=w0IGSfv-RXI'
     },
     'VERGUENZA': {
-        'url': 'https://www.youtube.com/embed/ejemplo_verguenza',
+        'url': 'https://www.youtube.com/embed/RfvLpWviqS4',
         'titulo': 'Entendiendo el Papanicolaou: Un examen rutinario',
-        'descripcion': 'Información sobre la normalidad del procedimiento'
+        'descripcion': 'Información sobre la normalidad del procedimiento',
+        'referencia': 'https://www.youtube.com/watch?v=RfvLpWviqS4',
+        'alternativas': [
+            {
+                'url': 'https://www.youtube.com/embed/5IFVtTf7YvI',
+                'titulo': 'Video alternativo sobre vergüenza',
+                'referencia': 'https://www.youtube.com/watch?v=5IFVtTf7YvI'
+            }
+        ]
     },
     'MOTIVACION': {
-        'url': 'https://www.youtube.com/embed/ejemplo_motivacion',
+        'url': 'https://www.youtube.com/embed/SVF-rtQf3oU',
         'titulo': 'La importancia del Papanicolaou para tu salud',
-        'descripcion': 'Video motivacional sobre la importancia del tamizaje'
+        'descripcion': 'Video motivacional sobre la importancia del tamizaje',
+        'referencia': 'https://www.youtube.com/watch?v=SVF-rtQf3oU',
+        'alternativas': [
+            {
+                'url': 'https://www.youtube.com/embed/H1tKM5pZ7KA',
+                'titulo': 'Video motivacional alternativo 1',
+                'referencia': 'https://www.youtube.com/watch?v=H1tKM5pZ7KA'
+            },
+            {
+                'url': 'https://www.youtube.com/embed/hM--fghdaUE',
+                'titulo': 'Video motivacional alternativo 2',
+                'referencia': 'https://www.youtube.com/watch?v=hM--fghdaUE'
+            }
+        ]
     },
     'BARRERAS_LOGISTICAS': {
-        'url': 'https://www.youtube.com/embed/ejemplo_barreras',
+        'url': 'https://www.youtube.com/embed/H1tKM5pZ7KA',
         'titulo': 'Cómo agendar tu Papanicolaou en el CESFAM',
-        'descripcion': 'Guía práctica para agendar tu examen'
+        'descripcion': 'Guía práctica para agendar tu examen',
+        'referencia': 'https://www.youtube.com/watch?v=H1tKM5pZ7KA'
     },
     'PRIORIDAD_ALTA': {
-        'url': 'https://www.youtube.com/embed/ejemplo_prioridad',
+        'url': 'https://www.youtube.com/embed/hM--fghdaUE',
         'titulo': 'Tu primer Papanicolaou: Todo lo que necesitas saber',
-        'descripcion': 'Información completa para tu primer examen'
+        'descripcion': 'Información completa para tu primer examen',
+        'referencia': 'https://www.youtube.com/watch?v=hM--fghdaUE'
     },
     'GENERAL': {
-        'url': 'https://www.youtube.com/embed/ejemplo_general',
+        'url': 'https://www.youtube.com/embed/SVF-rtQf3oU',
         'titulo': 'Papanicolaou: Prevención del cáncer cervicouterino',
-        'descripcion': 'Video educativo general sobre el Papanicolaou'
+        'descripcion': 'Video educativo general sobre el Papanicolaou',
+        'referencia': 'https://www.youtube.com/watch?v=SVF-rtQf3oU'
     }
 }
 
