@@ -75,7 +75,31 @@ function irAPrimeraPreguntaValida() {
 }
 
 function renderizarPregunta() {
+    // Verificar límites antes de acceder al array
+    if (preguntaActual >= totalPreguntas || preguntaActual < 0) {
+        console.error('Índice de pregunta fuera de límites:', preguntaActual);
+        // Si estamos fuera de límites, intentar encontrar la última pregunta válida
+        if (preguntaActual >= totalPreguntas) {
+            preguntaActual = totalPreguntas - 1;
+        } else {
+            preguntaActual = 0;
+        }
+        // Si aún no hay preguntas válidas, mostrar error
+        if (preguntaActual < 0 || preguntaActual >= totalPreguntas) {
+            mostrarError('No hay más preguntas disponibles.');
+            return;
+        }
+    }
+    
     const pregunta = todasLasPreguntas[preguntaActual];
+    
+    // Verificar que la pregunta existe
+    if (!pregunta) {
+        console.error('Pregunta no encontrada en índice:', preguntaActual);
+        mostrarError('Error al cargar la pregunta. Por favor, recarga la página.');
+        return;
+    }
+    
     const container = document.getElementById('secciones-container');
     
     // Verificar si la pregunta es condicional y si debe mostrarse
@@ -84,6 +108,10 @@ function renderizarPregunta() {
         if (preguntaActual < totalPreguntas - 1) {
             preguntaActual++;
             renderizarPregunta();
+            return;
+        } else {
+            // Si no hay más preguntas, mostrar mensaje de finalización
+            mostrarResultado();
             return;
         }
     }
@@ -317,6 +345,7 @@ function debeMostrarPreguntaCondicional(pregunta) {
                         // Verificar las subpreguntas anteriores
                         const indice = preg.preguntas.findIndex(p => p.id === pregunta.id);
                         if (indice > 0) {
+                            // Hay subpreguntas anteriores en el mismo grupo
                             const preguntaAnterior = preg.preguntas[indice - 1];
                             const respuestaAnterior = respuestas[preguntaAnterior.id];
                             
@@ -338,9 +367,73 @@ function debeMostrarPreguntaCondicional(pregunta) {
                             }
                             
                             return respuestaAnterior !== undefined && respuestaAnterior !== '';
+                        } else if (indice === 0) {
+                            // Es la primera subpregunta del grupo, verificar la pregunta anterior en el array principal
+                            const indiceActual = todasLasPreguntas.findIndex(p => p.id === pregunta.id);
+                            if (indiceActual > 0) {
+                                // Verificar si el texto del padre indica que debe verificar el grupo anterior
+                                if (preg.texto && (preg.texto.includes('Si respondió SÍ') || preg.texto.includes('Si respondió NO'))) {
+                                    const requiereSi = preg.texto.includes('Si respondió SÍ');
+                                    
+                                    // Buscar el grupo de subpreguntas anterior en el array principal
+                                    let grupoAnterior = null;
+                                    for (let i = indiceActual - 1; i >= 0; i--) {
+                                        const pregAnterior = todasLasPreguntas[i];
+                                        if (pregAnterior.preguntaPadre) {
+                                            // Encontrar el grupo padre de esta pregunta
+                                            for (const seccion of cuestionario.secciones) {
+                                                for (const pregPadre of seccion.preguntas) {
+                                                    if (pregPadre.id === pregAnterior.preguntaPadre && 
+                                                        pregPadre.tipo === 'subpreguntas' && 
+                                                        pregPadre.preguntas) {
+                                                        grupoAnterior = pregPadre;
+                                                        break;
+                                                    }
+                                                }
+                                                if (grupoAnterior) break;
+                                            }
+                                            if (grupoAnterior) break;
+                                        }
+                                    }
+                                    
+                                    // Si encontramos un grupo anterior, verificar si alguna subpregunta tiene la respuesta requerida
+                                    if (grupoAnterior && grupoAnterior.preguntas) {
+                                        const tieneRespuestaRequerida = grupoAnterior.preguntas.some(subp => {
+                                            const respuesta = respuestas[subp.id];
+                                            return requiereSi ? respuesta === 'si' : respuesta === 'no';
+                                        });
+                                        return tieneRespuestaRequerida;
+                                    }
+                                    
+                                    // Si no encontramos grupo anterior, verificar la pregunta anterior directa
+                                    const preguntaAnteriorPrincipal = todasLasPreguntas[indiceActual - 1];
+                                    const respuestaAnteriorPrincipal = respuestas[preguntaAnteriorPrincipal.id];
+                                    return requiereSi ? respuestaAnteriorPrincipal === 'si' : respuestaAnteriorPrincipal === 'no';
+                                }
+                                
+                                // Si no hay condición específica en el texto del padre, verificar la pregunta anterior
+                                const preguntaAnteriorPrincipal = todasLasPreguntas[indiceActual - 1];
+                                const respuestaAnteriorPrincipal = respuestas[preguntaAnteriorPrincipal.id];
+                                
+                                // Verificar condiciones comunes basadas en el texto de la pregunta
+                                if (pregunta.texto.includes('Si respondió SÍ') || pregunta.texto.includes('Si respondió NO')) {
+                                    const requiereSi = pregunta.texto.includes('Si respondió SÍ');
+                                    return requiereSi ? respuestaAnteriorPrincipal === 'si' : respuestaAnteriorPrincipal === 'no';
+                                }
+                                
+                                // Verificar si la pregunta anterior fue respondida
+                                return respuestaAnteriorPrincipal !== undefined && respuestaAnteriorPrincipal !== null && respuestaAnteriorPrincipal !== '';
+                            }
                         }
                     }
-                    return respuestas[preg.id] !== undefined && respuestas[preg.id] !== '';
+                    // Si no es subpreguntas o no se encontró lógica específica, no verificar el padre (que no tiene respuesta directa)
+                    // En su lugar, verificar la pregunta anterior en el array principal
+                    const indiceActual = todasLasPreguntas.findIndex(p => p.id === pregunta.id);
+                    if (indiceActual > 0) {
+                        const preguntaAnterior = todasLasPreguntas[indiceActual - 1];
+                        const respuestaAnterior = respuestas[preguntaAnterior.id];
+                        return respuestaAnterior !== undefined && respuestaAnterior !== null && respuestaAnterior !== '';
+                    }
                 }
             }
         }
@@ -468,13 +561,23 @@ document.getElementById('btn-anterior').addEventListener('click', () => {
     if (preguntaActual > 0) {
         preguntaActual--;
         // Retroceder saltando preguntas condicionales que no aplican
-        while (preguntaActual > 0) {
+        while (preguntaActual >= 0) {
             const preguntaAnterior = todasLasPreguntas[preguntaActual];
+            // Verificar que la pregunta existe antes de acceder a sus propiedades
+            if (!preguntaAnterior) {
+                break;
+            }
             if (!preguntaAnterior.condicional || debeMostrarPreguntaCondicional(preguntaAnterior)) {
                 break;
             }
             preguntaActual--;
         }
+        
+        // Asegurar que no salimos de los límites
+        if (preguntaActual < 0) {
+            preguntaActual = 0;
+        }
+        
         renderizarPregunta();
         actualizarProgreso();
         // Scroll al inicio
@@ -483,7 +586,19 @@ document.getElementById('btn-anterior').addEventListener('click', () => {
 });
 
 document.getElementById('btn-siguiente').addEventListener('click', () => {
+    // Verificar límites antes de acceder
+    if (preguntaActual >= totalPreguntas || preguntaActual < 0) {
+        console.error('Índice de pregunta fuera de límites:', preguntaActual);
+        return;
+    }
+    
     const pregunta = todasLasPreguntas[preguntaActual];
+    
+    // Verificar que la pregunta existe
+    if (!pregunta) {
+        console.error('Pregunta no encontrada en índice:', preguntaActual);
+        return;
+    }
     
     // Las preguntas informativas no requieren validación
     if (pregunta.tipo === 'texto_informativo') {
@@ -491,11 +606,22 @@ document.getElementById('btn-siguiente').addEventListener('click', () => {
             preguntaActual++;
             while (preguntaActual < totalPreguntas) {
                 const siguientePregunta = todasLasPreguntas[preguntaActual];
+                // Verificar que la pregunta existe antes de acceder a sus propiedades
+                if (!siguientePregunta) {
+                    break;
+                }
                 if (!siguientePregunta.condicional || debeMostrarPreguntaCondicional(siguientePregunta)) {
                     break;
                 }
                 preguntaActual++;
             }
+            
+            // Verificar que no excedimos los límites
+            if (preguntaActual >= totalPreguntas) {
+                mostrarResultado();
+                return;
+            }
+            
             renderizarPregunta();
             actualizarProgreso();
             window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -537,11 +663,23 @@ document.getElementById('btn-siguiente').addEventListener('click', () => {
         // Saltar preguntas condicionales que no aplican
         while (preguntaActual < totalPreguntas) {
             const siguientePregunta = todasLasPreguntas[preguntaActual];
+            // Verificar que la pregunta existe antes de acceder a sus propiedades
+            if (!siguientePregunta) {
+                break;
+            }
             if (!siguientePregunta.condicional || debeMostrarPreguntaCondicional(siguientePregunta)) {
                 break;
             }
             preguntaActual++;
         }
+        
+        // Verificar que no excedimos los límites
+        if (preguntaActual >= totalPreguntas) {
+            // Si todas las preguntas restantes eran condicionales y no aplicaban, finalizar
+            mostrarResultado();
+            return;
+        }
+        
         renderizarPregunta();
         actualizarProgreso();
         // Scroll al inicio
@@ -552,7 +690,21 @@ document.getElementById('btn-siguiente').addEventListener('click', () => {
 document.getElementById('btn-enviar').addEventListener('click', async (e) => {
     e.preventDefault();
     
+    // Verificar límites antes de acceder
+    if (preguntaActual >= totalPreguntas || preguntaActual < 0) {
+        console.error('Índice de pregunta fuera de límites:', preguntaActual);
+        mostrarError('Error al acceder a la pregunta. Por favor, recarga la página.');
+        return;
+    }
+    
     const pregunta = todasLasPreguntas[preguntaActual];
+    
+    // Verificar que la pregunta existe
+    if (!pregunta) {
+        console.error('Pregunta no encontrada en índice:', preguntaActual);
+        mostrarError('Error al acceder a la pregunta. Por favor, recarga la página.');
+        return;
+    }
     
     // Validar última pregunta
     const tieneRespuesta = respuestas[pregunta.id] !== undefined && 
