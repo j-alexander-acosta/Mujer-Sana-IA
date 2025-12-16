@@ -8,7 +8,7 @@ CORS(app)
 
 # Estructura del cuestionario CPC-28
 CUESTIONARIO = {
-    "titulo": "CPC-28 - Cuestionario sobre Creencias del Papanicolaou y el Cáncer Cervicouterino",
+    "titulo": "CPC-28 - Cuestionario sobre Creencias del Papanicolaou y el Cáncer de Cuello Uterino",
     "secciones": [
         {
             "id": "PRESENTACION",
