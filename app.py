@@ -2,9 +2,55 @@ from flask import Flask, render_template, jsonify, request
 from flask_cors import CORS
 import json
 import os
+from openai import OpenAI
 
 app = Flask(__name__)
 CORS(app)
+
+# Diccionario de videos educativos por categoría
+VIDEOS_EDUCATIVOS = {
+    'MIEDO': {
+        'url': 'https://www.youtube.com/embed/ejemplo_miedo',
+        'titulo': 'Superando el miedo al Papanicolaou',
+        'descripcion': 'Video educativo sobre cómo enfrentar el miedo al examen'
+    },
+    'VERGUENZA': {
+        'url': 'https://www.youtube.com/embed/ejemplo_verguenza',
+        'titulo': 'Entendiendo el Papanicolaou: Un examen rutinario',
+        'descripcion': 'Información sobre la normalidad del procedimiento'
+    },
+    'MOTIVACION': {
+        'url': 'https://www.youtube.com/embed/ejemplo_motivacion',
+        'titulo': 'La importancia del Papanicolaou para tu salud',
+        'descripcion': 'Video motivacional sobre la importancia del tamizaje'
+    },
+    'BARRERAS_LOGISTICAS': {
+        'url': 'https://www.youtube.com/embed/ejemplo_barreras',
+        'titulo': 'Cómo agendar tu Papanicolaou en el CESFAM',
+        'descripcion': 'Guía práctica para agendar tu examen'
+    },
+    'PRIORIDAD_ALTA': {
+        'url': 'https://www.youtube.com/embed/ejemplo_prioridad',
+        'titulo': 'Tu primer Papanicolaou: Todo lo que necesitas saber',
+        'descripcion': 'Información completa para tu primer examen'
+    },
+    'GENERAL': {
+        'url': 'https://www.youtube.com/embed/ejemplo_general',
+        'titulo': 'Papanicolaou: Prevención del cáncer cervicouterino',
+        'descripcion': 'Video educativo general sobre el Papanicolaou'
+    }
+}
+
+# Inicializar cliente de OpenAI
+# La API key se puede configurar mediante variable de entorno OPENAI_API_KEY
+# Ejemplo: export OPENAI_API_KEY='tu-api-key-aqui'
+# O mediante archivo .env usando python-dotenv
+openai_api_key = os.getenv('OPENAI_API_KEY', '')
+if openai_api_key:
+    client = OpenAI(api_key=openai_api_key)
+else:
+    client = None
+    print("⚠️  OPENAI_API_KEY no configurada. La funcionalidad de IA estará deshabilitada.")
 
 # Estructura del cuestionario CPC-28
 CUESTIONARIO = {
@@ -767,12 +813,112 @@ def analizar_respuestas_cpc28(respuestas):
         'falta_recordatorios': falta_recordatorios
     }
 
+def generar_recomendacion_ia(respuestas, datos_demograficos=None):
+    """
+    Genera una recomendación personalizada usando la API de OpenAI.
+    
+    Args:
+        respuestas: Diccionario con las respuestas del cuestionario CPC-28
+        datos_demograficos: Diccionario opcional con datos demográficos del usuario
+    
+    Returns:
+        dict: Diccionario con 'consejo' (str) y 'video' (dict), o None si hay error
+        {
+            'consejo': 'Texto del consejo de 3 párrafos',
+            'video': {
+                'url': 'URL del video',
+                'titulo': 'Título del video',
+                'descripcion': 'Descripción del video'
+            }
+        }
+    """
+    if not client:
+        print("Error: Cliente de OpenAI no inicializado. Configure OPENAI_API_KEY.")
+        return None
+    
+    try:
+        # Crear el prompt del usuario con el contexto
+        user_prompt = f"""Analiza las siguientes respuestas del cuestionario de creencias sobre el PAP (Papanicolaou):
+
+RESPUESTAS DEL CUESTIONARIO:
+{json.dumps(respuestas, indent=2, ensure_ascii=False)}
+
+DATOS DEMOGRÁFICOS:
+{json.dumps(datos_demograficos or {}, indent=2, ensure_ascii=False)}
+
+Genera un consejo personalizado de exactamente 3 párrafos:
+1. Validación emocional: Reconoce y valida las emociones y preocupaciones de la usuaria
+2. Análisis de sus barreras específicas: Identifica y aborda las barreras particulares que ella reporta
+3. Pasos a seguir: Proporciona pasos concretos y accionables para agendar y realizarse el PAP
+
+Habla con tono empático, cercano y local para Chile. Usa lenguaje comprensible y evita términos muy técnicos.
+
+IMPORTANTE: Debes devolver tu respuesta en formato JSON con exactamente estos dos campos:
+- "consejo": el texto del consejo de 3 párrafos
+- "categoria_video": una de estas categorías según el análisis: MIEDO, VERGUENZA, MOTIVACION, BARRERAS_LOGISTICAS, PRIORIDAD_ALTA, o GENERAL"""
+        
+        # System prompt actualizado para pedir JSON
+        system_prompt = """Eres una matrona experta de la aplicación Mujer Sana IA. Analiza las siguientes respuestas del cuestionario de creencias sobre el PAP y genera un consejo de 3 párrafos: 1) Validación emocional, 2) Análisis de sus barreras específicas, 3) Pasos a seguir. Habla con tono empático y local para Chile.
+
+DEBES responder SIEMPRE en formato JSON válido con exactamente estos dos campos:
+{
+    "consejo": "texto del consejo de 3 párrafos aquí",
+    "categoria_video": "MIEDO" o "VERGUENZA" o "MOTIVACION" o "BARRERAS_LOGISTICAS" o "PRIORIDAD_ALTA" o "GENERAL"
+}
+
+La categoría debe reflejar la barrera o necesidad principal identificada en las respuestas."""
+        
+        # Llamar a la API de OpenAI con formato JSON
+        response = client.chat.completions.create(
+            model="gpt-4o-mini",  # Puedes cambiar a "gpt-4" o "gpt-3.5-turbo" según necesites
+            messages=[
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": user_prompt}
+            ],
+            temperature=0.7,
+            max_tokens=800,
+            response_format={"type": "json_object"}  # Forzar respuesta en formato JSON
+        )
+        
+        # Extraer y parsear la respuesta JSON
+        respuesta_texto = response.choices[0].message.content.strip()
+        
+        # Intentar parsear el JSON
+        try:
+            respuesta_json = json.loads(respuesta_texto)
+            consejo = respuesta_json.get('consejo', '')
+            categoria_video = respuesta_json.get('categoria_video', 'GENERAL').upper()
+            
+            # Seleccionar el video según la categoría
+            video = VIDEOS_EDUCATIVOS.get(categoria_video, VIDEOS_EDUCATIVOS['GENERAL'])
+            
+            return {
+                'consejo': consejo,
+                'video': video,
+                'categoria': categoria_video
+            }
+        except json.JSONDecodeError as e:
+            print(f"Error al parsear JSON de la respuesta de IA: {str(e)}")
+            print(f"Respuesta recibida: {respuesta_texto}")
+            # Si falla el parseo, intentar extraer el consejo del texto y usar categoría GENERAL
+            return {
+                'consejo': respuesta_texto,
+                'video': VIDEOS_EDUCATIVOS['GENERAL'],
+                'categoria': 'GENERAL'
+            }
+    
+    except Exception as e:
+        # En caso de error, retornar None
+        print(f"Error al generar recomendación con IA: {str(e)}")
+        return None
+
 @app.route('/api/respuestas', methods=['POST'])
 def guardar_respuestas():
     try:
         data = request.json
         respuestas = data.get('respuestas', {})
         timestamp = data.get('timestamp')
+        usar_ia = data.get('usar_ia', False)  # Flag opcional para activar IA
         
         # Crear directorio de respuestas si no existe
         os.makedirs('respuestas', exist_ok=True)
@@ -785,11 +931,42 @@ def guardar_respuestas():
                 'respuestas': respuestas
             }, f, indent=2, ensure_ascii=False)
         
-        return jsonify({
+        # Preparar respuesta base
+        response_data = {
             'success': True,
             'message': 'Respuestas guardadas correctamente',
             'filename': filename
-        })
+        }
+        
+        # Si se solicita, generar recomendación con IA
+        if usar_ia and client:
+            # Extraer datos demográficos de las respuestas
+            datos_demograficos = {
+                'edad': respuestas.get('I3'),
+                'sexo_asignado': respuestas.get('I1'),
+                'genero': respuestas.get('I2'),
+                'nivel_educacional': respuestas.get('I4'),
+                'estado_civil': respuestas.get('I5'),
+                'tiene_pareja': respuestas.get('I6')
+            }
+            
+            resultado_ia = generar_recomendacion_ia(respuestas, datos_demograficos)
+            
+            if resultado_ia:
+                # El resultado ahora incluye 'consejo' y 'video'
+                response_data['recomendacion_ia'] = {
+                    'consejo': resultado_ia.get('consejo', ''),
+                    'video': resultado_ia.get('video', VIDEOS_EDUCATIVOS['GENERAL']),
+                    'categoria': resultado_ia.get('categoria', 'GENERAL')
+                }
+            else:
+                response_data['recomendacion_ia'] = None
+                response_data['mensaje_ia'] = 'No se pudo generar la recomendación con IA'
+        elif usar_ia and not client:
+            response_data['recomendacion_ia'] = None
+            response_data['mensaje_ia'] = 'API de OpenAI no configurada. Configure OPENAI_API_KEY para usar esta funcionalidad.'
+        
+        return jsonify(response_data)
     except Exception as e:
         return jsonify({
             'success': False,

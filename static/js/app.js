@@ -761,35 +761,46 @@ document.getElementById('btn-enviar').addEventListener('click', async (e) => {
             },
             body: JSON.stringify({
                 respuestas: respuestas,
-                timestamp: timestamp
+                timestamp: timestamp,
+                usar_ia: true  // Activar generación de recomendación con IA
             })
         });
         
         const result = await response.json();
         
         if (result.success) {
-            // Obtener análisis y recomendaciones
-            try {
-                const analisisResponse = await fetch('/api/analisis', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        respuestas: respuestas
-                    })
+            // Si hay recomendación de IA, usarla; si no, usar análisis tradicional
+            if (result.recomendacion_ia && result.recomendacion_ia.consejo) {
+                mostrarResultado({
+                    recomendacion: result.recomendacion_ia.consejo,
+                    video: result.recomendacion_ia.video,
+                    categoria: result.recomendacion_ia.categoria,
+                    fuente: 'ia'
                 });
-                
-                const analisisResult = await analisisResponse.json();
-                
-                if (analisisResult.success && analisisResult.analisis) {
-                    mostrarResultado(analisisResult.analisis);
-                } else {
+            } else {
+                // Obtener análisis y recomendaciones tradicionales
+                try {
+                    const analisisResponse = await fetch('/api/analisis', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            respuestas: respuestas
+                        })
+                    });
+                    
+                    const analisisResult = await analisisResponse.json();
+                    
+                    if (analisisResult.success && analisisResult.analisis) {
+                        mostrarResultado(analisisResult.analisis);
+                    } else {
+                        mostrarResultado();
+                    }
+                } catch (error) {
+                    console.error('Error al obtener análisis:', error);
                     mostrarResultado();
                 }
-            } catch (error) {
-                console.error('Error al obtener análisis:', error);
-                mostrarResultado();
             }
         } else {
             alert('Error al guardar las respuestas: ' + result.message);
@@ -819,14 +830,46 @@ function mostrarResultado(analisis = null) {
     if (analisis && analisis.recomendacion) {
         const analisisContainer = document.getElementById('analisis-container');
         const recomendacionesTexto = document.getElementById('recomendaciones-texto');
+        const videoContainer = document.getElementById('video-container');
+        const videoIframe = document.getElementById('video-iframe');
+        const videoTitulo = document.getElementById('video-titulo');
+        const videoDescripcion = document.getElementById('video-descripcion');
         
         // Formatear el texto con saltos de línea
-        const textoFormateado = analisis.recomendacion.replace(/\n\n/g, '</p><p>');
+        // La IA puede devolver texto con saltos de línea, así que los preservamos
+        let textoFormateado = analisis.recomendacion;
+        
+        // Si viene de IA, puede tener párrafos separados por doble salto de línea
+        textoFormateado = textoFormateado.replace(/\n\n+/g, '</p><p>');
+        // También manejar saltos de línea simples
+        textoFormateado = textoFormateado.replace(/\n/g, '<br>');
+        
         recomendacionesTexto.innerHTML = `<p>${textoFormateado}</p>`;
+        
+        // Actualizar título si es de IA
+        const titulo = analisisContainer.querySelector('h3');
+        if (analisis.fuente === 'ia' && titulo) {
+            titulo.textContent = '💬 Recomendaciones de Mujer Sana IA (Generado con Inteligencia Artificial)';
+        }
+        
+        // Mostrar video si está disponible
+        if (analisis.video && analisis.video.url) {
+            videoIframe.src = analisis.video.url;
+            if (analisis.video.titulo) {
+                videoTitulo.textContent = analisis.video.titulo;
+            }
+            if (analisis.video.descripcion) {
+                videoDescripcion.textContent = analisis.video.descripcion;
+            }
+            videoContainer.style.display = 'block';
+        } else {
+            videoContainer.style.display = 'none';
+        }
         
         analisisContainer.style.display = 'block';
     } else {
         document.getElementById('analisis-container').style.display = 'none';
+        document.getElementById('video-container').style.display = 'none';
     }
     
     window.scrollTo({ top: 0, behavior: 'smooth' });
