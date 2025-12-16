@@ -74,9 +74,10 @@ VIDEOS_EDUCATIVOS = {
 # La API key se puede configurar mediante variable de entorno OPENAI_API_KEY
 # Ejemplo: export OPENAI_API_KEY='tu-api-key-aqui'
 # O mediante archivo .env usando python-dotenv
-openai_api_key = os.getenv('OPENAI_API_KEY', '')
+openai_api_key = os.environ.get("OPENAI_API_KEY")
 if openai_api_key:
-    client = OpenAI(api_key=openai_api_key)
+    # Inicializar cliente solo con api_key, sin otros parámetros
+    client = OpenAI(api_key=os.environ.get("OPENAI_API_KEY"))
 else:
     client = None
     print("⚠️  OPENAI_API_KEY no configurada. La funcionalidad de IA estará deshabilitada.")
