@@ -522,6 +522,35 @@ header h1 {
     color: var(--primary-color);
 }
 
+/* Video educativo */
+.video-wrapper {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    height: 0;
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.video-wrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+#video-container h4 {
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+#video-descripcion {
+    font-style: italic;
+    color: #666;
+}
+
 .error {
     background: #fee;
     color: var(--danger-color);
