@@ -768,7 +768,29 @@ document.getElementById('btn-enviar').addEventListener('click', async (e) => {
         const result = await response.json();
         
         if (result.success) {
-            mostrarResultado();
+            // Obtener análisis y recomendaciones
+            try {
+                const analisisResponse = await fetch('/api/analisis', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        respuestas: respuestas
+                    })
+                });
+                
+                const analisisResult = await analisisResponse.json();
+                
+                if (analisisResult.success && analisisResult.analisis) {
+                    mostrarResultado(analisisResult.analisis);
+                } else {
+                    mostrarResultado();
+                }
+            } catch (error) {
+                console.error('Error al obtener análisis:', error);
+                mostrarResultado();
+            }
         } else {
             alert('Error al guardar las respuestas: ' + result.message);
         }
@@ -789,9 +811,24 @@ document.getElementById('btn-nuevo').addEventListener('click', () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
 });
 
-function mostrarResultado() {
+function mostrarResultado(analisis = null) {
     document.getElementById('cuestionario-container').style.display = 'none';
     document.getElementById('resultado-container').style.display = 'block';
+    
+    // Mostrar recomendaciones si hay análisis
+    if (analisis && analisis.recomendacion) {
+        const analisisContainer = document.getElementById('analisis-container');
+        const recomendacionesTexto = document.getElementById('recomendaciones-texto');
+        
+        // Formatear el texto con saltos de línea
+        const textoFormateado = analisis.recomendacion.replace(/\n\n/g, '</p><p>');
+        recomendacionesTexto.innerHTML = `<p>${textoFormateado}</p>`;
+        
+        analisisContainer.style.display = 'block';
+    } else {
+        document.getElementById('analisis-container').style.display = 'none';
+    }
+    
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 

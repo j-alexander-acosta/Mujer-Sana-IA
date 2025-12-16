@@ -675,6 +675,98 @@ def index():
 def get_cuestionario():
     return jsonify(CUESTIONARIO)
 
+def analizar_respuestas_cpc28(respuestas):
+    """
+    Analiza las respuestas del cuestionario CPC-28 y genera recomendaciones personalizadas.
+    Actúa como 'Mujer Sana IA', una asistente virtual experta en salud ginecológica.
+    """
+    recomendaciones = []
+    prioridad_alta = False
+    
+    # 1. Analizar Barreras (Sección A)
+    barreras_emocionales = []
+    barreras_logisticas = []
+    
+    # Miedo al cáncer (A6)
+    if respuestas.get('A6') and respuestas['A6'] >= 3:  # De acuerdo o Muy de acuerdo
+        barreras_emocionales.append('miedo')
+    
+    # Vergüenza (A7)
+    if respuestas.get('A7') and respuestas['A7'] >= 3:
+        barreras_emocionales.append('verguenza')
+    
+    # Dolor o espera (A3)
+    if respuestas.get('A3') and respuestas['A3'] >= 3:
+        barreras_logisticas.append('espera')
+    
+    # 2. Analizar Motivación (Sección B)
+    falta_recordatorios = True
+    if respuestas.get('B1') and respuestas['B1'] >= 3:  # Doctor le pide
+        falta_recordatorios = False
+    if respuestas.get('B2') and respuestas['B2'] >= 3:  # Enfermera/matrona le pide
+        falta_recordatorios = False
+    
+    # 3. Contexto Demográfico
+    edad = respuestas.get('I3')
+    nunca_pap = False
+    
+    # Verificar si se ha hecho PAP (III3B)
+    if respuestas.get('III3B') == 'no':
+        nunca_pap = True
+    
+    # Prioridad alta: >25 años y nunca se ha hecho PAP
+    if edad and edad > 25 and nunca_pap:
+        prioridad_alta = True
+    
+    # Construir recomendaciones
+    parrafo1 = ""
+    parrafo2 = ""
+    parrafo3 = ""
+    
+    # Párrafo 1: Contención emocional si hay barreras
+    if barreras_emocionales:
+        if 'miedo' in barreras_emocionales and 'verguenza' in barreras_emocionales:
+            parrafo1 = "Entiendo que el miedo y la vergüenza pueden hacer que posterguemos el Papanicolaou, y es completamente normal sentirse así. Te quiero contar que el examen es muy rápido (dura apenas unos minutos) y es fundamental para detectar cualquier cambio a tiempo, cuando es más fácil de tratar. El personal de salud está capacitado para hacerte sentir cómoda y respetar tu privacidad en todo momento."
+        elif 'miedo' in barreras_emocionales:
+            parrafo1 = "Comprendo que el miedo a saber si hay algo puede ser abrumador. Sin embargo, el Papanicolaou es precisamente la herramienta que nos permite detectar cambios tempranos, cuando el tratamiento es más efectivo y menos invasivo. Recuerda que la mayoría de los resultados son normales, y si hay algo que tratar, detectarlo a tiempo es la mejor noticia que puedes recibir."
+        elif 'verguenza' in barreras_emocionales:
+            parrafo1 = "Es natural sentir vergüenza, pero quiero que sepas que para el personal de salud es un procedimiento rutinario y profesional. Ellos están acostumbrados y se enfocan en cuidar tu salud, no en juzgar. El examen es rápido y puedes pedir que sea una matrona o doctora si te hace sentir más cómoda."
+    elif prioridad_alta:
+        parrafo1 = f"Hola, veo que tienes {edad} años y aún no te has realizado el Papanicolaou. Este examen es esencial para tu salud, especialmente a partir de los 25 años según las recomendaciones del MINSAL. No te preocupes, nunca es tarde para empezar a cuidarte."
+    else:
+        parrafo1 = "Gracias por completar el cuestionario. Tu salud ginecológica es importante y el Papanicolaou es una herramienta clave para prevenir el cáncer de cuello uterino."
+    
+    # Párrafo 2: Motivación y recordatorios
+    if falta_recordatorios:
+        parrafo2 = "Noto que no has recibido recordatorios recientes de profesionales de salud sobre el PAP. Te sugiero que pidas a tu médico o matrona que te recuerde en tu próxima consulta, o bien, puedes activar recordatorios en tu calendario personal. También puedes agendar tu hora hoy mismo en tu CESFAM más cercano."
+    elif barreras_logisticas:
+        parrafo2 = "Entiendo que los tiempos de espera pueden ser un desafío. Te recomiendo llamar temprano en la mañana para agendar tu hora, o consultar si hay horarios de atención extendida en tu consultorio. Tu salud vale la pena el esfuerzo."
+    elif prioridad_alta:
+        parrafo2 = "El cáncer de cuello uterino es prevenible cuando se detecta a tiempo. El Papanicolaou es gratuito en la red pública de salud y está disponible en todos los CESFAM. No requiere preparación especial y es un examen rápido que puede salvar tu vida."
+    else:
+        parrafo2 = "Mantener tus controles al día es la mejor forma de cuidarte. El Papanicolaou debe realizarse cada 3 años si tus resultados anteriores fueron normales, según las guías del MINSAL."
+    
+    # Párrafo 3: Llamado a la acción
+    if prioridad_alta:
+        parrafo3 = "Te invito a agendar tu hora para el Papanicolaou esta semana en tu CESFAM. Puedes llamar al consultorio o acercarte personalmente. Si tienes dudas, puedes hablar con una matrona que te explicará todo el proceso. Tu salud es prioridad, y este examen es un acto de autocuidado importante."
+    elif barreras_emocionales or barreras_logisticas:
+        parrafo3 = "Si te sientes lista, agenda tu hora en el CESFAM. Recuerda que puedes pedir que te atienda una profesional mujer si eso te hace sentir más cómoda. El examen es rápido, y estarás cuidando tu salud de la mejor manera posible."
+    else:
+        parrafo3 = "Mantén tus controles al día. Si ya pasaron más de 3 años desde tu último PAP, agenda tu hora en el CESFAM. Si tienes dudas, consulta con tu matrona o médico de cabecera."
+    
+    # Combinar párrafos
+    recomendacion_completa = f"{parrafo1}\n\n{parrafo2}\n\n{parrafo3}"
+    
+    return {
+        'recomendacion': recomendacion_completa,
+        'prioridad_alta': prioridad_alta,
+        'barreras_detectadas': {
+            'emocionales': barreras_emocionales,
+            'logisticas': barreras_logisticas
+        },
+        'falta_recordatorios': falta_recordatorios
+    }
+
 @app.route('/api/respuestas', methods=['POST'])
 def guardar_respuestas():
     try:
@@ -702,6 +794,35 @@ def guardar_respuestas():
         return jsonify({
             'success': False,
             'message': f'Error al guardar respuestas: {str(e)}'
+        }), 500
+
+@app.route('/api/analisis', methods=['POST'])
+def analizar_respuestas():
+    """
+    Endpoint para analizar las respuestas del cuestionario CPC-28
+    y generar recomendaciones personalizadas de 'Mujer Sana IA'
+    """
+    try:
+        data = request.json
+        respuestas = data.get('respuestas', {})
+        
+        if not respuestas:
+            return jsonify({
+                'success': False,
+                'message': 'No se proporcionaron respuestas para analizar'
+            }), 400
+        
+        # Realizar análisis
+        analisis = analizar_respuestas_cpc28(respuestas)
+        
+        return jsonify({
+            'success': True,
+            'analisis': analisis
+        })
+    except Exception as e:
+        return jsonify({
+            'success': False,
+            'message': f'Error al analizar respuestas: {str(e)}'
         }), 500
 
 if __name__ == '__main__':
