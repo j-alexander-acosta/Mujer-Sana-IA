@@ -488,6 +488,40 @@ header h1 {
     color: #666;
 }
 
+/* Análisis y recomendaciones */
+.analisis-box {
+    background: #f0f9ff;
+    padding: 25px;
+    border-radius: 12px;
+    border-left: 5px solid var(--primary-color);
+    margin-top: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.analisis-box h3 {
+    color: var(--primary-color);
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.recomendaciones-texto {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: var(--text-color);
+}
+
+.recomendaciones-texto p {
+    margin-bottom: 15px;
+    text-align: justify;
+}
+
+.recomendaciones-texto p:last-child {
+    margin-bottom: 0;
+    font-weight: 500;
+    color: var(--primary-color);
+}
+
 .error {
     background: #fee;
     color: var(--danger-color);
