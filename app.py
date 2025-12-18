@@ -2,55 +2,90 @@ from flask import Flask, render_template, jsonify, request
 from flask_cors import CORS
 import json
 import os
-from openai import OpenAI
+import google.generativeai as genai  # Importamos la librería de Google
+from dotenv import load_dotenv
+
+# Cargar variables de entorno
+load_dotenv()
 
 app = Flask(__name__)
 CORS(app)
 
+# --- CONFIGURACIÓN DE GEMINI ---
+# Obtener la API KEY del archivo .env
+GEMINI_API_KEY = "AIzaSyCQg_VbqRwEpCMI-ronMVDc428DxDvACu0"
+
+if GEMINI_API_KEY:
+    genai.configure(api_key=GEMINI_API_KEY)
+    # Configuramos el modelo que usaremos (Flash es rápido y económico)
+    model = genai.GenerativeModel('gemini-1.5-flash')
+    print("✅ Cliente de Google Gemini configurado correctamente.")
+else:
+    model = None
+    print("⚠️ GEMINI_API_KEY no configurada. La funcionalidad de IA estará deshabilitada.")
+
 # Diccionario de videos educativos por categoría
+# Referencias de videos:
+# - MIEDO: https://www.youtube.com/watch?v=w0IGSfv-RXI
+# - VERGUENZA: https://www.youtube.com/watch?v=RfvLpWviqS4, https://www.youtube.com/watch?v=5IFVtTf7YvI
+# - MOTIVACION/RECOMENDACION: https://www.youtube.com/watch?v=SVF-rtQf3oU, https://www.youtube.com/watch?v=H1tKM5pZ7KA, https://www.youtube.com/watch?v=hM--fghdaUE
 VIDEOS_EDUCATIVOS = {
     'MIEDO': {
-        'url': 'https://www.youtube.com/embed/ejemplo_miedo',
+        'url': 'https://www.youtube.com/embed/w0IGSfv-RXI',
         'titulo': 'Superando el miedo al Papanicolaou',
-        'descripcion': 'Video educativo sobre cómo enfrentar el miedo al examen'
+        'descripcion': 'Video educativo sobre cómo enfrentar el miedo al examen',
+        'referencia': 'https://www.youtube.com/watch?v=w0IGSfv-RXI'
     },
     'VERGUENZA': {
-        'url': 'https://www.youtube.com/embed/ejemplo_verguenza',
+        'url': 'https://www.youtube.com/embed/RfvLpWviqS4',
         'titulo': 'Entendiendo el Papanicolaou: Un examen rutinario',
-        'descripcion': 'Información sobre la normalidad del procedimiento'
+        'descripcion': 'Información sobre la normalidad del procedimiento',
+        'referencia': 'https://www.youtube.com/watch?v=RfvLpWviqS4',
+        'alternativas': [
+            {
+                'url': 'https://www.youtube.com/embed/5IFVtTf7YvI',
+                'titulo': 'Video alternativo sobre vergüenza',
+                'referencia': 'https://www.youtube.com/watch?v=5IFVtTf7YvI'
+            }
+        ]
     },
     'MOTIVACION': {
-        'url': 'https://www.youtube.com/embed/ejemplo_motivacion',
+        'url': 'https://www.youtube.com/embed/SVF-rtQf3oU',
         'titulo': 'La importancia del Papanicolaou para tu salud',
-        'descripcion': 'Video motivacional sobre la importancia del tamizaje'
+        'descripcion': 'Video motivacional sobre la importancia del tamizaje',
+        'referencia': 'https://www.youtube.com/watch?v=SVF-rtQf3oU',
+        'alternativas': [
+            {
+                'url': 'https://www.youtube.com/embed/H1tKM5pZ7KA',
+                'titulo': 'Video motivacional alternativo 1',
+                'referencia': 'https://www.youtube.com/watch?v=H1tKM5pZ7KA'
+            },
+            {
+                'url': 'https://www.youtube.com/embed/hM--fghdaUE',
+                'titulo': 'Video motivacional alternativo 2',
+                'referencia': 'https://www.youtube.com/watch?v=hM--fghdaUE'
+            }
+        ]
     },
     'BARRERAS_LOGISTICAS': {
-        'url': 'https://www.youtube.com/embed/ejemplo_barreras',
+        'url': 'https://www.youtube.com/embed/H1tKM5pZ7KA',
         'titulo': 'Cómo agendar tu Papanicolaou en el CESFAM',
-        'descripcion': 'Guía práctica para agendar tu examen'
+        'descripcion': 'Guía práctica para agendar tu examen',
+        'referencia': 'https://www.youtube.com/watch?v=H1tKM5pZ7KA'
     },
     'PRIORIDAD_ALTA': {
-        'url': 'https://www.youtube.com/embed/ejemplo_prioridad',
+        'url': 'https://www.youtube.com/embed/hM--fghdaUE',
         'titulo': 'Tu primer Papanicolaou: Todo lo que necesitas saber',
-        'descripcion': 'Información completa para tu primer examen'
+        'descripcion': 'Información completa para tu primer examen',
+        'referencia': 'https://www.youtube.com/watch?v=hM--fghdaUE'
     },
     'GENERAL': {
-        'url': 'https://www.youtube.com/embed/ejemplo_general',
+        'url': 'https://www.youtube.com/embed/SVF-rtQf3oU',
         'titulo': 'Papanicolaou: Prevención del cáncer cervicouterino',
-        'descripcion': 'Video educativo general sobre el Papanicolaou'
+        'descripcion': 'Video educativo general sobre el Papanicolaou',
+        'referencia': 'https://www.youtube.com/watch?v=SVF-rtQf3oU'
     }
 }
-
-# Inicializar cliente de OpenAI
-# La API key se puede configurar mediante variable de entorno OPENAI_API_KEY
-# Ejemplo: export OPENAI_API_KEY='tu-api-key-aqui'
-# O mediante archivo .env usando python-dotenv
-openai_api_key = os.getenv('OPENAI_API_KEY', '')
-if openai_api_key:
-    client = OpenAI(api_key=openai_api_key)
-else:
-    client = None
-    print("⚠️  OPENAI_API_KEY no configurada. La funcionalidad de IA estará deshabilitada.")
 
 # Estructura del cuestionario CPC-28
 CUESTIONARIO = {
@@ -803,6 +838,19 @@ def analizar_respuestas_cpc28(respuestas):
     # Combinar párrafos
     recomendacion_completa = f"{parrafo1}\n\n{parrafo2}\n\n{parrafo3}"
     
+    # Determinar categoría de video
+    categoria_video = 'GENERAL'
+    if 'miedo' in barreras_emocionales:
+        categoria_video = 'MIEDO'
+    elif 'verguenza' in barreras_emocionales:
+        categoria_video = 'VERGUENZA'
+    elif prioridad_alta:
+        categoria_video = 'PRIORIDAD_ALTA'
+    elif falta_recordatorios:
+        categoria_video = 'MOTIVACION'
+    elif barreras_logisticas:
+        categoria_video = 'BARRERAS_LOGISTICAS'
+        
     return {
         'recomendacion': recomendacion_completa,
         'prioridad_alta': prioridad_alta,
@@ -810,106 +858,88 @@ def analizar_respuestas_cpc28(respuestas):
             'emocionales': barreras_emocionales,
             'logisticas': barreras_logisticas
         },
-        'falta_recordatorios': falta_recordatorios
+        'falta_recordatorios': falta_recordatorios,
+        'categoria_video': categoria_video,
+        'video': VIDEOS_EDUCATIVOS.get(categoria_video, VIDEOS_EDUCATIVOS['GENERAL'])
     }
 
 def generar_recomendacion_ia(respuestas, datos_demograficos=None):
     """
-    Genera una recomendación personalizada usando la API de OpenAI.
-    
-    Args:
-        respuestas: Diccionario con las respuestas del cuestionario CPC-28
-        datos_demograficos: Diccionario opcional con datos demográficos del usuario
-    
-    Returns:
-        dict: Diccionario con 'consejo' (str) y 'video' (dict), o None si hay error
-        {
-            'consejo': 'Texto del consejo de 3 párrafos',
-            'video': {
-                'url': 'URL del video',
-                'titulo': 'Título del video',
-                'descripcion': 'Descripción del video'
-            }
-        }
+    Genera una recomendación personalizada usando la API de Google Gemini.
     """
-    if not client:
-        print("Error: Cliente de OpenAI no inicializado. Configure OPENAI_API_KEY.")
+    if not model:
+        print("Error: Modelo Gemini no inicializado. Configure GEMINI_API_KEY.")
         return None
     
     try:
-        # Crear el prompt del usuario con el contexto
-        user_prompt = f"""Analiza las siguientes respuestas del cuestionario de creencias sobre el PAP (Papanicolaou):
-
-RESPUESTAS DEL CUESTIONARIO:
-{json.dumps(respuestas, indent=2, ensure_ascii=False)}
-
-DATOS DEMOGRÁFICOS:
-{json.dumps(datos_demograficos or {}, indent=2, ensure_ascii=False)}
-
-Genera un consejo personalizado de exactamente 3 párrafos:
-1. Validación emocional: Reconoce y valida las emociones y preocupaciones de la usuaria
-2. Análisis de sus barreras específicas: Identifica y aborda las barreras particulares que ella reporta
-3. Pasos a seguir: Proporciona pasos concretos y accionables para agendar y realizarse el PAP
-
-Habla con tono empático, cercano y local para Chile. Usa lenguaje comprensible y evita términos muy técnicos.
-
-IMPORTANTE: Debes devolver tu respuesta en formato JSON con exactamente estos dos campos:
-- "consejo": el texto del consejo de 3 párrafos
-- "categoria_video": una de estas categorías según el análisis: MIEDO, VERGUENZA, MOTIVACION, BARRERAS_LOGISTICAS, PRIORIDAD_ALTA, o GENERAL"""
+        # Prompt del Sistema (Instrucciones de comportamiento)
+        system_instruction = """Eres una matrona experta de la aplicación 'Mujer Sana IA'. Tu misión es analizar las respuestas de un cuestionario sobre el PAP y generar un consejo personalizado.
         
-        # System prompt actualizado para pedir JSON
-        system_prompt = """Eres una matrona experta de la aplicación Mujer Sana IA. Analiza las siguientes respuestas del cuestionario de creencias sobre el PAP y genera un consejo de 3 párrafos: 1) Validación emocional, 2) Análisis de sus barreras específicas, 3) Pasos a seguir. Habla con tono empático y local para Chile.
-
-DEBES responder SIEMPRE en formato JSON válido con exactamente estos dos campos:
-{
-    "consejo": "texto del consejo de 3 párrafos aquí",
-    "categoria_video": "MIEDO" o "VERGUENZA" o "MOTIVACION" o "BARRERAS_LOGISTICAS" o "PRIORIDAD_ALTA" o "GENERAL"
-}
-
-La categoría debe reflejar la barrera o necesidad principal identificada en las respuestas."""
+        Debes actuar con un tono empático, cercano y adaptado a la cultura de Chile (usando un lenguaje suave y acogedor).
         
-        # Llamar a la API de OpenAI con formato JSON
-        response = client.chat.completions.create(
-            model="gpt-4o-mini",  # Puedes cambiar a "gpt-4" o "gpt-3.5-turbo" según necesites
-            messages=[
-                {"role": "system", "content": system_prompt},
-                {"role": "user", "content": user_prompt}
-            ],
-            temperature=0.7,
-            max_tokens=800,
-            response_format={"type": "json_object"}  # Forzar respuesta en formato JSON
+        Tu salida debe ser SIEMPRE un objeto JSON estricto con la siguiente estructura:
+        {
+            "consejo": "Texto de exactamente 3 párrafos: 1. Validación emocional, 2. Análisis de barreras, 3. Pasos a seguir.",
+            "categoria_video": "Una de las siguientes opciones: MIEDO, VERGUENZA, MOTIVACION, BARRERAS_LOGISTICAS, PRIORIDAD_ALTA, GENERAL"
+        }
+        """
+
+        # Prompt del Usuario (Datos a analizar)
+        user_prompt = f"""Por favor analiza los siguientes datos y genera el JSON solicitado:
+        
+        RESPUESTAS DEL CUESTIONARIO:
+        {json.dumps(respuestas, indent=2, ensure_ascii=False)}
+        DATOS DEMOGRÁFICOS:
+        {json.dumps(datos_demograficos or {}, indent=2, ensure_ascii=False)}
+        """
+        
+        # Configuración de generación para forzar JSON
+        generation_config = genai.GenerationConfig(
+            response_mime_type="application/json",
+            temperature=0.7
+        )
+
+        # Llamada a Gemini
+        # Combinamos las instrucciones del sistema y el prompt del usuario
+        full_prompt = system_instruction + "\n\n" + user_prompt
+        
+        response = model.generate_content(
+            full_prompt,
+            generation_config=generation_config
         )
         
-        # Extraer y parsear la respuesta JSON
-        respuesta_texto = response.choices[0].message.content.strip()
+        # Procesar respuesta
+        respuesta_texto = response.text
         
-        # Intentar parsear el JSON
+        # Parsear el JSON
         try:
             respuesta_json = json.loads(respuesta_texto)
             consejo = respuesta_json.get('consejo', '')
             categoria_video = respuesta_json.get('categoria_video', 'GENERAL').upper()
             
-            # Seleccionar el video según la categoría
-            video = VIDEOS_EDUCATIVOS.get(categoria_video, VIDEOS_EDUCATIVOS['GENERAL'])
+            # Validar que la categoría exista, si no, usar GENERAL
+            if categoria_video not in VIDEOS_EDUCATIVOS:
+                categoria_video = 'GENERAL'
+            
+            video = VIDEOS_EDUCATIVOS[categoria_video]
             
             return {
                 'consejo': consejo,
                 'video': video,
                 'categoria': categoria_video
             }
+            
         except json.JSONDecodeError as e:
-            print(f"Error al parsear JSON de la respuesta de IA: {str(e)}")
-            print(f"Respuesta recibida: {respuesta_texto}")
-            # Si falla el parseo, intentar extraer el consejo del texto y usar categoría GENERAL
+            print(f"Error al parsear JSON de Gemini: {str(e)}")
+            # Fallback en caso de error de parseo
             return {
-                'consejo': respuesta_texto,
+                'consejo': "Hubo un pequeño error técnico al generar el consejo, pero recuerda que realizarte el PAP es fundamental para tu salud. Acude a tu CESFAM más cercano.",
                 'video': VIDEOS_EDUCATIVOS['GENERAL'],
                 'categoria': 'GENERAL'
             }
-    
+            
     except Exception as e:
-        # En caso de error, retornar None
-        print(f"Error al generar recomendación con IA: {str(e)}")
+        print(f"Error crítico al conectar con Gemini: {str(e)}")
         return None
 
 @app.route('/api/respuestas', methods=['POST'])
@@ -918,12 +948,10 @@ def guardar_respuestas():
         data = request.json
         respuestas = data.get('respuestas', {})
         timestamp = data.get('timestamp')
-        usar_ia = data.get('usar_ia', False)  # Flag opcional para activar IA
+        usar_ia = data.get('usar_ia', False)
         
-        # Crear directorio de respuestas si no existe
         os.makedirs('respuestas', exist_ok=True)
         
-        # Guardar respuestas en archivo JSON
         filename = f"respuestas/respuestas_{timestamp}.json"
         with open(filename, 'w', encoding='utf-8') as f:
             json.dump({
@@ -931,40 +959,37 @@ def guardar_respuestas():
                 'respuestas': respuestas
             }, f, indent=2, ensure_ascii=False)
         
-        # Preparar respuesta base
         response_data = {
             'success': True,
             'message': 'Respuestas guardadas correctamente',
             'filename': filename
         }
         
-        # Si se solicita, generar recomendación con IA
-        if usar_ia and client:
-            # Extraer datos demográficos de las respuestas
-            datos_demograficos = {
-                'edad': respuestas.get('I3'),
-                'sexo_asignado': respuestas.get('I1'),
-                'genero': respuestas.get('I2'),
-                'nivel_educacional': respuestas.get('I4'),
-                'estado_civil': respuestas.get('I5'),
-                'tiene_pareja': respuestas.get('I6')
-            }
-            
-            resultado_ia = generar_recomendacion_ia(respuestas, datos_demograficos)
-            
-            if resultado_ia:
-                # El resultado ahora incluye 'consejo' y 'video'
-                response_data['recomendacion_ia'] = {
-                    'consejo': resultado_ia.get('consejo', ''),
-                    'video': resultado_ia.get('video', VIDEOS_EDUCATIVOS['GENERAL']),
-                    'categoria': resultado_ia.get('categoria', 'GENERAL')
+        if usar_ia:
+            if model: # Verificamos si Gemini está configurado
+                datos_demograficos = {
+                    'edad': respuestas.get('I3'),
+                    'sexo_asignado': respuestas.get('I1'),
+                    'genero': respuestas.get('I2'),
+                    'nivel_educacional': respuestas.get('I4'),
+                    'estado_civil': respuestas.get('I5'),
+                    'tiene_pareja': respuestas.get('I6')
                 }
+                
+                resultado_ia = generar_recomendacion_ia(respuestas, datos_demograficos)
+                
+                if resultado_ia:
+                    response_data['recomendacion_ia'] = {
+                        'consejo': resultado_ia.get('consejo', ''),
+                        'video': resultado_ia.get('video', VIDEOS_EDUCATIVOS['GENERAL']),
+                        'categoria': resultado_ia.get('categoria', 'GENERAL')
+                    }
+                else:
+                    response_data['recomendacion_ia'] = None
+                    response_data['mensaje_ia'] = 'No se pudo generar la recomendación con IA'
             else:
                 response_data['recomendacion_ia'] = None
-                response_data['mensaje_ia'] = 'No se pudo generar la recomendación con IA'
-        elif usar_ia and not client:
-            response_data['recomendacion_ia'] = None
-            response_data['mensaje_ia'] = 'API de OpenAI no configurada. Configure OPENAI_API_KEY para usar esta funcionalidad.'
+                response_data['mensaje_ia'] = 'API Key de Gemini no configurada.'
         
         return jsonify(response_data)
     except Exception as e:
@@ -973,38 +998,30 @@ def guardar_respuestas():
             'message': f'Error al guardar respuestas: {str(e)}'
         }), 500
 
+# Endpoint de análisis manual (sin IA)
 @app.route('/api/analisis', methods=['POST'])
 def analizar_respuestas():
-    """
-    Endpoint para analizar las respuestas del cuestionario CPC-28
-    y generar recomendaciones personalizadas de 'Mujer Sana IA'
-    """
     try:
         data = request.json
         respuestas = data.get('respuestas', {})
         
         if not respuestas:
-            return jsonify({
-                'success': False,
-                'message': 'No se proporcionaron respuestas para analizar'
-            }), 400
+            return jsonify({'success': False, 'message': 'No se proporcionaron respuestas'}), 400
         
-        # Realizar análisis
-        analisis = analizar_respuestas_cpc28(respuestas)
+        # Asegúrate de descomentar o incluir tu función analizar_respuestas_cpc28 completa arriba
+        analisis_datos = analizar_respuestas_cpc28(respuestas)
         
         return jsonify({
-            'success': True,
-            'analisis': analisis
+            'success': True, 
+            'analisis': {
+                'recomendacion': analisis_datos['recomendacion'],
+                'video': analisis_datos['video'],
+                'categoria': analisis_datos['categoria_video'],
+                'fuente': 'tradicional'
+            }
         })
     except Exception as e:
-        return jsonify({
-            'success': False,
-            'message': f'Error al analizar respuestas: {str(e)}'
-        }), 500
+        return jsonify({'success': False, 'message': str(e)}), 500
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)
-
-
-
-
