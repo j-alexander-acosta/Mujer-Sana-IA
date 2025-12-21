@@ -2,6 +2,7 @@ from flask import Flask, render_template, jsonify, request
 from flask_cors import CORS
 import json
 import os
+import random
 import google.generativeai as genai  # Importamos la librería de Google
 from dotenv import load_dotenv
 
