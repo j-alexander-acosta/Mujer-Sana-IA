@@ -402,7 +402,7 @@ CUESTIONARIO = {
         },
         {
             "id": "A",
-            "titulo": "VIII. BARRERAS PARA ADHERIR AL TAMIZAJE REPORTADAS POR LAS MUJERES",
+            "titulo": "VI. BARRERAS PARA ADHERIR AL TAMIZAJE REPORTADAS POR LAS MUJERES",
             "preguntas": [
                 {
                     "id": "A1",
@@ -444,7 +444,7 @@ CUESTIONARIO = {
         },
         {
             "id": "B",
-            "titulo": "IX. SEÑALES DE ACCIÓN (MOTIVACIÓN) PARA ADHERIR AL TAMIZAJE REPORTADAS POR LAS MUJERES",
+            "titulo": "VII. SEÑALES DE ACCIÓN (MOTIVACIÓN) PARA ADHERIR AL TAMIZAJE REPORTADAS POR LAS MUJERES",
             "preguntas": [
                 {
                     "id": "B1",
@@ -498,7 +498,7 @@ CUESTIONARIO = {
         },
         {
             "id": "C",
-            "titulo": "X. SEVERIDAD DEL CÁNCER CÉRVICOUTERINO Y SUSCEPTIBILIDAD PERCIBIDA PARA DESARROLLARLO REPORTADA POR LAS MUJERES",
+            "titulo": "VIII. SEVERIDAD DEL CÁNCER CÉRVICOUTERINO Y SUSCEPTIBILIDAD PERCIBIDA PARA DESARROLLARLO REPORTADA POR LAS MUJERES",
             "preguntas": [
                 {
                     "id": "C1",
