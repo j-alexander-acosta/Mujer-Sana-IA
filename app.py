@@ -222,11 +222,11 @@ CUESTIONARIO = {
             ]
         },
         {
-            "id": "III",
-            "titulo": "IV. HISTORIA CLÍNICA Y BIOMETRÍA",
+            "id": "II",
+            "titulo": "III. HISTORIA CLÍNICA Y BIOMETRÍA",
             "preguntas": [
                 {
-                    "id": "III1",
+                    "id": "II1",
                     "texto": "¿Alguna vez un doctor o médico le ha dicho que tiene o padece de alguna de las siguientes condiciones? (Marque todas las que correspondan)",
                     "tipo": "opcion_multiple",
                     "opciones": [
@@ -241,18 +241,18 @@ CUESTIONARIO = {
                     ]
                 },
                 {
-                    "id": "III2",
+                    "id": "II2",
                     "texto": "Datos Biométricos (Aproximados)",
                     "tipo": "subpreguntas",
                     "preguntas": [
                         {
-                            "id": "III2A",
+                            "id": "II2A",
                             "texto": "Peso actual (Kg)",
                             "tipo": "numero",
                             "unidad": "Kg"
                         },
                         {
-                            "id": "III2B",
+                            "id": "II2B",
                             "texto": "Estatura (cm)",
                             "tipo": "numero",
                             "unidad": "cm"
@@ -260,12 +260,12 @@ CUESTIONARIO = {
                     ]
                 },
                 {
-                    "id": "III3",
+                    "id": "II3",
                     "texto": "¿Alguna vez se ha realizado...?",
                     "tipo": "subpreguntas",
                     "preguntas": [
                         {
-                            "id": "III3A",
+                            "id": "II3A",
                             "texto": "Una mamografía",
                             "tipo": "opcion_unica",
                             "opciones": [
@@ -274,7 +274,7 @@ CUESTIONARIO = {
                             ]
                         },
                         {
-                            "id": "III3B",
+                            "id": "II3B",
                             "texto": "Un papanicolaou (PAP)",
                             "tipo": "opcion_unica",
                             "opciones": [
@@ -285,13 +285,13 @@ CUESTIONARIO = {
                     ]
                 },
                 {
-                    "id": "III4",
+                    "id": "II4",
                     "texto": "(Si respondió SÍ en la anterior) ¿Se ha realizado estos exámenes en los últimos 3 años?",
                     "tipo": "subpreguntas",
                     "condicional": True,
                     "preguntas": [
                         {
-                            "id": "III4A",
+                            "id": "II4A",
                             "texto": "Mamografía",
                             "tipo": "opcion_unica",
                             "opciones": [
@@ -300,7 +300,7 @@ CUESTIONARIO = {
                             ]
                         },
                         {
-                            "id": "III4B",
+                            "id": "II4B",
                             "texto": "Papanicolaou",
                             "tipo": "opcion_unica",
                             "opciones": [
@@ -313,17 +313,17 @@ CUESTIONARIO = {
             ]
         },
         {
-            "id": "IV",
-            "titulo": "V. SALUD SEXUAL Y REPRODUCTIVA",
+            "id": "III",
+            "titulo": "IV. SALUD SEXUAL Y REPRODUCTIVA",
             "preguntas": [
                 {
-                    "id": "IV1",
+                    "id": "III1",
                     "texto": "¿A qué edad aproximadamente tuvo su primera menstruación o regla?",
                     "tipo": "numero",
                     "unidad": "años"
                 },
                 {
-                    "id": "IV2",
+                    "id": "III2",
                     "texto": "¿Ha tenido menstruación o regla en el último año?",
                     "tipo": "opcion_unica",
                     "opciones": [
@@ -332,7 +332,7 @@ CUESTIONARIO = {
                     ]
                 },
                 {
-                    "id": "IV3",
+                    "id": "III3",
                     "texto": "(Si respondió NO) ¿Cuál es la razón por la cual no ha tenido menstruación?",
                     "tipo": "opcion_unica",
                     "condicional": True,
@@ -345,7 +345,7 @@ CUESTIONARIO = {
                     ]
                 },
                 {
-                    "id": "IV4",
+                    "id": "III4",
                     "texto": "(Si aplica Menopausia) ¿Ha tomado hormonas (terapia hormonal) para la menopausia?",
                     "tipo": "opcion_unica",
                     "condicional": True,
@@ -356,7 +356,7 @@ CUESTIONARIO = {
                     ]
                 },
                 {
-                    "id": "IV5",
+                    "id": "III5",
                     "texto": "¿Ha estado embarazada alguna vez en su vida?",
                     "tipo": "opcion_unica",
                     "opciones": [
@@ -365,7 +365,7 @@ CUESTIONARIO = {
                     ]
                 },
                 {
-                    "id": "IV6",
+                    "id": "III6",
                     "texto": "¿Cuántos embarazos ha tenido a lo largo de su vida? (Incluya partos, abortos o pérdidas)",
                     "tipo": "numero",
                     "condicional": True,
@@ -373,7 +373,7 @@ CUESTIONARIO = {
                     "requiere_valor": "si"
                 },
                 {
-                    "id": "IV7",
+                    "id": "III7",
                     "texto": "Su último embarazo terminó con:",
                     "tipo": "opcion_unica",
                     "condicional": True,
@@ -387,7 +387,7 @@ CUESTIONARIO = {
                     ]
                 },
                 {
-                    "id": "IV8",
+                    "id": "III8",
                     "texto": "(Si tuvo parto) ¿Algún médico(a) le diagnosticó depresión postparto?",
                     "tipo": "opcion_unica",
                     "condicional": True,
@@ -402,7 +402,7 @@ CUESTIONARIO = {
         },
         {
             "id": "A",
-            "titulo": "VI. BARRERAS PARA ADHERIR AL TAMIZAJE REPORTADAS POR LAS MUJERES",
+            "titulo": "V. BARRERAS PARA ADHERIR AL TAMIZAJE REPORTADAS POR LAS MUJERES",
             "preguntas": [
                 {
                     "id": "A1",
@@ -444,7 +444,7 @@ CUESTIONARIO = {
         },
         {
             "id": "B",
-            "titulo": "VII. SEÑALES DE ACCIÓN (MOTIVACIÓN) PARA ADHERIR AL TAMIZAJE REPORTADAS POR LAS MUJERES",
+            "titulo": "VI. SEÑALES DE ACCIÓN (MOTIVACIÓN) PARA ADHERIR AL TAMIZAJE REPORTADAS POR LAS MUJERES",
             "preguntas": [
                 {
                     "id": "B1",
@@ -498,7 +498,7 @@ CUESTIONARIO = {
         },
         {
             "id": "C",
-            "titulo": "VIII. SEVERIDAD DEL CÁNCER CÉRVICOUTERINO Y SUSCEPTIBILIDAD PERCIBIDA PARA DESARROLLARLO REPORTADA POR LAS MUJERES",
+            "titulo": "VII. SEVERIDAD DEL CÁNCER CÉRVICOUTERINO Y SUSCEPTIBILIDAD PERCIBIDA PARA DESARROLLARLO REPORTADA POR LAS MUJERES",
             "preguntas": [
                 {
                     "id": "C1",
@@ -582,8 +582,8 @@ def analizar_respuestas_cpc28(respuestas):
     edad = respuestas.get('I3')
     nunca_pap = False
     
-    # Verificar si se ha hecho PAP (III3B)
-    if respuestas.get('III3B') == 'no':
+    # Verificar si se ha hecho PAP (II3B)
+    if respuestas.get('II3B') == 'no':
         nunca_pap = True
     
     # Prioridad alta: >25 años y nunca se ha hecho PAP
