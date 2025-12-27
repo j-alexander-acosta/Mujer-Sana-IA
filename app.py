@@ -166,15 +166,6 @@ CUESTIONARIO = {
             "titulo": "II. PERFIL Y DETERMINANTES SOCIALES",
             "preguntas": [
                 {
-                    "id": "I1",
-                    "texto": "¿Cuál es su sexo asignado al nacer?",
-                    "tipo": "opcion_unica",
-                    "opciones": [
-                        {"valor": "hombre", "texto": "Hombre"},
-                        {"valor": "mujer", "texto": "Mujer"}
-                    ]
-                },
-                {
                     "id": "I2",
                     "texto": "¿Cuál es el género con el que Usted se identifica?",
                     "tipo": "opcion_unica",
@@ -232,89 +223,10 @@ CUESTIONARIO = {
         },
         {
             "id": "II",
-            "titulo": "III. SALUD MENTAL Y BIENESTAR GENERAL",
+            "titulo": "III. HISTORIA CLÍNICA Y BIOMETRÍA",
             "preguntas": [
                 {
                     "id": "II1",
-                    "texto": "¿Cómo calificaría su calidad de vida?",
-                    "tipo": "opcion_unica",
-                    "opciones": [
-                        {"valor": 1, "texto": "Muy mala"},
-                        {"valor": 2, "texto": "Mala"},
-                        {"valor": 3, "texto": "Ni buena ni mala"},
-                        {"valor": 4, "texto": "Buena"},
-                        {"valor": 5, "texto": "Muy buena"}
-                    ]
-                },
-                {
-                    "id": "II2",
-                    "texto": "Durante las dos últimas semanas, ¿con qué frecuencia ha sentido molestias debido a los siguientes problemas?",
-                    "tipo": "subpreguntas",
-                    "instrucciones": "Escala: 1. Nunca | 2. Algunos días | 3. Más de la mitad de los días | 4. Casi todos los días",
-                    "preguntas": [
-                        {
-                            "id": "II2A",
-                            "texto": "Siente poco interés o placer en hacer cosas",
-                            "tipo": "opcion_unica",
-                            "opciones": [
-                                {"valor": 1, "texto": "Nunca"},
-                                {"valor": 2, "texto": "Algunos días"},
-                                {"valor": 3, "texto": "Más de la mitad de los días"},
-                                {"valor": 4, "texto": "Casi todos los días"}
-                            ]
-                        },
-                        {
-                            "id": "II2B",
-                            "texto": "Se ha sentido decaído(a), deprimido(a) o sin esperanzas",
-                            "tipo": "opcion_unica",
-                            "opciones": [
-                                {"valor": 1, "texto": "Nunca"},
-                                {"valor": 2, "texto": "Algunos días"},
-                                {"valor": 3, "texto": "Más de la mitad de los días"},
-                                {"valor": 4, "texto": "Casi todos los días"}
-                            ]
-                        },
-                        {
-                            "id": "II2C",
-                            "texto": "Se ha sentido nervioso(a), ansioso(a) o con los nervios de punta",
-                            "tipo": "opcion_unica",
-                            "opciones": [
-                                {"valor": 1, "texto": "Nunca"},
-                                {"valor": 2, "texto": "Algunos días"},
-                                {"valor": 3, "texto": "Más de la mitad de los días"},
-                                {"valor": 4, "texto": "Casi todos los días"}
-                            ]
-                        },
-                        {
-                            "id": "II2D",
-                            "texto": "No ha sido capaz de parar o controlar su preocupación",
-                            "tipo": "opcion_unica",
-                            "opciones": [
-                                {"valor": 1, "texto": "Nunca"},
-                                {"valor": 2, "texto": "Algunos días"},
-                                {"valor": 3, "texto": "Más de la mitad de los días"},
-                                {"valor": 4, "texto": "Casi todos los días"}
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "id": "II3",
-                    "texto": "¿Alguna vez un doctor o médico le ha dicho que tiene o padece de Depresión?",
-                    "tipo": "opcion_unica",
-                    "opciones": [
-                        {"valor": "si", "texto": "Sí"},
-                        {"valor": "no", "texto": "No"}
-                    ]
-                }
-            ]
-        },
-        {
-            "id": "III",
-            "titulo": "IV. HISTORIA CLÍNICA Y BIOMETRÍA",
-            "preguntas": [
-                {
-                    "id": "III1",
                     "texto": "¿Alguna vez un doctor o médico le ha dicho que tiene o padece de alguna de las siguientes condiciones? (Marque todas las que correspondan)",
                     "tipo": "opcion_multiple",
                     "opciones": [
@@ -329,18 +241,18 @@ CUESTIONARIO = {
                     ]
                 },
                 {
-                    "id": "III2",
+                    "id": "II2",
                     "texto": "Datos Biométricos (Aproximados)",
                     "tipo": "subpreguntas",
                     "preguntas": [
                         {
-                            "id": "III2A",
+                            "id": "II2A",
                             "texto": "Peso actual (Kg)",
                             "tipo": "numero",
                             "unidad": "Kg"
                         },
                         {
-                            "id": "III2B",
+                            "id": "II2B",
                             "texto": "Estatura (cm)",
                             "tipo": "numero",
                             "unidad": "cm"
@@ -348,12 +260,12 @@ CUESTIONARIO = {
                     ]
                 },
                 {
-                    "id": "III3",
+                    "id": "II3",
                     "texto": "¿Alguna vez se ha realizado...?",
                     "tipo": "subpreguntas",
                     "preguntas": [
                         {
-                            "id": "III3A",
+                            "id": "II3A",
                             "texto": "Una mamografía",
                             "tipo": "opcion_unica",
                             "opciones": [
@@ -362,7 +274,7 @@ CUESTIONARIO = {
                             ]
                         },
                         {
-                            "id": "III3B",
+                            "id": "II3B",
                             "texto": "Un papanicolaou (PAP)",
                             "tipo": "opcion_unica",
                             "opciones": [
@@ -373,13 +285,13 @@ CUESTIONARIO = {
                     ]
                 },
                 {
-                    "id": "III4",
+                    "id": "II4",
                     "texto": "(Si respondió SÍ en la anterior) ¿Se ha realizado estos exámenes en los últimos 3 años?",
                     "tipo": "subpreguntas",
                     "condicional": True,
                     "preguntas": [
                         {
-                            "id": "III4A",
+                            "id": "II4A",
                             "texto": "Mamografía",
                             "tipo": "opcion_unica",
                             "opciones": [
@@ -388,7 +300,7 @@ CUESTIONARIO = {
                             ]
                         },
                         {
-                            "id": "III4B",
+                            "id": "II4B",
                             "texto": "Papanicolaou",
                             "tipo": "opcion_unica",
                             "opciones": [
@@ -401,17 +313,17 @@ CUESTIONARIO = {
             ]
         },
         {
-            "id": "IV",
-            "titulo": "V. SALUD SEXUAL Y REPRODUCTIVA",
+            "id": "III",
+            "titulo": "IV. SALUD SEXUAL Y REPRODUCTIVA",
             "preguntas": [
                 {
-                    "id": "IV1",
+                    "id": "III1",
                     "texto": "¿A qué edad aproximadamente tuvo su primera menstruación o regla?",
                     "tipo": "numero",
                     "unidad": "años"
                 },
                 {
-                    "id": "IV2",
+                    "id": "III2",
                     "texto": "¿Ha tenido menstruación o regla en el último año?",
                     "tipo": "opcion_unica",
                     "opciones": [
@@ -420,7 +332,7 @@ CUESTIONARIO = {
                     ]
                 },
                 {
-                    "id": "IV3",
+                    "id": "III3",
                     "texto": "(Si respondió NO) ¿Cuál es la razón por la cual no ha tenido menstruación?",
                     "tipo": "opcion_unica",
                     "condicional": True,
@@ -433,7 +345,7 @@ CUESTIONARIO = {
                     ]
                 },
                 {
-                    "id": "IV4",
+                    "id": "III4",
                     "texto": "(Si aplica Menopausia) ¿Ha tomado hormonas (terapia hormonal) para la menopausia?",
                     "tipo": "opcion_unica",
                     "condicional": True,
@@ -444,7 +356,7 @@ CUESTIONARIO = {
                     ]
                 },
                 {
-                    "id": "IV5",
+                    "id": "III5",
                     "texto": "¿Ha estado embarazada alguna vez en su vida?",
                     "tipo": "opcion_unica",
                     "opciones": [
@@ -453,7 +365,7 @@ CUESTIONARIO = {
                     ]
                 },
                 {
-                    "id": "IV6",
+                    "id": "III6",
                     "texto": "¿Cuántos embarazos ha tenido a lo largo de su vida? (Incluya partos, abortos o pérdidas)",
                     "tipo": "numero",
                     "condicional": True,
@@ -461,7 +373,7 @@ CUESTIONARIO = {
                     "requiere_valor": "si"
                 },
                 {
-                    "id": "IV7",
+                    "id": "III7",
                     "texto": "Su último embarazo terminó con:",
                     "tipo": "opcion_unica",
                     "condicional": True,
@@ -475,7 +387,7 @@ CUESTIONARIO = {
                     ]
                 },
                 {
-                    "id": "IV8",
+                    "id": "III8",
                     "texto": "(Si tuvo parto) ¿Algún médico(a) le diagnosticó depresión postparto?",
                     "tipo": "opcion_unica",
                     "condicional": True,
@@ -489,130 +401,8 @@ CUESTIONARIO = {
             ]
         },
         {
-            "id": "V",
-            "titulo": "VI. FUNCIONALIDAD SEXUAL Y ANTICONCEPCIÓN",
-            "preguntas": [
-                {
-                    "id": "V1",
-                    "texto": "En su última relación sexual (o actualmente), ¿Ustedes usaron algún método anticonceptivo?",
-                    "tipo": "opcion_unica",
-                    "opciones": [
-                        {"valor": "si", "texto": "Sí"},
-                        {"valor": "no", "texto": "No"}
-                    ]
-                },
-                {
-                    "id": "V2",
-                    "texto": "¿Cuál método utiliza principalmente?",
-                    "tipo": "opcion_unica",
-                    "opciones": [
-                        {"valor": "condon", "texto": "Condón (masculino/femenino)"},
-                        {"valor": "pildora", "texto": "Píldora o pastillas"},
-                        {"valor": "diu", "texto": "DIU / T de cobre"},
-                        {"valor": "implante", "texto": "Implante / Inyección"},
-                        {"valor": "esterilizacion", "texto": "Esterilización"},
-                        {"valor": "ninguno", "texto": "Ninguno / Natural"},
-                        {"valor": "otro", "texto": "Otro"}
-                    ]
-                },
-                {
-                    "id": "V3",
-                    "texto": "En los últimos 12 meses, ¿con qué frecuencia usted ha experimentado alguna de las siguientes situaciones en su vida sexual?",
-                    "tipo": "subpreguntas",
-                    "instrucciones": "Escala: Nunca | A veces | Frecuentemente",
-                    "preguntas": [
-                        {
-                            "id": "V3A",
-                            "texto": "Ausencia o bajo deseo sexual",
-                            "tipo": "opcion_unica",
-                            "opciones": [
-                                {"valor": 1, "texto": "Nunca"},
-                                {"valor": 2, "texto": "A veces"},
-                                {"valor": 3, "texto": "Frecuentemente"}
-                            ]
-                        },
-                        {
-                            "id": "V3B",
-                            "texto": "Ausencia de orgasmos",
-                            "tipo": "opcion_unica",
-                            "opciones": [
-                                {"valor": 1, "texto": "Nunca"},
-                                {"valor": 2, "texto": "A veces"},
-                                {"valor": 3, "texto": "Frecuentemente"}
-                            ]
-                        },
-                        {
-                            "id": "V3C",
-                            "texto": "Dolor o dificultad en la penetración",
-                            "tipo": "opcion_unica",
-                            "opciones": [
-                                {"valor": 1, "texto": "Nunca"},
-                                {"valor": 2, "texto": "A veces"},
-                                {"valor": 3, "texto": "Frecuentemente"}
-                            ]
-                        },
-                        {
-                            "id": "V3D",
-                            "texto": "Dificultad para la lubricación vaginal",
-                            "tipo": "opcion_unica",
-                            "opciones": [
-                                {"valor": 1, "texto": "Nunca"},
-                                {"valor": 2, "texto": "A veces"},
-                                {"valor": 3, "texto": "Frecuentemente"}
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "id": "V4",
-                    "texto": "¿Alguna vez un médico le ha dicho que tiene alguna Infección de Transmisión Sexual (VIH, VPH, Sífilis, etc.)?",
-                    "tipo": "opcion_unica",
-                    "opciones": [
-                        {"valor": "si", "texto": "Sí"},
-                        {"valor": "no", "texto": "No"}
-                    ]
-                }
-            ]
-        },
-        {
-            "id": "VI",
-            "titulo": "VII. EXPERIENCIAS SENSIBLES (Autoaplicado sugerido)",
-            "preguntas": [
-                {
-                    "id": "VI1",
-                    "texto": "En el marco de sus visitas a servicios de ginecología, ¿alguna vez sintió que el personal juzgaba sus prácticas, hizo comentarios inapropiados o le realizaron procedimientos bruscos/dolorosos?",
-                    "tipo": "opcion_unica",
-                    "opciones": [
-                        {"valor": "si_una_vez", "texto": "Sí, una vez"},
-                        {"valor": "si_mas_veces", "texto": "Sí, más de una vez"},
-                        {"valor": "nunca", "texto": "Nunca"}
-                    ]
-                },
-                {
-                    "id": "VI2",
-                    "texto": "¿Alguna vez en su vida alguien le tocó sus partes privadas bajo manipulación, engaño o fuerza sin su consentimiento?",
-                    "tipo": "opcion_unica",
-                    "opciones": [
-                        {"valor": "si", "texto": "Sí"},
-                        {"valor": "no", "texto": "No"},
-                        {"valor": "prefiere_no_responder", "texto": "Prefiero no responder"}
-                    ]
-                },
-                {
-                    "id": "VI3",
-                    "texto": "¿Alguna vez en su vida ha experimentado situaciones de acoso (agarrones, punteos, exhibicionismo) en lugares públicos?",
-                    "tipo": "opcion_unica",
-                    "opciones": [
-                        {"valor": "si", "texto": "Sí"},
-                        {"valor": "no", "texto": "No"},
-                        {"valor": "prefiere_no_responder", "texto": "Prefiero no responder"}
-                    ]
-                }
-            ]
-        },
-        {
             "id": "A",
-            "titulo": "VIII. BARRERAS PARA ADHERIR AL TAMIZAJE REPORTADAS POR LAS MUJERES",
+            "titulo": "V. BARRERAS PARA ADHERIR AL TAMIZAJE REPORTADAS POR LAS MUJERES",
             "preguntas": [
                 {
                     "id": "A1",
@@ -654,7 +444,7 @@ CUESTIONARIO = {
         },
         {
             "id": "B",
-            "titulo": "IX. SEÑALES DE ACCIÓN (MOTIVACIÓN) PARA ADHERIR AL TAMIZAJE REPORTADAS POR LAS MUJERES",
+            "titulo": "VI. SEÑALES DE ACCIÓN (MOTIVACIÓN) PARA ADHERIR AL TAMIZAJE REPORTADAS POR LAS MUJERES",
             "preguntas": [
                 {
                     "id": "B1",
@@ -708,7 +498,7 @@ CUESTIONARIO = {
         },
         {
             "id": "C",
-            "titulo": "X. SEVERIDAD DEL CÁNCER CÉRVICOUTERINO Y SUSCEPTIBILIDAD PERCIBIDA PARA DESARROLLARLO REPORTADA POR LAS MUJERES",
+            "titulo": "VII. SEVERIDAD DEL CÁNCER CÉRVICOUTERINO Y SUSCEPTIBILIDAD PERCIBIDA PARA DESARROLLARLO REPORTADA POR LAS MUJERES",
             "preguntas": [
                 {
                     "id": "C1",
@@ -792,8 +582,8 @@ def analizar_respuestas_cpc28(respuestas):
     edad = respuestas.get('I3')
     nunca_pap = False
     
-    # Verificar si se ha hecho PAP (III3B)
-    if respuestas.get('III3B') == 'no':
+    # Verificar si se ha hecho PAP (II3B)
+    if respuestas.get('II3B') == 'no':
         nunca_pap = True
     
     # Prioridad alta: >25 años y nunca se ha hecho PAP
@@ -805,18 +595,11 @@ def analizar_respuestas_cpc28(respuestas):
     parrafo2 = ""
     parrafo3 = ""
     
-    # Párrafo 1: Contención emocional si hay barreras
-    if barreras_emocionales:
-        if 'miedo' in barreras_emocionales and 'verguenza' in barreras_emocionales:
-            parrafo1 = "Entiendo que el miedo y la vergüenza pueden hacer que posterguemos el Papanicolaou, y es completamente normal sentirse así. Te quiero contar que el examen es muy rápido (dura apenas unos minutos) y es fundamental para detectar cualquier cambio a tiempo, cuando es más fácil de tratar. El personal de salud está capacitado para hacerte sentir cómoda y respetar tu privacidad en todo momento."
-        elif 'miedo' in barreras_emocionales:
-            parrafo1 = "Comprendo que el miedo a saber si hay algo puede ser abrumador. Sin embargo, el Papanicolaou es precisamente la herramienta que nos permite detectar cambios tempranos, cuando el tratamiento es más efectivo y menos invasivo. Recuerda que la mayoría de los resultados son normales, y si hay algo que tratar, detectarlo a tiempo es la mejor noticia que puedes recibir."
-        elif 'verguenza' in barreras_emocionales:
-            parrafo1 = "Es natural sentir vergüenza, pero quiero que sepas que para el personal de salud es un procedimiento rutinario y profesional. Ellos están acostumbrados y se enfocan en cuidar tu salud, no en juzgar. El examen es rápido y puedes pedir que sea una matrona o doctora si te hace sentir más cómoda."
-    elif prioridad_alta:
+    # Párrafo 1: Mensaje principal (sin enfoque emocional)
+    if prioridad_alta:
         parrafo1 = f"Hola, veo que tienes {edad} años y aún no te has realizado el Papanicolaou. Este examen es esencial para tu salud, especialmente a partir de los 25 años según las recomendaciones del MINSAL. No te preocupes, nunca es tarde para empezar a cuidarte."
     else:
-        parrafo1 = "Gracias por completar el cuestionario. Tu salud ginecológica es importante y el Papanicolaou es una herramienta clave para prevenir el cáncer de cuello uterino."
+        parrafo1 = "Gracias por completar el cuestionario. El Papanicolaou es una herramienta clave para prevenir el cáncer de cuello uterino y cuidar tu salud."
     
     # Párrafo 2: Motivación y recordatorios
     if falta_recordatorios:
@@ -852,6 +635,11 @@ def analizar_respuestas_cpc28(respuestas):
     elif barreras_logisticas:
         categoria_video = 'BARRERAS_LOGISTICAS'
         
+    video_obj = VIDEOS_EDUCATIVOS.get(categoria_video, VIDEOS_EDUCATIVOS['GENERAL'])
+    video_alt = None
+    if isinstance(video_obj, dict) and 'alternativas' in video_obj and video_obj['alternativas']:
+        video_alt = video_obj['alternativas'][0]
+    
     return {
         'recomendacion': recomendacion_completa,
         'prioridad_alta': prioridad_alta,
@@ -861,7 +649,8 @@ def analizar_respuestas_cpc28(respuestas):
         },
         'falta_recordatorios': falta_recordatorios,
         'categoria_video': categoria_video,
-        'video': VIDEOS_EDUCATIVOS.get(categoria_video, VIDEOS_EDUCATIVOS['GENERAL'])
+        'video': video_obj,
+        'video_alt': video_alt
     }
 
 def generar_recomendacion_ia(respuestas, datos_demograficos=None):
@@ -923,10 +712,14 @@ def generar_recomendacion_ia(respuestas, datos_demograficos=None):
                 categoria_video = 'GENERAL'
             
             video = VIDEOS_EDUCATIVOS[categoria_video]
+            video_alt = None
+            if isinstance(video, dict) and 'alternativas' in video and video['alternativas']:
+                video_alt = video['alternativas'][0]
             
             return {
                 'consejo': consejo,
                 'video': video,
+                'video_alt': video_alt,
                 'categoria': categoria_video
             }
             
@@ -936,6 +729,7 @@ def generar_recomendacion_ia(respuestas, datos_demograficos=None):
             return {
                 'consejo': "Hubo un pequeño error técnico al generar el consejo, pero recuerda que realizarte el PAP es fundamental para tu salud. Acude a tu CESFAM más cercano.",
                 'video': VIDEOS_EDUCATIVOS['GENERAL'],
+                'video_alt': VIDEOS_EDUCATIVOS['GENERAL'].get('alternativas', [None])[0] if isinstance(VIDEOS_EDUCATIVOS['GENERAL'], dict) else None,
                 'categoria': 'GENERAL'
             }
             
@@ -983,6 +777,7 @@ def guardar_respuestas():
                     response_data['recomendacion_ia'] = {
                         'consejo': resultado_ia.get('consejo', ''),
                         'video': resultado_ia.get('video', VIDEOS_EDUCATIVOS['GENERAL']),
+                        'video_alt': resultado_ia.get('video_alt'),
                         'categoria': resultado_ia.get('categoria', 'GENERAL')
                     }
                 else:
@@ -1017,6 +812,7 @@ def analizar_respuestas():
             'analisis': {
                 'recomendacion': analisis_datos['recomendacion'],
                 'video': analisis_datos['video'],
+                'video_alt': analisis_datos.get('video_alt'),
                 'categoria': analisis_datos['categoria_video'],
                 'fuente': 'tradicional'
             }

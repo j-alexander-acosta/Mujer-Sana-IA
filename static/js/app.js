@@ -834,6 +834,10 @@ function mostrarResultado(analisis = null) {
         const videoIframe = document.getElementById('video-iframe');
         const videoTitulo = document.getElementById('video-titulo');
         const videoDescripcion = document.getElementById('video-descripcion');
+        const video2Container = document.getElementById('video2-container');
+        const video2Iframe = document.getElementById('video2-iframe');
+        const video2Titulo = document.getElementById('video2-titulo');
+        const video2Descripcion = document.getElementById('video2-descripcion');
         
         // Formatear el texto con saltos de línea
         // La IA puede devolver texto con saltos de línea, así que los preservamos
@@ -865,11 +869,26 @@ function mostrarResultado(analisis = null) {
         } else {
             videoContainer.style.display = 'none';
         }
+
+        // Mostrar segundo video si está disponible
+        if (analisis.video_alt && analisis.video_alt.url) {
+            video2Iframe.src = analisis.video_alt.url;
+            if (analisis.video_alt.titulo) {
+                video2Titulo.textContent = analisis.video_alt.titulo;
+            }
+            if (analisis.video_alt.descripcion) {
+                video2Descripcion.textContent = analisis.video_alt.descripcion;
+            }
+            video2Container.style.display = 'block';
+        } else {
+            video2Container.style.display = 'none';
+        }
         
         analisisContainer.style.display = 'block';
     } else {
         document.getElementById('analisis-container').style.display = 'none';
         document.getElementById('video-container').style.display = 'none';
+        document.getElementById('video2-container').style.display = 'none';
     }
     
     window.scrollTo({ top: 0, behavior: 'smooth' });
