@@ -3,6 +3,7 @@ from flask_cors import CORS
 import json
 import os
 import random
+import re
 import google.generativeai as genai  # Importamos la librería de Google
 from dotenv import load_dotenv
 
@@ -539,6 +540,116 @@ CUESTIONARIO = {
     ]
 }
 
+# ---------------- Validaciones de entrada ----------------
+
+def rut_valido(rut):
+    """Valida un RUT chileno aplicando el algoritmo módulo 11.
+    Acepta formatos como '12.345.678-5', '12345678-5' o '123456785'.
+    Devuelve True si es válido, False en otro caso.
+    """
+    if not rut:
+        return False
+    try:
+        s = str(rut).strip()
+        # Eliminar espacios y puntos
+        s = s.replace('.', '').replace(' ', '')
+        # Separar cuerpo y dígito verificador si hay guion
+        if '-' in s:
+            cuerpo, dv = s.split('-')
+        else:
+            cuerpo, dv = s[:-1], s[-1]
+        dv = dv.upper()
+        if not cuerpo.isdigit() or len(cuerpo) == 0:
+            return False
+
+        suma = 0
+        multiplicador = 2
+        for digit in reversed(cuerpo):
+            suma += int(digit) * multiplicador
+            multiplicador += 1
+            if multiplicador > 7:
+                multiplicador = 2
+
+        resto = 11 - (suma % 11)
+        if resto == 11:
+            dv_calc = '0'
+        elif resto == 10:
+            dv_calc = 'K'
+        else:
+            dv_calc = str(resto)
+
+        return dv == dv_calc
+    except Exception:
+        return False
+
+def validar_email(email):
+    if not email or not isinstance(email, str):
+        return False
+    pattern = r'^[^\s@]+@[^\s@]+\.[^\s@]+'
+    return re.match(pattern, email) is not None
+
+def validar_telefono(tel):
+    if tel is None or tel == '':
+        return True  # Opcional
+    if not isinstance(tel, str):
+        return False
+    cleaned = re.sub(r'[\s\-()]+', '', tel)
+    return re.match(r'^\+?[0-9]{8,15}$', cleaned) is not None
+
+def validar_respuestas(respuestas):
+    errors = []
+    # Nombre (obligatorio)
+    nombre = respuestas.get('DATOS_NOMBRE')
+    if not nombre or not isinstance(nombre, str) or len(nombre.strip().split()) < 2:
+        errors.append('DATOS_NOMBRE: Nombre completo requerido (nombre y apellido).')
+
+    # RUT (obligatorio)
+    rut = respuestas.get('DATOS_RUT')
+    if not rut or not rut_valido(str(rut)):
+        errors.append('DATOS_RUT: RUT inválido. Formato esperado 12345678-9')
+
+    # Email (obligatorio)
+    email = respuestas.get('DATOS_EMAIL')
+    if not email or not validar_email(str(email)):
+        errors.append('DATOS_EMAIL: Correo electrónico inválido.')
+
+    # Teléfono (opcional)
+    telefono = respuestas.get('DATOS_TELEFONO')
+    if telefono is not None and telefono != '' and not validar_telefono(str(telefono)):
+        errors.append('DATOS_TELEFONO: Teléfono inválido.')
+
+    # Edad I3 (si presente validar rango)
+    edad = respuestas.get('I3')
+    if edad is not None and edad != '':
+        try:
+            edad_n = int(edad)
+            if edad_n < 10 or edad_n > 120:
+                errors.append('I3: Edad fuera de rango (10-120).')
+        except Exception:
+            errors.append('I3: Edad debe ser un número entero.')
+
+    # Peso II2A (si presente)
+    peso = respuestas.get('II2A')
+    if peso is not None and peso != '':
+        try:
+            p = float(peso)
+            if p < 20 or p > 300:
+                errors.append('II2A: Peso fuera de rango (20-300 Kg).')
+        except Exception:
+            errors.append('II2A: Peso debe ser numérico.')
+
+    # Estatura II2B (si presente)
+    est = respuestas.get('II2B')
+    if est is not None and est != '':
+        try:
+            h = float(est)
+            if h < 50 or h > 250:
+                errors.append('II2B: Estatura fuera de rango (50-250 cm).')
+        except Exception:
+            errors.append('II2B: Estatura debe ser numérica.')
+
+    return (len(errors) == 0, errors)
+
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -744,6 +855,10 @@ def guardar_respuestas():
         respuestas = data.get('respuestas', {})
         timestamp = data.get('timestamp')
         usar_ia = data.get('usar_ia', False)
+        # Validar campos críticos antes de guardar
+        valido, errores = validar_respuestas(respuestas)
+        if not valido:
+            return jsonify({'success': False, 'message': 'Errores de validación', 'errors': errores}), 400
         
         os.makedirs('respuestas', exist_ok=True)
         
@@ -803,6 +918,10 @@ def analizar_respuestas():
         
         if not respuestas:
             return jsonify({'success': False, 'message': 'No se proporcionaron respuestas'}), 400
+        # Validar datos antes del análisis
+        valido, errores = validar_respuestas(respuestas)
+        if not valido:
+            return jsonify({'success': False, 'message': 'Errores de validación', 'errors': errores}), 400
         
         # Asegúrate de descomentar o incluir tu función analizar_respuestas_cpc28 completa arriba
         analisis_datos = analizar_respuestas_cpc28(respuestas)

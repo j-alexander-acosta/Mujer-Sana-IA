@@ -306,6 +306,13 @@ header h1 {
     font-family: inherit;
 }
 
+/* Estilo para inputs inválidos */
+.input-invalid {
+    border-color: var(--danger-color) !important;
+    box-shadow: 0 0 0 4px rgba(231,76,60,0.06) !important;
+    background: #fff6f6;
+}
+
 .opcion.texto input[type="text"]:focus,
 .opcion.email input[type="email"]:focus,
 .opcion.fecha input[type="date"]:focus {

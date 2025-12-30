@@ -4,6 +4,72 @@ let preguntaActual = 0;
 let totalPreguntas = 0;
 let todasLasPreguntas = [];
 
+// Validaciones de campos clave
+function validateName(name) {
+    if (!name || typeof name !== 'string') return false;
+    const trimmed = name.trim();
+    // Al menos dos palabras y solo letras, espacios y acentos básicos
+    return /^[A-Za-zÁÉÍÓÚáéíóúÑñ]+(\s+[A-Za-zÁÉÍÓÚáéíóúÑñ]+)+$/.test(trimmed);
+}
+
+function validateRUT(rut) {
+    if (!rut) return false;
+    let s = String(rut).trim();
+    s = s.replace(/\./g, '').replace(/\s/g, '');
+    let cuerpo = '';
+    let dv = '';
+    if (s.includes('-')) {
+        const parts = s.split('-');
+        cuerpo = parts[0];
+        dv = (parts[1] || '').toUpperCase();
+    } else {
+        // Si no tiene guion, tomar el último carácter como DV
+        cuerpo = s.slice(0, -1);
+        dv = s.slice(-1).toUpperCase();
+    }
+    if (!/^[0-9]+$/.test(cuerpo) || cuerpo.length === 0) return false;
+
+    // Calculo del DV (mismo algoritmo que en servidor)
+    let num = parseInt(cuerpo, 10);
+    let M = 0, S = 1;
+    while (num) {
+        S = (S + (num % 10) * (9 - (M++ % 6))) % 11;
+        num = Math.floor(num / 10);
+    }
+    const dvCalc = S ? String(S - 1) : 'K';
+    return dv === dvCalc;
+}
+
+function validateEmail(email) {
+    if (!email || typeof email !== 'string') return false;
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(email);
+}
+
+function validatePhone(phone) {
+    if (!phone || typeof phone !== 'string') return false;
+    const cleaned = phone.replace(/\s|\(|\)|-/g, '');
+    return /^\+?[0-9]{8,15}$/.test(cleaned);
+}
+
+function validateAge(age) {
+    if (age === undefined || age === null || age === '') return false;
+    const n = Number(age);
+    return Number.isInteger(n) && n >= 10 && n <= 120;
+}
+
+function validateWeight(w) {
+    if (w === undefined || w === null || w === '') return false;
+    const n = Number(w);
+    return !isNaN(n) && n >= 20 && n <= 300;
+}
+
+function validateHeight(h) {
+    if (h === undefined || h === null || h === '') return false;
+    const n = Number(h);
+    return !isNaN(n) && n >= 50 && n <= 250;
+}
+
 // Cargar cuestionario al iniciar
 document.addEventListener('DOMContentLoaded', async () => {
     try {
@@ -491,6 +557,99 @@ function guardarRespuestaMultiple(preguntaId, valor, checked) {
 }
 
 function guardarRespuesta(preguntaId, valor) {
+    // Validaciones específicas por campo
+    if (preguntaId === 'DATOS_NOMBRE') {
+        if (!validateName(valor)) {
+            alert('Nombre inválido. Ingrese nombre completo (al menos nombre y apellido).');
+            const el = document.getElementById(preguntaId);
+            if (el) {
+                el.classList.add('input-invalid');
+                el.focus();
+            }
+            return;
+        }
+        // limpiar estado visual si ahora es válido
+        const elNombre = document.getElementById(preguntaId);
+        if (elNombre) elNombre.classList.remove('input-invalid');
+    }
+    if (preguntaId === 'DATOS_RUT') {
+        if (!validateRUT(String(valor || '')) ) {
+            alert('RUT inválido. Asegúrese de incluir guion y dígito verificador (ej: 12345678-9).');
+            const el = document.getElementById(preguntaId);
+            if (el) {
+                el.classList.add('input-invalid');
+                el.focus();
+            }
+            return;
+        }
+        const elRut = document.getElementById(preguntaId);
+        if (elRut) elRut.classList.remove('input-invalid');
+    }
+    if (preguntaId === 'DATOS_EMAIL') {
+        if (!validateEmail(String(valor || ''))) {
+            alert('Correo electrónico inválido. Ingrese una dirección válida.');
+            const el = document.getElementById(preguntaId);
+            if (el) {
+                el.classList.add('input-invalid');
+                el.focus();
+            }
+            return;
+        }
+        const elEmail = document.getElementById(preguntaId);
+        if (elEmail) elEmail.classList.remove('input-invalid');
+    }
+    if (preguntaId === 'DATOS_TELEFONO') {
+        if (valor !== '' && valor !== null && !validatePhone(String(valor))) {
+            alert('Teléfono inválido. Ingrese solo dígitos y opcionalmente +, entre 8 y 15 caracteres.');
+            const el = document.getElementById(preguntaId);
+            if (el) {
+                el.classList.add('input-invalid');
+                el.focus();
+            }
+            return;
+        }
+        const elTel = document.getElementById(preguntaId);
+        if (elTel) elTel.classList.remove('input-invalid');
+    }
+    if (preguntaId === 'I3') {
+        if (!validateAge(valor)) {
+            alert('Edad inválida. Ingrese un número entero entre 10 y 120.');
+            const el = document.getElementById(preguntaId);
+            if (el) {
+                el.classList.add('input-invalid');
+                el.focus();
+            }
+            return;
+        }
+        const elEdad = document.getElementById(preguntaId);
+        if (elEdad) elEdad.classList.remove('input-invalid');
+    }
+    if (preguntaId === 'II2A') { // Peso
+        if (!validateWeight(valor)) {
+            alert('Peso inválido. Ingrese un valor en Kg entre 20 y 300.');
+            const el = document.getElementById(preguntaId);
+            if (el) {
+                el.classList.add('input-invalid');
+                el.focus();
+            }
+            return;
+        }
+        const elPeso = document.getElementById(preguntaId);
+        if (elPeso) elPeso.classList.remove('input-invalid');
+    }
+    if (preguntaId === 'II2B') { // Estatura
+        if (!validateHeight(valor)) {
+            alert('Estatura inválida. Ingrese un valor en cm entre 50 y 250.');
+            const el = document.getElementById(preguntaId);
+            if (el) {
+                el.classList.add('input-invalid');
+                el.focus();
+            }
+            return;
+        }
+        const elEst = document.getElementById(preguntaId);
+        if (elEst) elEst.classList.remove('input-invalid');
+    }
     // Para checkboxes de consentimiento, guardar como booleano
     if (typeof valor === 'boolean') {
         respuestas[preguntaId] = valor;
@@ -506,6 +665,9 @@ function guardarRespuesta(preguntaId, valor) {
     } else {
     respuestas[preguntaId] = valor;
     }
+    // Almacenar quitando clase de error si existe
+    const elemento = document.getElementById(preguntaId);
+    if (elemento) elemento.classList.remove('input-invalid');
     
     // Marcar pregunta como respondida
     const preguntaElement = document.querySelector(`[data-pregunta-id="${preguntaId}"]`);
@@ -645,15 +807,20 @@ document.getElementById('btn-siguiente').addEventListener('click', () => {
         (respuestas[pregunta.id] === true || respuestas[pregunta.id] === 'true') : true;
     
     if (!tieneRespuesta || !tieneSeleccionMultiple || !tieneConsentimiento) {
-        const mensaje = pregunta.tipo === 'numero' ? 
-            'Por favor, ingresa un valor numérico antes de continuar.' :
-            pregunta.tipo === 'opcion_multiple' ?
-            'Por favor, selecciona al menos una opción antes de continuar.' :
-            pregunta.tipo === 'consentimiento' ?
-            'Por favor, acepta el consentimiento informado para continuar.' :
-            pregunta.tipo === 'fecha' || pregunta.tipo === 'texto' || pregunta.tipo === 'email' ?
-            'Por favor, completa este campo antes de continuar.' :
-            'Por favor, selecciona una respuesta antes de continuar.';
+        // Mensajes específicos por campo
+        let mensaje = null;
+        if (pregunta.tipo === 'numero') mensaje = 'Por favor, ingresa un valor numérico antes de continuar.';
+        else if (pregunta.tipo === 'opcion_multiple') mensaje = 'Por favor, selecciona al menos una opción antes de continuar.';
+        else if (pregunta.tipo === 'consentimiento') mensaje = 'Por favor, acepta el consentimiento informado para continuar.';
+        else if (pregunta.id === 'DATOS_NOMBRE') mensaje = 'Por favor, ingresa tu nombre completo (nombre y apellido).';
+        else if (pregunta.id === 'DATOS_RUT') mensaje = 'Por favor, ingresa tu RUT con dígito verificador (ej: 12345678-9).';
+        else if (pregunta.id === 'DATOS_EMAIL') mensaje = 'Por favor, ingresa un correo electrónico válido.';
+        else if (pregunta.id === 'DATOS_TELEFONO') mensaje = 'Por favor, ingresa un teléfono válido o déjalo vacío si no aplica.';
+        else if (pregunta.id === 'I3') mensaje = 'Por favor, ingresa tu edad (número entre 10 y 120).';
+        else if (pregunta.id === 'II2A') mensaje = 'Por favor, ingresa tu peso en Kg (20-300).';
+        else if (pregunta.id === 'II2B') mensaje = 'Por favor, ingresa tu estatura en cm (50-250).';
+        else mensaje = 'Por favor, completa este campo antes de continuar.';
+
         alert(mensaje);
         return;
     }
@@ -715,11 +882,13 @@ document.getElementById('btn-enviar').addEventListener('click', async (e) => {
         (Array.isArray(respuestas[pregunta.id]) && respuestas[pregunta.id].length > 0) : true;
     
     if (!tieneRespuesta || !tieneSeleccionMultiple) {
-        const mensaje = pregunta.tipo === 'numero' ? 
-            'Por favor, ingresa un valor numérico antes de enviar.' :
-            pregunta.tipo === 'opcion_multiple' ?
-            'Por favor, selecciona al menos una opción antes de enviar.' :
-            'Por favor, selecciona una respuesta antes de enviar.';
+        let mensaje = null;
+        if (pregunta.tipo === 'numero') mensaje = 'Por favor, ingresa un valor numérico antes de enviar.';
+        else if (pregunta.tipo === 'opcion_multiple') mensaje = 'Por favor, selecciona al menos una opción antes de enviar.';
+        else if (pregunta.id === 'DATOS_NOMBRE') mensaje = 'Por favor, ingresa tu nombre completo (nombre y apellido).';
+        else if (pregunta.id === 'DATOS_RUT') mensaje = 'Por favor, ingresa tu RUT con dígito verificador (ej: 12345678-9).';
+        else if (pregunta.id === 'DATOS_EMAIL') mensaje = 'Por favor, ingresa un correo electrónico válido.';
+        else mensaje = 'Por favor, selecciona una respuesta antes de enviar.';
         alert(mensaje);
         return;
     }
