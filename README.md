@@ -49,8 +49,11 @@ Esta aplicación web permite administrar el cuestionario **CPC-28** (Creencias s
 
 #### Pasos de Instalación
 
-1. **Clonar o descargar el proyecto** (si aplica)
-   ```bash start.sh
+1. **Clonar el proyecto:**
+   ```bash
+   git clone https://github.com/j-alexander-acosta/Mujer-Sana-IA.git
+   cd Mujer-Sana-IA
+   ```
 
 2. **Instalar dependencias:**
    ```bash
@@ -73,14 +76,25 @@ Esta aplicación web permite administrar el cuestionario **CPC-28** (Creencias s
 Mujer Sana IA/
 ├── app.py                 # Servidor Flask principal
 ├── requirements.txt       # Dependencias del proyecto
+├── start.sh               # Script de inicio para despliegue
+├── .env                   # Variables de entorno (no incluir en git)
+├── .gitignore             # Archivos ignorados por git
+├── README.md              # Documentación del proyecto
+├── log.txt                # Registro de actividad
 ├── templates/
-│   └── index.html        # Página principal
+│   └── index.html         # Página principal
 ├── static/
 │   ├── css/
-│   │   └── style.css     # Estilos responsive
+│   │   └── style.css      # Estilos responsive
 │   └── js/
-│       └── app.js        # Lógica del frontend
-└── respuestas/           # Directorio donde se guardan las respuestas (se crea automáticamente)
+│       └── app.js         # Lógica del frontend
+├── documents/             # Documentación del proyecto FONIS
+│   ├── CPC28_Chile.pdf    # Cuestionario CPC-28 original
+│   └── ...                # Otros documentos de referencia
+├── media/                 # Contenido multimedia educativo
+│   ├── Video 1.mp4        # Videos educativos sobre VPH
+│   └── ...                # Otros videos
+└── respuestas/            # Respuestas guardadas (se crea automáticamente)
 ```
 
 #### Secciones del Cuestionario
