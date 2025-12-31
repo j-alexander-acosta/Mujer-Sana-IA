@@ -557,99 +557,65 @@ function guardarRespuestaMultiple(preguntaId, valor, checked) {
 }
 
 function guardarRespuesta(preguntaId, valor) {
-    // Validaciones específicas por campo
+    // Validaciones específicas por campo - Solo marcar visualmente, NO mostrar alert aquí
+    // Los alerts se mostrarán al presionar "Siguiente" para evitar bucles infinitos
     if (preguntaId === 'DATOS_NOMBRE') {
+        const el = document.getElementById(preguntaId);
         if (!validateName(valor)) {
-            alert('Nombre inválido. Ingrese nombre completo (al menos nombre y apellido).');
-            const el = document.getElementById(preguntaId);
-            if (el) {
-                el.classList.add('input-invalid');
-                el.focus();
-            }
-            return;
+            if (el) el.classList.add('input-invalid');
+        } else {
+            if (el) el.classList.remove('input-invalid');
         }
-        // limpiar estado visual si ahora es válido
-        const elNombre = document.getElementById(preguntaId);
-        if (elNombre) elNombre.classList.remove('input-invalid');
     }
     if (preguntaId === 'DATOS_RUT') {
-        if (!validateRUT(String(valor || '')) ) {
-            alert('RUT inválido. Asegúrese de incluir guion y dígito verificador (ej: 12345678-9).');
-            const el = document.getElementById(preguntaId);
-            if (el) {
-                el.classList.add('input-invalid');
-                el.focus();
-            }
-            return;
+        const el = document.getElementById(preguntaId);
+        if (!validateRUT(String(valor || ''))) {
+            if (el) el.classList.add('input-invalid');
+        } else {
+            if (el) el.classList.remove('input-invalid');
         }
-        const elRut = document.getElementById(preguntaId);
-        if (elRut) elRut.classList.remove('input-invalid');
     }
     if (preguntaId === 'DATOS_EMAIL') {
+        const el = document.getElementById(preguntaId);
         if (!validateEmail(String(valor || ''))) {
-            alert('Correo electrónico inválido. Ingrese una dirección válida.');
-            const el = document.getElementById(preguntaId);
-            if (el) {
-                el.classList.add('input-invalid');
-                el.focus();
-            }
-            return;
+            if (el) el.classList.add('input-invalid');
+        } else {
+            if (el) el.classList.remove('input-invalid');
         }
-        const elEmail = document.getElementById(preguntaId);
-        if (elEmail) elEmail.classList.remove('input-invalid');
     }
     if (preguntaId === 'DATOS_TELEFONO') {
+        const el = document.getElementById(preguntaId);
         if (valor !== '' && valor !== null && !validatePhone(String(valor))) {
-            alert('Teléfono inválido. Ingrese solo dígitos y opcionalmente +, entre 8 y 15 caracteres.');
-            const el = document.getElementById(preguntaId);
-            if (el) {
-                el.classList.add('input-invalid');
-                el.focus();
-            }
-            return;
+            if (el) el.classList.add('input-invalid');
+        } else {
+            if (el) el.classList.remove('input-invalid');
         }
-        const elTel = document.getElementById(preguntaId);
-        if (elTel) elTel.classList.remove('input-invalid');
     }
     if (preguntaId === 'I3') {
+        const el = document.getElementById(preguntaId);
         if (!validateAge(valor)) {
-            alert('Edad inválida. Ingrese un número entero entre 10 y 120.');
-            const el = document.getElementById(preguntaId);
-            if (el) {
-                el.classList.add('input-invalid');
-                el.focus();
-            }
-            return;
+            if (el) el.classList.add('input-invalid');
+        } else {
+            if (el) el.classList.remove('input-invalid');
         }
-        const elEdad = document.getElementById(preguntaId);
-        if (elEdad) elEdad.classList.remove('input-invalid');
     }
     if (preguntaId === 'II2A') { // Peso
+        const el = document.getElementById(preguntaId);
         if (!validateWeight(valor)) {
-            alert('Peso inválido. Ingrese un valor en Kg entre 20 y 300.');
-            const el = document.getElementById(preguntaId);
-            if (el) {
-                el.classList.add('input-invalid');
-                el.focus();
-            }
-            return;
+            if (el) el.classList.add('input-invalid');
+        } else {
+            if (el) el.classList.remove('input-invalid');
         }
-        const elPeso = document.getElementById(preguntaId);
-        if (elPeso) elPeso.classList.remove('input-invalid');
     }
     if (preguntaId === 'II2B') { // Estatura
+        const el = document.getElementById(preguntaId);
         if (!validateHeight(valor)) {
-            alert('Estatura inválida. Ingrese un valor en cm entre 50 y 250.');
-            const el = document.getElementById(preguntaId);
-            if (el) {
-                el.classList.add('input-invalid');
-                el.focus();
-            }
-            return;
+            if (el) el.classList.add('input-invalid');
+        } else {
+            if (el) el.classList.remove('input-invalid');
         }
-        const elEst = document.getElementById(preguntaId);
-        if (elEst) elEst.classList.remove('input-invalid');
     }
+    
     // Para checkboxes de consentimiento, guardar como booleano
     if (typeof valor === 'boolean') {
         respuestas[preguntaId] = valor;
@@ -789,6 +755,50 @@ document.getElementById('btn-siguiente').addEventListener('click', () => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
         return;
+    }
+    
+    // Validar formato de campos específicos antes de avanzar
+    if (pregunta.id === 'DATOS_NOMBRE' && respuestas[pregunta.id]) {
+        if (!validateName(respuestas[pregunta.id])) {
+            alert('Nombre inválido. Ingrese nombre completo (al menos nombre y apellido).');
+            return;
+        }
+    }
+    if (pregunta.id === 'DATOS_RUT' && respuestas[pregunta.id]) {
+        if (!validateRUT(String(respuestas[pregunta.id] || ''))) {
+            alert('RUT inválido. Asegúrese de incluir guion y dígito verificador (ej: 12345678-9).');
+            return;
+        }
+    }
+    if (pregunta.id === 'DATOS_EMAIL' && respuestas[pregunta.id]) {
+        if (!validateEmail(String(respuestas[pregunta.id] || ''))) {
+            alert('Correo electrónico inválido. Ingrese una dirección válida.');
+            return;
+        }
+    }
+    if (pregunta.id === 'DATOS_TELEFONO' && respuestas[pregunta.id] && respuestas[pregunta.id] !== '') {
+        if (!validatePhone(String(respuestas[pregunta.id]))) {
+            alert('Teléfono inválido. Ingrese solo dígitos y opcionalmente +, entre 8 y 15 caracteres.');
+            return;
+        }
+    }
+    if (pregunta.id === 'I3' && respuestas[pregunta.id]) {
+        if (!validateAge(respuestas[pregunta.id])) {
+            alert('Edad inválida. Ingrese un número entero entre 10 y 120.');
+            return;
+        }
+    }
+    if (pregunta.id === 'II2A' && respuestas[pregunta.id]) {
+        if (!validateWeight(respuestas[pregunta.id])) {
+            alert('Peso inválido. Ingrese un valor en Kg entre 20 y 300.');
+            return;
+        }
+    }
+    if (pregunta.id === 'II2B' && respuestas[pregunta.id]) {
+        if (!validateHeight(respuestas[pregunta.id])) {
+            alert('Estatura inválida. Ingrese un valor en cm entre 50 y 250.');
+            return;
+        }
     }
     
     // Validar que la pregunta esté respondida
