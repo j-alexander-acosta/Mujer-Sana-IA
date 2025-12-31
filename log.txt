@@ -1,0 +1,15 @@
+ * Tip: There are .env or .flaskenv files present. Do "pip install python-dotenv" to use them.
+Usage: python -m flask run [OPTIONS]
+Try 'python -m flask run --help' for help.
+
+Error: While importing 'app', an ImportError was raised:
+
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/flask/cli.py", line 219, in locate_app
+    __import__(module_name)
+    ~~~~~~~~~~^^^^^^^^^^^^^
+  File "/Users/alexanderacosta/Documents/Proyectos/Mujer Sana IA/app.py", line 7, in <module>
+    import google.generativeai as genai  # Importamos la librería de Google
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ModuleNotFoundError: No module named 'google'
+
