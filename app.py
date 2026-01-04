@@ -15,7 +15,7 @@ CORS(app)
 
 # --- CONFIGURACIÓN DE GEMINI ---
 # Obtener la API KEY del archivo .env
-GEMINI_API_KEY = "AIzaSyCQg_VbqRwEpCMI-ronMVDc428DxDvACu0"
+GEMINI_API_KEY = "********************************"
 
 if GEMINI_API_KEY:
     genai.configure(api_key=GEMINI_API_KEY)
