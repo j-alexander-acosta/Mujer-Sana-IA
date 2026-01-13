@@ -13,3 +13,630 @@ Traceback (most recent call last):
     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 ModuleNotFoundError: No module named 'google'
 
+[2026-01-13 17:30:01 -0300] [76924] [INFO] Starting gunicorn 23.0.0
+[2026-01-13 17:30:01 -0300] [76924] [INFO] Listening at: http://0.0.0.0:5000 (76924)
+[2026-01-13 17:30:01 -0300] [76924] [INFO] Using worker: gthread
+[2026-01-13 17:30:01 -0300] [76925] [INFO] Booting worker with pid: 76925
+[2026-01-13 17:30:01 -0300] [76927] [INFO] Booting worker with pid: 76927
+[2026-01-13 17:30:01 -0300] [76928] [INFO] Booting worker with pid: 76928
+[2026-01-13 17:30:01 -0300] [76929] [INFO] Booting worker with pid: 76929
+[2026-01-13 17:30:01 -0300] [76930] [INFO] Booting worker with pid: 76930
+[2026-01-13 17:30:01 -0300] [76931] [INFO] Booting worker with pid: 76931
+[2026-01-13 17:30:01 -0300] [76932] [INFO] Booting worker with pid: 76932
+[2026-01-13 17:30:01 -0300] [76935] [INFO] Booting worker with pid: 76935
+[2026-01-13 17:30:01 -0300] [76936] [INFO] Booting worker with pid: 76936
+[2026-01-13 17:30:01 -0300] [76937] [INFO] Booting worker with pid: 76937
+[2026-01-13 17:30:02 -0300] [76938] [INFO] Booting worker with pid: 76938
+[2026-01-13 17:30:02 -0300] [76939] [INFO] Booting worker with pid: 76939
+[2026-01-13 17:30:02 -0300] [76940] [INFO] Booting worker with pid: 76940
+[2026-01-13 17:30:02 -0300] [76941] [INFO] Booting worker with pid: 76941
+[2026-01-13 17:30:02 -0300] [76944] [INFO] Booting worker with pid: 76944
+[2026-01-13 17:30:02 -0300] [76945] [INFO] Booting worker with pid: 76945
+[2026-01-13 17:30:02 -0300] [76946] [INFO] Booting worker with pid: 76946
+/Users/alexanderacosta/Documents/Proyectos/Mujer Sana IA/app.py:7: FutureWarning: 
+
+All support for the `google.generativeai` package has ended. It will no longer be receiving 
+updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
+See README for more details:
+
+https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
+
+  import google.generativeai as genai  # Importamos la librería de Google
+/Users/alexanderacosta/Documents/Proyectos/Mujer Sana IA/app.py:7: FutureWarning: 
+
+All support for the `google.generativeai` package has ended. It will no longer be receiving 
+updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
+See README for more details:
+
+https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
+
+  import google.generativeai as genai  # Importamos la librería de Google
+/Users/alexanderacosta/Documents/Proyectos/Mujer Sana IA/app.py:7: FutureWarning: 
+
+All support for the `google.generativeai` package has ended. It will no longer be receiving 
+updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
+See README for more details:
+
+https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
+
+  import google.generativeai as genai  # Importamos la librería de Google
+✅ Cliente de Google Gemini configurado correctamente.
+✅ Cliente de Google Gemini configurado correctamente.
+/Users/alexanderacosta/Documents/Proyectos/Mujer Sana IA/app.py:7: FutureWarning: 
+
+All support for the `google.generativeai` package has ended. It will no longer be receiving 
+updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
+See README for more details:
+
+https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
+
+  import google.generativeai as genai  # Importamos la librería de Google
+✅ Cliente de Google Gemini configurado correctamente.
+✅ Cliente de Google Gemini configurado correctamente.
+/Users/alexanderacosta/Documents/Proyectos/Mujer Sana IA/app.py:7: FutureWarning: 
+
+All support for the `google.generativeai` package has ended. It will no longer be receiving 
+updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
+See README for more details:
+
+https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
+
+  import google.generativeai as genai  # Importamos la librería de Google
+✅ Cliente de Google Gemini configurado correctamente.
+/Users/alexanderacosta/Documents/Proyectos/Mujer Sana IA/app.py:7: FutureWarning: 
+
+All support for the `google.generativeai` package has ended. It will no longer be receiving 
+updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
+See README for more details:
+
+https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
+
+  import google.generativeai as genai  # Importamos la librería de Google
+/Users/alexanderacosta/Documents/Proyectos/Mujer Sana IA/app.py:7: FutureWarning: 
+
+All support for the `google.generativeai` package has ended. It will no longer be receiving 
+updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
+See README for more details:
+
+https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
+
+  import google.generativeai as genai  # Importamos la librería de Google
+✅ Cliente de Google Gemini configurado correctamente.
+✅ Cliente de Google Gemini configurado correctamente.
+/Users/alexanderacosta/Documents/Proyectos/Mujer Sana IA/app.py:7: FutureWarning: 
+
+All support for the `google.generativeai` package has ended. It will no longer be receiving 
+updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
+See README for more details:
+
+https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
+
+  import google.generativeai as genai  # Importamos la librería de Google
+✅ Cliente de Google Gemini configurado correctamente.
+/Users/alexanderacosta/Documents/Proyectos/Mujer Sana IA/app.py:7: FutureWarning: 
+
+All support for the `google.generativeai` package has ended. It will no longer be receiving 
+updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
+See README for more details:
+
+https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
+
+  import google.generativeai as genai  # Importamos la librería de Google
+✅ Cliente de Google Gemini configurado correctamente.
+/Users/alexanderacosta/Documents/Proyectos/Mujer Sana IA/app.py:7: FutureWarning: 
+
+All support for the `google.generativeai` package has ended. It will no longer be receiving 
+updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
+See README for more details:
+
+https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
+
+  import google.generativeai as genai  # Importamos la librería de Google
+✅ Cliente de Google Gemini configurado correctamente.
+/Users/alexanderacosta/Documents/Proyectos/Mujer Sana IA/app.py:7: FutureWarning: 
+
+All support for the `google.generativeai` package has ended. It will no longer be receiving 
+updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
+See README for more details:
+
+https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
+
+  import google.generativeai as genai  # Importamos la librería de Google
+✅ Cliente de Google Gemini configurado correctamente.
+/Users/alexanderacosta/Documents/Proyectos/Mujer Sana IA/app.py:7: FutureWarning: 
+
+All support for the `google.generativeai` package has ended. It will no longer be receiving 
+updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
+See README for more details:
+
+https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
+
+  import google.generativeai as genai  # Importamos la librería de Google
+✅ Cliente de Google Gemini configurado correctamente.
+/Users/alexanderacosta/Documents/Proyectos/Mujer Sana IA/app.py:7: FutureWarning: 
+
+All support for the `google.generativeai` package has ended. It will no longer be receiving 
+updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
+See README for more details:
+
+https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
+
+  import google.generativeai as genai  # Importamos la librería de Google
+✅ Cliente de Google Gemini configurado correctamente.
+/Users/alexanderacosta/Documents/Proyectos/Mujer Sana IA/app.py:7: FutureWarning: 
+
+All support for the `google.generativeai` package has ended. It will no longer be receiving 
+updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
+See README for more details:
+
+https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
+
+  import google.generativeai as genai  # Importamos la librería de Google
+✅ Cliente de Google Gemini configurado correctamente.
+/Users/alexanderacosta/Documents/Proyectos/Mujer Sana IA/app.py:7: FutureWarning: 
+
+All support for the `google.generativeai` package has ended. It will no longer be receiving 
+updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
+See README for more details:
+
+https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
+
+  import google.generativeai as genai  # Importamos la librería de Google
+✅ Cliente de Google Gemini configurado correctamente.
+/Users/alexanderacosta/Documents/Proyectos/Mujer Sana IA/app.py:7: FutureWarning: 
+
+All support for the `google.generativeai` package has ended. It will no longer be receiving 
+updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
+See README for more details:
+
+https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
+
+  import google.generativeai as genai  # Importamos la librería de Google
+✅ Cliente de Google Gemini configurado correctamente.
+/Users/alexanderacosta/Documents/Proyectos/Mujer Sana IA/app.py:7: FutureWarning: 
+
+All support for the `google.generativeai` package has ended. It will no longer be receiving 
+updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
+See README for more details:
+
+https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
+
+  import google.generativeai as genai  # Importamos la librería de Google
+✅ Cliente de Google Gemini configurado correctamente.
+[2026-01-13 17:30:27 -0300] [76924] [INFO] Handling signal: int
+[2026-01-13 17:30:27 -0300] [76935] [INFO] Worker exiting (pid: 76935)
+[2026-01-13 17:30:27 -0300] [76940] [INFO] Worker exiting (pid: 76940)
+[2026-01-13 17:30:27 -0300] [76931] [INFO] Worker exiting (pid: 76931)
+[2026-01-13 17:30:27 -0300] [76927] [INFO] Worker exiting (pid: 76927)
+[2026-01-13 17:30:27 -0300] [76929] [INFO] Worker exiting (pid: 76929)
+[2026-01-13 17:30:27 -0300] [76928] [INFO] Worker exiting (pid: 76928)
+[2026-01-13 17:30:27 -0300] [76930] [INFO] Worker exiting (pid: 76930)
+[2026-01-13 17:30:27 -0300] [76937] [INFO] Worker exiting (pid: 76937)
+[2026-01-13 17:30:27 -0300] [76938] [INFO] Worker exiting (pid: 76938)
+[2026-01-13 17:30:27 -0300] [76925] [INFO] Worker exiting (pid: 76925)
+[2026-01-13 17:30:27 -0300] [76941] [INFO] Worker exiting (pid: 76941)
+[2026-01-13 17:30:27 -0300] [76944] [INFO] Worker exiting (pid: 76944)
+[2026-01-13 17:30:27 -0300] [76939] [INFO] Worker exiting (pid: 76939)
+[2026-01-13 17:30:27 -0300] [76932] [INFO] Worker exiting (pid: 76932)
+[2026-01-13 17:30:27 -0300] [76945] [INFO] Worker exiting (pid: 76945)
+[2026-01-13 17:30:27 -0300] [76936] [INFO] Worker exiting (pid: 76936)
+[2026-01-13 17:30:27 -0300] [76946] [INFO] Worker exiting (pid: 76946)
+[2026-01-13 17:30:28 -0300] [76924] [INFO] Shutting down: Master
+[2026-01-13 17:30:31 -0300] [77103] [INFO] Starting gunicorn 23.0.0
+[2026-01-13 17:30:31 -0300] [77103] [INFO] Listening at: http://0.0.0.0:5000 (77103)
+[2026-01-13 17:30:31 -0300] [77103] [INFO] Using worker: gthread
+[2026-01-13 17:30:31 -0300] [77104] [INFO] Booting worker with pid: 77104
+[2026-01-13 17:30:31 -0300] [77105] [INFO] Booting worker with pid: 77105
+[2026-01-13 17:30:31 -0300] [77106] [INFO] Booting worker with pid: 77106
+[2026-01-13 17:30:31 -0300] [77107] [INFO] Booting worker with pid: 77107
+[2026-01-13 17:30:32 -0300] [77108] [INFO] Booting worker with pid: 77108
+[2026-01-13 17:30:32 -0300] [77109] [INFO] Booting worker with pid: 77109
+/Users/alexanderacosta/Documents/Proyectos/Mujer Sana IA/app.py:7: FutureWarning: 
+
+All support for the `google.generativeai` package has ended. It will no longer be receiving 
+updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
+See README for more details:
+
+https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
+
+  import google.generativeai as genai  # Importamos la librería de Google
+/Users/alexanderacosta/Documents/Proyectos/Mujer Sana IA/app.py:7: FutureWarning: 
+
+All support for the `google.generativeai` package has ended. It will no longer be receiving 
+updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
+See README for more details:
+
+https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
+
+  import google.generativeai as genai  # Importamos la librería de Google
+✅ Cliente de Google Gemini configurado correctamente.
+✅ Cliente de Google Gemini configurado correctamente.
+/Users/alexanderacosta/Documents/Proyectos/Mujer Sana IA/app.py:7: FutureWarning: 
+
+All support for the `google.generativeai` package has ended. It will no longer be receiving 
+updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
+See README for more details:
+
+https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
+
+  import google.generativeai as genai  # Importamos la librería de Google
+✅ Cliente de Google Gemini configurado correctamente.
+[2026-01-13 17:30:32 -0300] [77110] [INFO] Booting worker with pid: 77110
+/Users/alexanderacosta/Documents/Proyectos/Mujer Sana IA/app.py:7: FutureWarning: 
+
+All support for the `google.generativeai` package has ended. It will no longer be receiving 
+updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
+See README for more details:
+
+https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
+
+  import google.generativeai as genai  # Importamos la librería de Google
+✅ Cliente de Google Gemini configurado correctamente.
+[2026-01-13 17:30:32 -0300] [77111] [INFO] Booting worker with pid: 77111
+[2026-01-13 17:30:32 -0300] [77112] [INFO] Booting worker with pid: 77112
+/Users/alexanderacosta/Documents/Proyectos/Mujer Sana IA/app.py:7: FutureWarning: 
+
+All support for the `google.generativeai` package has ended. It will no longer be receiving 
+updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
+See README for more details:
+
+https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
+
+  import google.generativeai as genai  # Importamos la librería de Google
+✅ Cliente de Google Gemini configurado correctamente.
+[2026-01-13 17:30:32 -0300] [77113] [INFO] Booting worker with pid: 77113
+/Users/alexanderacosta/Documents/Proyectos/Mujer Sana IA/app.py:7: FutureWarning: 
+
+All support for the `google.generativeai` package has ended. It will no longer be receiving 
+updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
+See README for more details:
+
+https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
+
+  import google.generativeai as genai  # Importamos la librería de Google
+✅ Cliente de Google Gemini configurado correctamente.
+[2026-01-13 17:30:32 -0300] [77114] [INFO] Booting worker with pid: 77114
+/Users/alexanderacosta/Documents/Proyectos/Mujer Sana IA/app.py:7: FutureWarning: 
+
+All support for the `google.generativeai` package has ended. It will no longer be receiving 
+updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
+See README for more details:
+
+https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
+
+  import google.generativeai as genai  # Importamos la librería de Google
+✅ Cliente de Google Gemini configurado correctamente.
+[2026-01-13 17:30:32 -0300] [77115] [INFO] Booting worker with pid: 77115
+/Users/alexanderacosta/Documents/Proyectos/Mujer Sana IA/app.py:7: FutureWarning: 
+
+All support for the `google.generativeai` package has ended. It will no longer be receiving 
+updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
+See README for more details:
+
+https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
+
+  import google.generativeai as genai  # Importamos la librería de Google
+✅ Cliente de Google Gemini configurado correctamente.
+[2026-01-13 17:30:32 -0300] [77116] [INFO] Booting worker with pid: 77116
+/Users/alexanderacosta/Documents/Proyectos/Mujer Sana IA/app.py:7: FutureWarning: 
+
+All support for the `google.generativeai` package has ended. It will no longer be receiving 
+updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
+See README for more details:
+
+https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
+
+  import google.generativeai as genai  # Importamos la librería de Google
+✅ Cliente de Google Gemini configurado correctamente.
+[2026-01-13 17:30:32 -0300] [77117] [INFO] Booting worker with pid: 77117
+/Users/alexanderacosta/Documents/Proyectos/Mujer Sana IA/app.py:7: FutureWarning: 
+
+All support for the `google.generativeai` package has ended. It will no longer be receiving 
+updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
+See README for more details:
+
+https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
+
+  import google.generativeai as genai  # Importamos la librería de Google
+✅ Cliente de Google Gemini configurado correctamente.
+[2026-01-13 17:30:32 -0300] [77118] [INFO] Booting worker with pid: 77118
+[2026-01-13 17:30:32 -0300] [77119] [INFO] Booting worker with pid: 77119
+/Users/alexanderacosta/Documents/Proyectos/Mujer Sana IA/app.py:7: FutureWarning: 
+
+All support for the `google.generativeai` package has ended. It will no longer be receiving 
+updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
+See README for more details:
+
+https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
+
+  import google.generativeai as genai  # Importamos la librería de Google
+✅ Cliente de Google Gemini configurado correctamente.
+/Users/alexanderacosta/Documents/Proyectos/Mujer Sana IA/app.py:7: FutureWarning: 
+
+All support for the `google.generativeai` package has ended. It will no longer be receiving 
+updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
+See README for more details:
+
+https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
+
+  import google.generativeai as genai  # Importamos la librería de Google
+✅ Cliente de Google Gemini configurado correctamente.
+[2026-01-13 17:30:32 -0300] [77120] [INFO] Booting worker with pid: 77120
+/Users/alexanderacosta/Documents/Proyectos/Mujer Sana IA/app.py:7: FutureWarning: 
+
+All support for the `google.generativeai` package has ended. It will no longer be receiving 
+updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
+See README for more details:
+
+https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
+
+  import google.generativeai as genai  # Importamos la librería de Google
+✅ Cliente de Google Gemini configurado correctamente.
+/Users/alexanderacosta/Documents/Proyectos/Mujer Sana IA/app.py:7: FutureWarning: 
+
+All support for the `google.generativeai` package has ended. It will no longer be receiving 
+updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
+See README for more details:
+
+https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
+
+  import google.generativeai as genai  # Importamos la librería de Google
+✅ Cliente de Google Gemini configurado correctamente.
+/Users/alexanderacosta/Documents/Proyectos/Mujer Sana IA/app.py:7: FutureWarning: 
+
+All support for the `google.generativeai` package has ended. It will no longer be receiving 
+updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
+See README for more details:
+
+https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
+
+  import google.generativeai as genai  # Importamos la librería de Google
+/Users/alexanderacosta/Documents/Proyectos/Mujer Sana IA/app.py:7: FutureWarning: 
+
+All support for the `google.generativeai` package has ended. It will no longer be receiving 
+updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
+See README for more details:
+
+https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
+
+  import google.generativeai as genai  # Importamos la librería de Google
+✅ Cliente de Google Gemini configurado correctamente.
+✅ Cliente de Google Gemini configurado correctamente.
+/Users/alexanderacosta/Documents/Proyectos/Mujer Sana IA/app.py:7: FutureWarning: 
+
+All support for the `google.generativeai` package has ended. It will no longer be receiving 
+updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
+See README for more details:
+
+https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
+
+  import google.generativeai as genai  # Importamos la librería de Google
+✅ Cliente de Google Gemini configurado correctamente.
+[2026-01-13 17:33:50 -0300] [77103] [INFO] Handling signal: int
+[2026-01-13 17:33:50 -0300] [77117] [INFO] Worker exiting (pid: 77117)
+[2026-01-13 17:33:50 -0300] [77115] [INFO] Worker exiting (pid: 77115)
+[2026-01-13 17:33:50 -0300] [77112] [INFO] Worker exiting (pid: 77112)
+[2026-01-13 17:33:50 -0300] [77118] [INFO] Worker exiting (pid: 77118)
+[2026-01-13 17:33:50 -0300] [77104] [INFO] Worker exiting (pid: 77104)
+[2026-01-13 17:33:50 -0300] [77110] [INFO] Worker exiting (pid: 77110)
+[2026-01-13 17:33:50 -0300] [77113] [INFO] Worker exiting (pid: 77113)
+[2026-01-13 17:33:50 -0300] [77106] [INFO] Worker exiting (pid: 77106)
+[2026-01-13 17:33:50 -0300] [77119] [INFO] Worker exiting (pid: 77119)
+[2026-01-13 17:33:50 -0300] [77108] [INFO] Worker exiting (pid: 77108)
+[2026-01-13 17:33:50 -0300] [77109] [INFO] Worker exiting (pid: 77109)
+[2026-01-13 17:33:50 -0300] [77111] [INFO] Worker exiting (pid: 77111)
+[2026-01-13 17:33:50 -0300] [77114] [INFO] Worker exiting (pid: 77114)
+[2026-01-13 17:33:50 -0300] [77120] [INFO] Worker exiting (pid: 77120)
+[2026-01-13 17:33:50 -0300] [77116] [INFO] Worker exiting (pid: 77116)
+[2026-01-13 17:33:50 -0300] [77105] [INFO] Worker exiting (pid: 77105)
+[2026-01-13 17:33:50 -0300] [77107] [INFO] Worker exiting (pid: 77107)
+[2026-01-13 17:33:51 -0300] [77103] [INFO] Shutting down: Master
+[2026-01-13 17:34:37 -0300] [78564] [INFO] Starting gunicorn 23.0.0
+[2026-01-13 17:34:37 -0300] [78564] [INFO] Listening at: http://0.0.0.0:5000 (78564)
+[2026-01-13 17:34:37 -0300] [78564] [INFO] Using worker: gthread
+[2026-01-13 17:34:37 -0300] [78565] [INFO] Booting worker with pid: 78565
+[2026-01-13 17:34:37 -0300] [78566] [INFO] Booting worker with pid: 78566
+[2026-01-13 17:34:37 -0300] [78567] [INFO] Booting worker with pid: 78567
+[2026-01-13 17:34:37 -0300] [78568] [INFO] Booting worker with pid: 78568
+[2026-01-13 17:34:37 -0300] [78569] [INFO] Booting worker with pid: 78569
+[2026-01-13 17:34:37 -0300] [78570] [INFO] Booting worker with pid: 78570
+[2026-01-13 17:34:37 -0300] [78571] [INFO] Booting worker with pid: 78571
+[2026-01-13 17:34:37 -0300] [78572] [INFO] Booting worker with pid: 78572
+[2026-01-13 17:34:37 -0300] [78573] [INFO] Booting worker with pid: 78573
+[2026-01-13 17:34:37 -0300] [78574] [INFO] Booting worker with pid: 78574
+[2026-01-13 17:34:37 -0300] [78575] [INFO] Booting worker with pid: 78575
+/Users/alexanderacosta/Documents/Proyectos/Mujer Sana IA/app.py:7: FutureWarning: 
+
+All support for the `google.generativeai` package has ended. It will no longer be receiving 
+updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
+See README for more details:
+
+https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
+
+  import google.generativeai as genai  # Importamos la librería de Google
+/Users/alexanderacosta/Documents/Proyectos/Mujer Sana IA/app.py:7: FutureWarning: 
+
+All support for the `google.generativeai` package has ended. It will no longer be receiving 
+updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
+See README for more details:
+
+https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
+
+  import google.generativeai as genai  # Importamos la librería de Google
+/Users/alexanderacosta/Documents/Proyectos/Mujer Sana IA/app.py:7: FutureWarning: 
+
+All support for the `google.generativeai` package has ended. It will no longer be receiving 
+updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
+See README for more details:
+
+https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
+
+  import google.generativeai as genai  # Importamos la librería de Google
+/Users/alexanderacosta/Documents/Proyectos/Mujer Sana IA/app.py:7: FutureWarning: 
+
+All support for the `google.generativeai` package has ended. It will no longer be receiving 
+updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
+See README for more details:
+
+https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
+
+  import google.generativeai as genai  # Importamos la librería de Google
+✅ Cliente de Google Gemini configurado correctamente.
+✅ Cliente de Google Gemini configurado correctamente.
+✅ Cliente de Google Gemini configurado correctamente.
+/Users/alexanderacosta/Documents/Proyectos/Mujer Sana IA/app.py:7: FutureWarning: 
+
+All support for the `google.generativeai` package has ended. It will no longer be receiving 
+updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
+See README for more details:
+
+https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
+
+  import google.generativeai as genai  # Importamos la librería de Google
+✅ Cliente de Google Gemini configurado correctamente.
+✅ Cliente de Google Gemini configurado correctamente.
+/Users/alexanderacosta/Documents/Proyectos/Mujer Sana IA/app.py:7: FutureWarning: 
+
+All support for the `google.generativeai` package has ended. It will no longer be receiving 
+updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
+See README for more details:
+
+https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
+
+  import google.generativeai as genai  # Importamos la librería de Google
+✅ Cliente de Google Gemini configurado correctamente.
+[2026-01-13 17:34:37 -0300] [78576] [INFO] Booting worker with pid: 78576
+[2026-01-13 17:34:37 -0300] [78577] [INFO] Booting worker with pid: 78577
+/Users/alexanderacosta/Documents/Proyectos/Mujer Sana IA/app.py:7: FutureWarning: 
+
+All support for the `google.generativeai` package has ended. It will no longer be receiving 
+updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
+See README for more details:
+
+https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
+
+  import google.generativeai as genai  # Importamos la librería de Google
+✅ Cliente de Google Gemini configurado correctamente.
+[2026-01-13 17:34:37 -0300] [78578] [INFO] Booting worker with pid: 78578
+[2026-01-13 17:34:37 -0300] [78579] [INFO] Booting worker with pid: 78579
+/Users/alexanderacosta/Documents/Proyectos/Mujer Sana IA/app.py:7: FutureWarning: 
+
+All support for the `google.generativeai` package has ended. It will no longer be receiving 
+updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
+See README for more details:
+
+https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
+
+  import google.generativeai as genai  # Importamos la librería de Google
+✅ Cliente de Google Gemini configurado correctamente.
+/Users/alexanderacosta/Documents/Proyectos/Mujer Sana IA/app.py:7: FutureWarning: 
+
+All support for the `google.generativeai` package has ended. It will no longer be receiving 
+updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
+See README for more details:
+
+https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
+
+  import google.generativeai as genai  # Importamos la librería de Google
+✅ Cliente de Google Gemini configurado correctamente.
+/Users/alexanderacosta/Documents/Proyectos/Mujer Sana IA/app.py:7: FutureWarning: 
+
+All support for the `google.generativeai` package has ended. It will no longer be receiving 
+updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
+See README for more details:
+
+https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
+
+  import google.generativeai as genai  # Importamos la librería de Google
+✅ Cliente de Google Gemini configurado correctamente.
+/Users/alexanderacosta/Documents/Proyectos/Mujer Sana IA/app.py:7: FutureWarning: 
+
+All support for the `google.generativeai` package has ended. It will no longer be receiving 
+updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
+See README for more details:
+
+https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
+
+  import google.generativeai as genai  # Importamos la librería de Google
+✅ Cliente de Google Gemini configurado correctamente.
+[2026-01-13 17:34:37 -0300] [78580] [INFO] Booting worker with pid: 78580
+[2026-01-13 17:34:37 -0300] [78581] [INFO] Booting worker with pid: 78581
+/Users/alexanderacosta/Documents/Proyectos/Mujer Sana IA/app.py:7: FutureWarning: 
+
+All support for the `google.generativeai` package has ended. It will no longer be receiving 
+updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
+See README for more details:
+
+https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
+
+  import google.generativeai as genai  # Importamos la librería de Google
+✅ Cliente de Google Gemini configurado correctamente.
+/Users/alexanderacosta/Documents/Proyectos/Mujer Sana IA/app.py:7: FutureWarning: 
+
+All support for the `google.generativeai` package has ended. It will no longer be receiving 
+updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
+See README for more details:
+
+https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
+
+  import google.generativeai as genai  # Importamos la librería de Google
+✅ Cliente de Google Gemini configurado correctamente.
+/Users/alexanderacosta/Documents/Proyectos/Mujer Sana IA/app.py:7: FutureWarning: 
+
+All support for the `google.generativeai` package has ended. It will no longer be receiving 
+updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
+See README for more details:
+
+https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
+
+  import google.generativeai as genai  # Importamos la librería de Google
+✅ Cliente de Google Gemini configurado correctamente.
+/Users/alexanderacosta/Documents/Proyectos/Mujer Sana IA/app.py:7: FutureWarning: 
+
+All support for the `google.generativeai` package has ended. It will no longer be receiving 
+updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
+See README for more details:
+
+https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
+
+  import google.generativeai as genai  # Importamos la librería de Google
+✅ Cliente de Google Gemini configurado correctamente.
+/Users/alexanderacosta/Documents/Proyectos/Mujer Sana IA/app.py:7: FutureWarning: 
+
+All support for the `google.generativeai` package has ended. It will no longer be receiving 
+updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
+See README for more details:
+
+https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
+
+  import google.generativeai as genai  # Importamos la librería de Google
+✅ Cliente de Google Gemini configurado correctamente.
+/Users/alexanderacosta/Documents/Proyectos/Mujer Sana IA/app.py:7: FutureWarning: 
+
+All support for the `google.generativeai` package has ended. It will no longer be receiving 
+updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
+See README for more details:
+
+https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
+
+  import google.generativeai as genai  # Importamos la librería de Google
+✅ Cliente de Google Gemini configurado correctamente.
+[2026-01-13 17:35:03 -0300] [78564] [INFO] Handling signal: int
+[2026-01-13 17:35:03 -0300] [78571] [INFO] Worker exiting (pid: 78571)
+[2026-01-13 17:35:03 -0300] [78567] [INFO] Worker exiting (pid: 78567)
+[2026-01-13 17:35:03 -0300] [78570] [INFO] Worker exiting (pid: 78570)
+[2026-01-13 17:35:03 -0300] [78568] [INFO] Worker exiting (pid: 78568)
+[2026-01-13 17:35:03 -0300] [78579] [INFO] Worker exiting (pid: 78579)
+[2026-01-13 17:35:03 -0300] [78580] [INFO] Worker exiting (pid: 78580)
+[2026-01-13 17:35:03 -0300] [78566] [INFO] Worker exiting (pid: 78566)
+[2026-01-13 17:35:03 -0300] [78577] [INFO] Worker exiting (pid: 78577)
+[2026-01-13 17:35:03 -0300] [78574] [INFO] Worker exiting (pid: 78574)
+[2026-01-13 17:35:03 -0300] [78576] [INFO] Worker exiting (pid: 78576)
+[2026-01-13 17:35:03 -0300] [78565] [INFO] Worker exiting (pid: 78565)
+[2026-01-13 17:35:03 -0300] [78572] [INFO] Worker exiting (pid: 78572)
+[2026-01-13 17:35:03 -0300] [78581] [INFO] Worker exiting (pid: 78581)
+[2026-01-13 17:35:03 -0300] [78575] [INFO] Worker exiting (pid: 78575)
+[2026-01-13 17:35:03 -0300] [78569] [INFO] Worker exiting (pid: 78569)
+[2026-01-13 17:35:03 -0300] [78573] [INFO] Worker exiting (pid: 78573)
+[2026-01-13 17:35:03 -0300] [78578] [INFO] Worker exiting (pid: 78578)
+[2026-01-13 17:35:04 -0300] [78564] [INFO] Shutting down: Master

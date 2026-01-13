@@ -14,8 +14,8 @@ app = Flask(__name__)
 CORS(app)
 
 # --- CONFIGURACIÓN DE GEMINI ---
-# Obtener la API KEY del archivo .env
-GEMINI_API_KEY = "********************************"
+# Obtener la API KEY de las variables de entorno
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 
 if GEMINI_API_KEY:
     genai.configure(api_key=GEMINI_API_KEY)
