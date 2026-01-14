@@ -1,9 +1,13 @@
-from flask import Flask, render_template, jsonify, request
+from flask import Flask, render_template, jsonify, request, session, Response, abort
 from flask_cors import CORS
 import json
 import os
 import random
 import re
+import glob
+import csv
+import hashlib
+import io
 import google.generativeai as genai  # Importamos la librería de Google
 from dotenv import load_dotenv
 
@@ -11,6 +15,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 app = Flask(__name__)
+app.secret_key = os.getenv("SECRET_KEY", "cambiame_en_produccion_123")
 CORS(app)
 
 # --- CONFIGURACIÓN DE GEMINI ---
@@ -938,6 +943,95 @@ def analizar_respuestas():
         })
     except Exception as e:
         return jsonify({'success': False, 'message': str(e)}), 500
+
+@app.route('/admin/descargar-csv-anonimizado')
+def descargar_csv_anonimizado():
+    """
+    Consolida archivos JSON de la carpeta 'respuestas/', los anonimiza
+    y los entrega como un archivo CSV descargable.
+    """
+    # SEGURIDAD: Verificar si el usuario es administrador
+    # Nota: Asegúrate de que session['is_admin'] se asigne en tu lógica de login
+    if not session.get('is_admin'):
+        return abort(403, description="Acceso denegado: Se requieren permisos de administrador.")
+
+    # CONFIGURACIÓN DE ANONIMIZACIÓN
+    CAMPOS_PARA_CENSURAR = ['DATOS_NOMBRE', 'DATOS_TELEFONO', 'DATOS_EMAIL', 'nombre', 'telefono', 'email']
+    CAMPO_PARA_HASH = 'DATOS_RUT'  # El identificador principal en tu configuración actual
+
+    # RECOLECCIÓN DE DATOS Y ENCABEZADOS DINÁMICOS
+    directorio_respuestas = 'respuestas'
+    archivos_json = glob.glob(os.path.join(directorio_respuestas, '*.json'))
+    
+    datos_consolidados = []
+    lista_de_campos = set()
+
+    for ruta_archivo in archivos_json:
+        try:
+            with open(ruta_archivo, 'r', encoding='utf-8') as f:
+                contenido = json.load(f)
+                
+                # Extraemos las respuestas
+                respuestas_raw = contenido.get('respuestas', {})
+                metadata = {k: v for k, v in contenido.items() if k != 'respuestas'}
+                
+                # Fusionamos metadata con las respuestas
+                registro_completo = {**metadata, **respuestas_raw}
+                
+                # Registramos todas las llaves posibles para los encabezados
+                lista_de_campos.update(registro_completo.keys())
+                datos_consolidados.append(registro_completo)
+                
+        except (json.JSONDecodeError, IOError, KeyError) as e:
+            # Resiliencia: Si un archivo está corrupto, se salta
+            print(f"⚠️ Error procesando {ruta_archivo}: {e}")
+            continue
+
+    if not datos_consolidados:
+        return "No hay datos disponibles para exportar.", 404
+
+    # Ordenar encabezados
+    columnas = sorted(list(lista_de_campos))
+
+    # GENERACIÓN DEL CSV EN MEMORIA
+    output = io.StringIO()
+    # Usamos DictWriter para manejar columnas dinámicas
+    writer = csv.DictWriter(output, fieldnames=columnas)
+    writer.writeheader()
+
+    for registro in datos_consolidados:
+        fila_anonimizada = {}
+        for campo in columnas:
+            valor = registro.get(campo, "")
+            
+            # REGLA A: Censura (Redacción)
+            if campo in CAMPOS_PARA_CENSURAR:
+                valor = "REDACTED"
+            
+            # REGLA B: Hashing SHA-256 (Pseudonimización)
+            elif campo == CAMPO_PARA_HASH:
+                if valor:
+                    raw_val = str(valor).strip().upper()
+                    hash_obj = hashlib.sha256(raw_val.encode('utf-8'))
+                    valor = hash_obj.hexdigest()[:16]
+                else:
+                    valor = "NOT_PROVIDED"
+            
+            fila_anonimizada[campo] = valor
+            
+        writer.writerow(fila_anonimizada)
+
+    # RETORNAR RESPUESTA HTTP
+    csv_data = output.getvalue()
+    
+    return Response(
+        u'\ufeff' + csv_data, # BOM para Excel
+        mimetype="text/csv",
+        headers={
+            "Content-disposition": "attachment; filename=reporte_mujersana_anonimizado.csv",
+            "Content-Type": "text/csv; charset=utf-8"
+        }
+    )
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)
