@@ -6,9 +6,16 @@
 # Este script está diseñado para ejecutarse dentro del servidor AWS
 # para actualizar la aplicación a la última versión de GitHub.
 
-# Configuración (Ajustar si las rutas cambian en AWS)
-APP_DIR="/home/ubuntu/mujersanaia"
-VENV_DIR="$APP_DIR/.venv"
+# Configuración (Detección automática de la carpeta del proyecto)
+if [ -d "/home/ubuntu/mujersanaia" ]; then
+    APP_DIR="/home/ubuntu/mujersanaia"
+elif [ -d "/home/ubuntu/Mujer-Sana-IA" ]; then
+    APP_DIR="/home/ubuntu/Mujer-Sana-IA"
+else
+    APP_DIR=$(pwd)
+fi
+
+VENV_DIR="$APP_DIR/venv"
 SERVICE_NAME="gunicorn" # O el nombre de tu servicio systemd
 
 echo "----------------------------------------------------"
@@ -47,10 +54,14 @@ if systemctl is-active --quiet $SERVICE_NAME; then
 else
     # Si no es un servicio, intentar matar el proceso gunicorn anterior y reiniciar
     echo "⚠️ El servicio $SERVICE_NAME no está activo. Intentando reinicio manual..."
-    pkill gunicorn
+    pkill -9 gunicorn
     sleep 2
-    # Iniciar usando la configuración existente
-    gunicorn -c gunicorn_config.py app:app &
+    # Iniciar usando la configuración existente y el venv si existe
+    if [ -f "$VENV_DIR/bin/gunicorn" ]; then
+        $VENV_DIR/bin/gunicorn --bind 0.0.0.0:5000 app:app &
+    else
+        gunicorn --bind 0.0.0.0:5000 app:app &
+    fi
     echo "✅ Gunicorn iniciado manualmente en segundo plano."
 fi
 
