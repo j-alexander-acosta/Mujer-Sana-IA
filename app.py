@@ -1033,5 +1033,16 @@ def descargar_csv_anonimizado():
         }
     )
 
+
+@app.route('/admin/login-test', methods=['GET', 'POST'])
+def admin_login_test():
+    """
+    Ruta temporal para habilitar permisos de administrador en la sesión actual.
+    """
+    if request.method == 'POST':
+        session['is_admin'] = True
+        return "✅ Permisos activados. <a href='/admin/descargar-csv-anonimizado'>Haz clic aquí para descargar el CSV</a>"
+    return render_template('login_admin.html')
+
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)
