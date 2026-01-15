@@ -1,0 +1,14 @@
+[Unit]
+Description=Gunicorn instance to serve Mujer Sana IA
+After=network.target
+
+[Service]
+User=ubuntu
+Group=www-data
+WorkingDirectory=/home/ubuntu/mujersanaia
+Environment="PATH=/home/ubuntu/mujersanaia/venv/bin"
+ExecStart=/home/ubuntu/mujersanaia/venv/bin/gunicorn --config gunicorn_config.py app:app
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

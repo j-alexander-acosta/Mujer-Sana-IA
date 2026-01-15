@@ -16,7 +16,7 @@ else
 fi
 
 VENV_DIR="$APP_DIR/venv"
-SERVICE_NAME="gunicorn" # O el nombre de tu servicio systemd
+SERVICE_NAME="mujersana" # Nombre del servicio systemd
 
 echo "----------------------------------------------------"
 echo "🚀 Iniciando proceso de despliegue..."
